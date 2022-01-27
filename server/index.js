@@ -1,12 +1,14 @@
 const express = require('express');
 const port = process.env.PORT || 3000;
 const { data } = require('./data');
+const { db } = require('../database');
 
 const app = express();
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('HELLO WORLD');
+app.get('/', async (req, res) => {
+  let data = await db.Recipe.findAll({ limit: 10 });
+  res.json(data);
 });
 
 app.get('/recipes', (req, res) => {
