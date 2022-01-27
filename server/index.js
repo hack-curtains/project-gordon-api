@@ -1,5 +1,6 @@
 const express = require('express');
 const port = process.env.PORT || 3000;
+const { data } = require('./data');
 
 const app = express();
 app.use(express.json());
@@ -9,10 +10,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/recipes', (req, res) => {
-  res.json({
-    id: 1,
-    name: 'sample',
-  });
+  res.json(data);
 });
 
 app.listen(port, () => {
