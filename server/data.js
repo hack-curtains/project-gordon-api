@@ -2,6 +2,8 @@ module.exports.data = [
   {
     id: 1,
     name: 'Pancakes',
+    imageUrl:
+      'https://res.cloudinary.com/dkit4ixkx/image/upload/c_fit,h_500,w_500/v1643311293/recipes/pancakes_ncvi7i.png',
     overview:
       'This is a great recipe that I found in my Grandmas recipe book. Judging from the weathered look of this recipe card, this was a family favorite.',
     notes:
@@ -23,6 +25,8 @@ module.exports.data = [
   {
     id: 2,
     name: 'Waffles',
+    imageUrl:
+      'https://res.cloudinary.com/dkit4ixkx/image/upload/c_fit,h_500,w_500/v1643311293/recipes/waffles_g9sd4h.png',
     overview: 'These waffles are seriously the best waffles ever',
     notes:
       'You can keep the batter covered in the fridge for up to a week. Just be sure to whisk well before using again. You may also use whole wheat flour for this recipe.',
@@ -43,6 +47,8 @@ module.exports.data = [
   {
     id: 3,
     name: 'Shrimp Scampi',
+    imageUrl:
+      'https://res.cloudinary.com/dkit4ixkx/image/upload/c_fit,h_500,w_500/v1643311292/recipes/scrampi_blrz54.png',
     overview:
       'Scampi are tiny, lobster-like crustaceans with pale pink shells (also called langoustines). Italian cooks in the qtyed States swapped shrimp for scampi, but kept both names. Thus the dish was born, along with inevitable variations.',
     notes: 'Shrimp is the best!',
@@ -63,6 +69,8 @@ module.exports.data = [
   {
     id: 4,
     name: 'Panang Curry',
+    imageUrl:
+      'https://res.cloudinary.com/dkit4ixkx/image/upload/c_fit,h_500,w_500/v1643311399/recipes/panang_gguszg.png',
     overview:
       'Let me just say that this Panang Curry recipe could be my ultimate favorite kind of curry! It’s bursting with rich and creamy flavor from the curry paste and coconut milk and is made hearty with chicken, veggies and fresh basil.',
     notes:
@@ -84,6 +92,8 @@ module.exports.data = [
   {
     id: 5,
     name: 'Cheesesteak',
+    imageUrl:
+      'https://res.cloudinary.com/dkit4ixkx/image/upload/c_fit,h_500,w_500/v1643311294/recipes/cheese_yalmvo.png',
     overview:
       'Philly Cheesesteak is a sandwich made with super thinly sliced ribeye steak, caramelized onion, and provolone cheese. That simple combination is the original classic as made popular on the East Coast.',
     notes:
