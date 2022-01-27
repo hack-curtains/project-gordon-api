@@ -1,4 +1,4 @@
-export const data = [
+module.exports.data = [
   {
     id: 1,
     name: 'Pancakes',
@@ -7,12 +7,12 @@ export const data = [
     notes:
       'The salt amount has been reduced based on review feedback. The original recipe called for 1 teaspoon.',
     ingredients: [
-      { name: 'all-purpose flour', qty: 1.5, unit: 'cup' },
-      { name: 'baking powder', qty: 3.5, unit: 'teaspoon' },
-      { name: 'white sugar', qty: 1, unit: 'tablespoon' },
-      { name: 'whole milk', qty: 1.25, unit: 'cup' },
-      { name: 'eggs', qty: 1 },
-      { name: 'butter', qty: 3, unit: 'tablespoon', prep: 'melted' },
+      { id: 1, name: 'all-purpose flour', qty: 1.5, unit: 'cup' },
+      { id: 2, name: 'baking powder', qty: 3.5, unit: 'teaspoon' },
+      { id: 3, name: 'white sugar', qty: 1, unit: 'tablespoon' },
+      { id: 4, name: 'whole milk', qty: 1.25, unit: 'cup' },
+      { id: 5, name: 'eggs', qty: 1 },
+      { id: 6, name: 'butter', qty: 3, unit: 'tablespoon', prep: 'melted' },
     ],
     steps: [
       'In a large bowl, sift together the flour, baking powder, salt and sugar. Make a well in the center and pour in the milk, egg and melted butter; mix until smooth.',
@@ -27,12 +27,12 @@ export const data = [
     notes:
       'You can keep the batter covered in the fridge for up to a week. Just be sure to whisk well before using again. You may also use whole wheat flour for this recipe.',
     ingredients: [
-      { name: 'all-purpose flour', qty: 1.5, unit: 'cup' },
-      { name: 'baking powder', qty: 3.5, unit: 'teaspoon' },
-      { name: 'white sugar', qty: 1, unit: 'tablespoon' },
-      { name: 'whole milk', qty: 1.25, unit: 'cup' },
-      { name: 'eggs', qty: 1 },
-      { name: 'butter', qty: 3, unit: 'tablespoon', prep: 'melted' },
+      { id: 1, name: 'all-purpose flour', qty: 1.5, unit: 'cup' },
+      { id: 2, name: 'baking powder', qty: 3.5, unit: 'teaspoon' },
+      { id: 3, name: 'white sugar', qty: 1, unit: 'tablespoon' },
+      { id: 4, name: 'whole milk', qty: 1.25, unit: 'cup' },
+      { id: 5, name: 'eggs', qty: 1 },
+      { id: 6, name: 'butter', qty: 3, unit: 'tablespoon', prep: 'melted' },
     ],
     steps: [
       'Preheat waffle iron. Beat eggs in large bowl with hand beater until fluffy. Beat in flour, milk, vegetable oil, sugar, baking powder, salt and vanilla, just until smooth.',
@@ -47,12 +47,12 @@ export const data = [
       'Scampi are tiny, lobster-like crustaceans with pale pink shells (also called langoustines). Italian cooks in the qtyed States swapped shrimp for scampi, but kept both names. Thus the dish was born, along with inevitable variations.',
     notes: 'Shrimp is the best!',
     ingredients: [
-      { name: 'butter', qty: 2, unit: 'tablespoon' },
-      { name: 'olive oil', qty: 2, unit: 'tablespoon' },
-      { name: 'white wine', qty: 0.5, unit: 'cup' },
-      { name: 'kosher salt', qty: 0.75, unit: 'teaspoon' },
-      { name: 'black pepper', qty: 1, unit: 'pinch' },
-      { name: 'shrimp extra large', qty: 1, unit: 'pound' },
+      { id: 6, name: 'butter', qty: 2, unit: 'tablespoon' },
+      { id: 8, name: 'olive oil', qty: 2, unit: 'tablespoon' },
+      { id: 9, name: 'white wine', qty: 0.5, unit: 'cup' },
+      { id: 10, name: 'kosher salt', qty: 0.75, unit: 'teaspoon' },
+      { id: 11, name: 'black pepper', qty: 1, unit: 'pinch' },
+      { id: 12, name: 'shrimp extra large', qty: 1, unit: 'pound' },
     ],
     steps: [
       'In a large skillet, melt butter with olive oil. Add garlic and sauté until fragrant, about 1 minute. Add wine or broth, salt, red pepper flakes and plenty of black pepper and bring to a simmer. Let wine reduce by half, about 2 minutes.',
@@ -68,12 +68,12 @@ export const data = [
     notes:
       'Panang Curry Paste: Although you can make it from scratch, I never have those ingredients so prefer to buy it from Amazon or a local Asian market. I like the Mae Ploy Brand.',
     ingredients: [
-      { name: 'peanut oil', qty: 1, unit: 'tablespoon' },
-      { name: 'peanut butter', qty: 1, unit: 'tablespoon' },
-      { name: 'chicken breasts', qty: 2, prep: 'cut into pieces' },
-      { name: 'small onion', qty: 1 },
-      { name: 'red bell pepper', qty: 1, prep: 'thinly sliced' },
-      { name: 'garlic', qty: 4, unit: 'cloves', prep: 'minced' },
+      { id: 13, name: 'peanut oil', qty: 1, unit: 'tablespoon' },
+      { id: 14, name: 'peanut butter', qty: 1, unit: 'tablespoon' },
+      { id: 15, name: 'chicken breasts', qty: 2, prep: 'cut into pieces' },
+      { id: 16, name: 'small onion', qty: 1 },
+      { id: 17, name: 'red bell pepper', qty: 1, prep: 'thinly sliced' },
+      { id: 18, name: 'garlic', qty: 4, unit: 'cloves', prep: 'minced' },
     ],
     steps: [
       'Heat oil over medium-high heat in large non-stick skillet. Saute onions for 2 minutes, then add bell peppers, garlic and ginger and saute for 2 minutes more.',
@@ -89,12 +89,12 @@ export const data = [
     notes:
       '*For easier slicing, cover and freeze your steak for 30-40 minutes (freeze a thicker steak 40 min and a thinner steak 30 min).',
     ingredients: [
-      { name: 'Hoagie Roll', qty: 1, prep: 'sliced' },
-      { name: 'Ribeye', qty: 1, unit: 'pound', prep: 'sliced' },
-      { name: 'sweet onion', qty: 1, prep: 'diced' },
-      { name: 'unsalted button', qty: 2, unit: 'tablespoon', prep: 'softened' },
-      { name: 'mayonaise', qty: 4, unit: 'tablespoon' },
-      { name: 'garlic', qty: 1, unit: 'cloves', prep: 'minced' },
+      { id: 19, name: 'Hoagie Roll', qty: 1, prep: 'sliced' },
+      { id: 20, name: 'Ribeye', qty: 1, unit: 'pound', prep: 'sliced' },
+      { id: 21, name: 'sweet onion', qty: 1, prep: 'diced' },
+      { id: 22, name: 'unsalted butter', qty: 2, unit: 'tablespoon', prep: 'softened' },
+      { id: 23, name: 'mayonaise', qty: 4, unit: 'tablespoon' },
+      { id: 18, name: 'garlic', qty: 1, unit: 'cloves', prep: 'minced' },
     ],
     steps: [
       'Slice hoagie rolls 3/4 of the way through with a serrated knife. Dice onions and thinly slice beef.*',
