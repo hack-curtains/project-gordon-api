@@ -2,7 +2,7 @@ const fs = require('fs/promises');
 const axios = require('axios');
 
 const URL =
-  'https://api.spoonacular.com/recipes/random?apiKey=64c72029d6874041844acb68d747458b&number=100';
+  'https://api.spoonacular.com/recipes/random?apiKey=64c72029d6874041844acb68d747458b&number=100&limitLicense=false';
 
 const main = async () => {
   let res = await axios.get(URL);
