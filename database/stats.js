@@ -8,6 +8,7 @@ const main = async () => {
   );
 
   let obj = {};
+  let count = [0, 0];
 
   for (let i = 0; i < files.length; i++) {
     let data = await fs.readFile(__dirname + '/rawdata/json/' + files[i]);
@@ -15,9 +16,12 @@ const main = async () => {
     for (let r = 0; r < json.length; r++) {
       let { id, title, image, analyzedInstructions } = json[r];
       let steps = analyzedInstructions.map((x) => x.steps.length);
-      console.log([id, title, image, steps].join('\t'));
+      count[0] += 1;
+      count[1] += json[r].instructions ? 1 : 0;
     }
   }
+
+  console.log(count[1], count[0], (count[1] * 100) / count[0]);
 };
 
 main();

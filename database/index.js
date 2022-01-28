@@ -21,6 +21,7 @@ const db = {
       image: Sequelize.STRING,
       pricePerServing: Sequelize.FLOAT,
       sourceName: Sequelize.STRING,
+      sourceUrl: Sequelize.STRING,
       ingredients: Sequelize.JSON,
       instructionSections: Sequelize.INTEGER,
       instructions: Sequelize.JSON,

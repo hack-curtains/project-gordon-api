@@ -1,4 +1,4 @@
 node_modules
 .DS_Store
 .env
-database/rawdata/*.json
+database/rawdata/json

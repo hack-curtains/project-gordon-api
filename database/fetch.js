@@ -9,7 +9,7 @@ const axios = require('axios');
 
 const LIMIT = 25;
 
-const main = async () => {
+const bulkFetch = async () => {
   //GET THE MAX ID THAT HAS ALREADY BEEN SAVED
   let ids = await fs.readdir(__dirname + '/rawdata/json');
   ids = ids.map((x) => parseInt(x.substr(0, x.indexOf('.'))));
@@ -35,6 +35,15 @@ const main = async () => {
   let res = await axios.get(URL);
   console.log(res.headers['x-api-quota-used']);
   await fs.writeFile(FILE, JSON.stringify(res.data));
+};
+
+const RUNS = parseInt(process.argv[2]) || 1;
+
+const main = async () => {
+  for (let i = 1; i <= RUNS; i++) {
+    console.log(i, 'of', RUNS);
+    await bulkFetch();
+  }
 };
 
 main();

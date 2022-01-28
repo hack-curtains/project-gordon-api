@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/sqldump', async (req, res) => {
-  let data = await db.Recipe.findAll();
+  let data = await db.Recipe.findAll({ limit: 10 });
   res.json(data);
 });
 
