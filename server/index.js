@@ -1,35 +1,133 @@
 const express = require('express');
 const port = process.env.PORT || 3000;
-const { data } = require('./data');
+const { data, ingredients, cuisines, dishTypes, diets } = require('./data');
 const { db } = require('../database');
+const { RowDescriptionMessage } = require('pg-protocol/dist/messages');
 
 const app = express();
 app.use(express.json());
 
-app.get('/', async (req, res) => {
-  let data = await db.Recipe.findAll({ limit: 10 });
+app.get('/', (req, res) => {
+  let html = `
+    <h1>Recipes API</h1>
+    <p><span style='background-color: #ffcc33'>/recipes</span> - returns a list of recipes, defaults: <b>?page=1&count=10'</b></p>
+    <p><span style='background-color: #ffcc33'>/recipes/:id</span> - returns a single recipe, <b>default id=1'</b></p>
+    <p><span style='background-color: #ffcc33'>/ingredients</span> - returns an array of all unique incredients</p>
+    <p><span style='background-color: #ffcc33'>/search</span> - returns recipes that contain ingredients <b>?page=1&count=10&ingredients=flour,sugar,milk</b></p>
+    <p><span style='background-color: #ffcc33'>/tags</span> - returns an object that enumerates all tags</p>
+    `;
+  res.send(html);
+  // res.json({ '/recipes': 'returns a list of recipes, defaults: ?page=1&count=10', '/recipes/:id': 'returns a recipe ' });
+});
+
+app.get('/sqldump', async (req, res) => {
+  let data = await db.Recipe.findAll();
   res.json(data);
 });
 
 app.get('/recipes', (req, res) => {
-  res.json(data);
+  const page = req.query.page || 1;
+  const count = req.query.count || 10;
+
+  const start = (page - 1) * count;
+  const end = start + count;
+
+  res.json(data.slice(start, end));
+});
+
+app.get('/tags', (req, res) => {
+  res.json({
+    diets: diets,
+    dishTypes: dishTypes,
+    cuisines: cuisines,
+  });
+});
+
+app.get('/filter', (req, res) => {
+  const page = parseInt(req.query.page || 1);
+  const count = parseInt(req.query.count || 10);
+  const tags = (req.query.tags || '').split(',');
+
+  const start = (page - 1) * count;
+  const end = start + count;
+
+  let temp = {};
+  data.forEach((r) => {
+    let found = new Array(tags.length).fill(false);
+    tags.forEach((t, i) => {
+      let str = r.cuisines.join(' ') + ' ' + r.dishTypes.join(' ') + ' ' + r.diets.join(' ');
+      if (str.toLowerCase().includes(t.toLowerCase())) {
+        found[i] = true;
+      }
+    });
+    if (found.reduce((a, b) => a && b, true)) {
+      temp[r.id] = r;
+    }
+  });
+
+  let out = Object.values(temp);
+  out.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+
+  res.json({
+    tags: tags,
+    page: page,
+    start: start,
+    end: end,
+    count: out.length,
+    results: out.slice(start, end),
+  });
+});
+
+app.get('/search', (req, res) => {
+  const page = req.query.page || 1;
+  const count = req.query.count || 10;
+  const ingredients = req.query.ingredients || '';
+  const arr = ingredients.split(',');
+  const start = (page - 1) * count;
+  const end = start + count;
+
+  let temp = {};
+  let found;
+
+  data.forEach((r) => {
+    found = new Array(arr.length).fill(false);
+    r.ingredients.forEach((i) => {
+      arr.forEach((q, index) => {
+        if (i.name.toLowerCase().includes(q.toLowerCase())) {
+          found[index] = true;
+        }
+      });
+    });
+    if (found.reduce((a, b) => a && b, true)) {
+      temp[r.id] = r;
+    }
+  });
+
+  let out = Object.values(temp);
+  out.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+
+  res.json({
+    query: arr,
+    page: page,
+    start: start,
+    end: end,
+    count: out.length,
+    results: out.slice(start, end),
+  });
 });
 
 app.get('/recipes/:id', (req, res) => {
   let id = 1;
-  if (req.params.id && req.params.id > 0 && req.params.id < 5) {
+  if (req.params.id && req.params.id > 0 && req.params.id < 900) {
     id = req.params.id;
   }
-  res.json(data[id - 1]);
+
+  let records = data.filter((x) => parseInt(x.id) === parseInt(id));
+
+  res.json(records.length > 0 ? records[0] : data[0]);
 });
 
 app.get('/ingredients', (req, res) => {
-  let ingredients = {};
-  data.forEach((r) => {
-    r.ingredients.forEach((i) => {
-      ingredients[i.id] = i.name.toLowerCase();
-    });
-  });
   res.json(ingredients);
 });
 
