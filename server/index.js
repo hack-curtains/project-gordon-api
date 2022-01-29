@@ -1,5 +1,6 @@
 const express = require('express');
 const port = process.env.PORT || 3000;
+const cors = require('cors');
 const { data, ingredients, cuisines, dishTypes, diets } = require('./data');
 
 const {
@@ -15,6 +16,7 @@ const { getIngredients } = require('../models/ingredients.js');
 const { getTags } = require('../models/tags.js');
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.static('docs'));
 
@@ -41,7 +43,7 @@ app.get('/ingredients', async (req, res) => {
   res.json(data);
 });
 
-app.get('/search/:ids/ingredients', async (req, res) => {
+app.get('/search/ingredients/:ids', async (req, res) => {
   const page = parseInt(req.query.page || 1);
   const count = parseInt(req.query.count || 10);
   const ingredients = req.params.ids ? req.params.ids.split(',') : [];
@@ -49,7 +51,7 @@ app.get('/search/:ids/ingredients', async (req, res) => {
   res.json(data);
 });
 
-app.get('/search/:ids/tags', async (req, res) => {
+app.get('/search/tags/:ids', async (req, res) => {
   const page = parseInt(req.query.page || 1);
   const count = parseInt(req.query.count || 10);
   const tags = req.params.ids ? req.params.ids.split(',') : [];
@@ -57,7 +59,7 @@ app.get('/search/:ids/tags', async (req, res) => {
   res.json(data);
 });
 
-app.get('/filter/:ids/ingredients', async (req, res) => {
+app.get('/filter/ingredients/:ids', async (req, res) => {
   const page = parseInt(req.query.page || 1);
   const count = parseInt(req.query.count || 10);
   const ingredients = req.params.ids ? req.params.ids.split(',') : [];
@@ -65,7 +67,7 @@ app.get('/filter/:ids/ingredients', async (req, res) => {
   res.json(data);
 });
 
-app.get('/filter/:ids/tags', async (req, res) => {
+app.get('/filter/tags/:ids', async (req, res) => {
   const page = parseInt(req.query.page || 1);
   const count = parseInt(req.query.count || 10);
   const tags = req.params.ids ? req.params.ids.split(',') : [];
