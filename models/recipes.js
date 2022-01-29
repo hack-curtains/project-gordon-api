@@ -69,7 +69,7 @@ module.exports.getRecipesByIngredients = async ({ ids, page = 1, count = 10 }) =
 
 module.exports.getRecipesByTags = async ({ ids, page = 1, count = 10 }) => {
   if (ids.length < 1) {
-    return { message: 'must include at least 1 ingredient' };
+    return { message: 'must include at least 1 tag' };
   }
   const SQL = `
     WITH temp AS (
@@ -83,6 +83,65 @@ module.exports.getRecipesByTags = async ({ ids, page = 1, count = 10 }) => {
     id, title, image, servings, summary, tags, ingredients, "readyInMinutes"
     FROM recipes
     WHERE id in(SELECT recipe_id FROM temp);
+  `;
+
+  let data = await pool.query(SQL);
+  let out = data.rows.slice((page - 1) * count, page * count);
+
+  return {
+    page: page,
+    count: count,
+    queryRows: out.length,
+    totalRows: data.rows.length,
+    rows: out,
+  };
+};
+
+module.exports.filterRecipesByIngredients = async ({ ids, page = 1, count = 10 }) => {
+  if (ids.length < 1) {
+    return { message: 'must include at least 1 ingredient' };
+  }
+  const SQL = `
+    WITH temp AS (
+      SELECT distinct recipe_id
+      FROM recipes_ingredients
+      WHERE "ingredient_id" in(${ids.join(',')})
+    )
+    SELECT
+    id, title, image, servings, summary, tags, ingredients, "readyInMinutes"
+    FROM recipes
+    WHERE id not in(SELECT recipe_id FROM temp);
+  `;
+
+  let data = await pool.query(SQL);
+  let out = data.rows.slice((page - 1) * count, page * count);
+
+  return {
+    page: page,
+    count: count,
+    queryRows: out.length,
+    totalRows: data.rows.length,
+    rows: out,
+  };
+};
+
+module.exports.filterRecipesByTags = async ({ ids, page = 1, count = 10 }) => {
+  if (ids.length < 1) {
+    return { message: 'must include at least 1 tag' };
+  }
+
+  console.log(ids);
+
+  const SQL = `
+    WITH temp AS (
+      SELECT distinct recipe_id
+      FROM recipes_tags
+      WHERE "tag_id" in(${ids.join(',')})
+    )
+    SELECT
+    id, title, image, servings, summary, tags, ingredients, "readyInMinutes"
+    FROM recipes
+    WHERE id not in(SELECT recipe_id FROM temp);
   `;
 
   let data = await pool.query(SQL);

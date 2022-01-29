@@ -7,6 +7,8 @@ const {
   getRecipe,
   getRecipesByIngredients,
   getRecipesByTags,
+  filterRecipesByIngredients,
+  filterRecipesByTags,
 } = require('../models/recipes.js');
 
 const { getIngredients } = require('../models/ingredients.js');
@@ -17,7 +19,7 @@ app.use(express.json());
 
 let dbStats = {};
 
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
   let html = `
     <h1>Recipes API</h1>
     <p><span style='background-color: #ffcc33'>/recipes</span> - returns a list of recipes, defaults: <b>?page=1&count=10'</b></p>
@@ -30,46 +32,58 @@ app.get('/api', (req, res) => {
   // res.json({ '/recipes': 'returns a list of recipes, defaults: ?page=1&count=10', '/recipes/:id': 'returns a recipe ' });
 });
 
-app.get('/api/stats', async (req, res) => {
-  res.json(dbStats);
-});
-
-app.get('/api/recipes', async (req, res) => {
+app.get('/recipes', async (req, res) => {
   const page = req.query.page || 1;
   const count = req.query.count || 10;
   let data = await getRecipes({ page, count });
   res.json(data);
 });
 
-app.get('/api/recipes/:id', async (req, res) => {
+app.get('/recipes/:id', async (req, res) => {
   const id = req.params.id;
   let data = await getRecipe({ id });
   res.json(data);
 });
 
-app.get('/api/tags', async (req, res) => {
+app.get('/tags', async (req, res) => {
   let data = await getTags();
   res.json(data);
 });
 
-app.get('/api/ingredients', async (req, res) => {
+app.get('/ingredients', async (req, res) => {
   let data = await getIngredients();
   res.json(data);
 });
 
-app.get('/api/search/', async (req, res) => {
+app.get('/search/:ids/ingredients', async (req, res) => {
   const page = parseInt(req.query.page || 1);
   const count = parseInt(req.query.count || 10);
-  const ingredients = req.query.ingredients ? req.query.ingredients.split(',') : [];
+  const ingredients = req.params.ids ? req.params.ids.split(',') : [];
   let data = await getRecipesByIngredients({ ids: ingredients, page: page, count: count });
   res.json(data);
 });
 
-app.get('/api/filter/', async (req, res) => {
+app.get('/search/:ids/tags', async (req, res) => {
   const page = parseInt(req.query.page || 1);
   const count = parseInt(req.query.count || 10);
-  const tags = req.query.tags ? req.query.tags.split(',') : [];
+  const tags = req.params.ids ? req.params.ids.split(',') : [];
   let data = await getRecipesByTags({ ids: tags, page: page, count: count });
+  res.json(data);
+});
+
+app.get('/filter/:ids/ingredients', async (req, res) => {
+  const page = parseInt(req.query.page || 1);
+  const count = parseInt(req.query.count || 10);
+  const ingredients = req.params.ids ? req.params.ids.split(',') : [];
+  let data = await filterRecipesByIngredients({ ids: ingredients, page: page, count: count });
+  res.json(data);
+});
+
+app.get('/filter/:ids/tags', async (req, res) => {
+  const page = parseInt(req.query.page || 1);
+  const count = parseInt(req.query.count || 10);
+  const tags = req.params.ids ? req.params.ids.split(',') : [];
+  let data = await filterRecipesByTags({ ids: tags, page: page, count: count });
   res.json(data);
 });
 
