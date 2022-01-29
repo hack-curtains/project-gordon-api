@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== 'development') {
     connectionString: process.env.DATABASE_URL,
     ssl: {
       require: true,
-      rejectUnauthorized: true,
+      rejectUnauthorized: false,
     },
   });
 } else {
