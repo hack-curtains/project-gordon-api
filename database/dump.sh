@@ -1,0 +1,1 @@
+pg_dump recipes -U sieke -O -x > database/DATA.sql

@@ -16,21 +16,7 @@ const { getTags } = require('../models/tags.js');
 
 const app = express();
 app.use(express.json());
-
-let dbStats = {};
-
-app.get('/', (req, res) => {
-  let html = `
-    <h1>Recipes API</h1>
-    <p><span style='background-color: #ffcc33'>/recipes</span> - returns a list of recipes, defaults: <b>?page=1&count=10'</b></p>
-    <p><span style='background-color: #ffcc33'>/recipes/:id</span> - returns a single recipe, <b>default id=1'</b></p>
-    <p><span style='background-color: #ffcc33'>/ingredients</span> - returns an array of all unique incredients</p>
-    <p><span style='background-color: #ffcc33'>/search</span> - returns recipes that contain ingredients <b>?page=1&count=10&ingredients=flour,sugar,milk</b></p>
-    <p><span style='background-color: #ffcc33'>/tags</span> - returns an object that enumerates all tags</p>
-    `;
-  res.send(html);
-  // res.json({ '/recipes': 'returns a list of recipes, defaults: ?page=1&count=10', '/recipes/:id': 'returns a recipe ' });
-});
+app.use(express.static('docs'));
 
 app.get('/recipes', async (req, res) => {
   const page = req.query.page || 1;

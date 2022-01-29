@@ -1,6 +1,6 @@
 const fs = require('fs/promises');
 const { cuisines } = require('../server/data.js');
-const { db } = require('./index.js');
+const { db, sequelize } = require('./index.js');
 
 let INGREDIENTS = {};
 let TAGS = {};
@@ -127,7 +127,7 @@ const main = async () => {
   /**********************
    * POPULATE RECIPES_TAGS
    ***********************/
-  console.log('POPULATING TAGS...');
+  console.log('POPULATING RECIPES_TAGS...');
 
   const populateTags = async () => {
     let temp = await db.Tag.findAll();
@@ -147,6 +147,28 @@ const main = async () => {
   };
 
   await populateTags();
+
+  /**********************
+   * POPULATE RECIPES_TAGS
+   ***********************/
+  console.log('UPDATING TAGS...');
+
+  const updateTags = async () => {
+    let data = await sequelize.query(`
+      select a.recipe_id, array_agg(json_build_object('tag_id', b.id, 'name', b.name, 'category', b.category)) as json
+      from recipes_tags a
+      left join tags b on a.tag_id = b.id
+      group by a.recipe_id
+    `);
+
+    for (let i = 0; i < data[0].length; i++) {
+      let id = data[0][i].recipe_id;
+      let json = data[0][i].json;
+      await db.Recipe.update({ tags: json }, { where: { id: id } });
+    }
+  };
+
+  await updateTags();
 
   db.close();
 };
