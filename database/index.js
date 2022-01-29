@@ -50,25 +50,35 @@ const db = {
       indexes: [{ fields: ['recipe_id'] }, { fields: ['ingredient_id'] }],
     }
   ),
-  Recipe: sequelize.define('recipe', {
-    id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
+  Recipe: sequelize.define(
+    'recipe',
+    {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+      },
+      title: Sequelize.STRING,
+      aggregateLikes: Sequelize.INTEGER,
+      summary: Sequelize.TEXT,
+      readyInMinutes: Sequelize.INTEGER,
+      servings: Sequelize.INTEGER,
+      image: Sequelize.STRING,
+      pricePerServing: Sequelize.FLOAT,
+      sourceName: Sequelize.STRING,
+      sourceUrl: Sequelize.STRING,
+      ingredients: Sequelize.JSON,
+      instructionSections: Sequelize.INTEGER,
+      instructions: Sequelize.JSON,
+      tags: Sequelize.JSON,
+      index: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+      },
     },
-    title: Sequelize.STRING,
-    aggregateLikes: Sequelize.INTEGER,
-    summary: Sequelize.TEXT,
-    readyInMinutes: Sequelize.INTEGER,
-    servings: Sequelize.INTEGER,
-    image: Sequelize.STRING,
-    pricePerServing: Sequelize.FLOAT,
-    sourceName: Sequelize.STRING,
-    sourceUrl: Sequelize.STRING,
-    ingredients: Sequelize.JSON,
-    instructionSections: Sequelize.INTEGER,
-    instructions: Sequelize.JSON,
-    tags: Sequelize.JSON,
-  }),
+    {
+      indexes: [{ fields: ['index'] }],
+    }
+  ),
   initialize: async () => {
     await db.Recipe.sync({ force: true });
     await db.Ingredient.sync({ force: true });
