@@ -5,7 +5,7 @@ services:
     image: postgres:latest
     volumes:
       - ~/db/:/var/lib/postgresql/data
-      - ~/project-gordon-api/database/:/docker-entrypoint-initdb.d/
+      - ~/project-gordon-api/database/init/:/docker-entrypoint-initdb.d/
     restart: always
     environment:
       POSTGRES_USER: sieke
