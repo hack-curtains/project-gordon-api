@@ -2,15 +2,7 @@ version: '3.3'
 
 services:
   db:
-    image: postgres:latest
-    volumes:
-      - ~/db/:/var/lib/postgresql/data
-      - ~/project-gordon-api/database/init/:/docker-entrypoint-initdb.d/
-    restart: always
-    environment:
-      POSTGRES_USER: sieke
-      POSTGRES_PASSWORD: temp
-      POSTGRES_DB: recipes
+    build: database/
     ports:
       - '5432:5432'
   api:
