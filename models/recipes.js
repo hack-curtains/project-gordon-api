@@ -1,6 +1,9 @@
 const { rows } = require('pg/lib/defaults');
 const { pool } = require('./index.js');
 
+const ABBREVIATED_COLUMNS =
+  'id, title, image, servings, "pricePerServing", "aggregateLikes", summary, tags, ingredients, "readyInMinutes"';
+
 /******************************
  * Returns an abbreviated list of recipes
  * Used for rendering many recipe cards
@@ -11,7 +14,7 @@ module.exports.getRecipes = async ({ page = 1, count = 50 }) => {
 
   const SQL = `
     SELECT
-    id, title, image, servings, summary, tags, ingredients, "readyInMinutes"
+    ${ABBREVIATED_COLUMNS}
     FROM recipes
     WHERE index > ${offset} AND index <= ${end} order by index;
     SELECT count(1) from recipes;
@@ -50,7 +53,7 @@ module.exports.getRecipesByIngredients = async ({ ids, page = 1, count = 10 }) =
       having count(distinct ingredient_id) = ${ids.length}
     )
     SELECT
-    id, title, image, servings, summary, tags, ingredients, "readyInMinutes"
+    ${ABBREVIATED_COLUMNS}
     FROM recipes
     WHERE id in(SELECT recipe_id FROM temp);
   `;
@@ -80,7 +83,7 @@ module.exports.getRecipesByTags = async ({ ids, page = 1, count = 10 }) => {
       having count(distinct tag_id) = ${ids.length}
     )
     SELECT
-    id, title, image, servings, summary, tags, ingredients, "readyInMinutes"
+    ${ABBREVIATED_COLUMNS}
     FROM recipes
     WHERE id in(SELECT recipe_id FROM temp);
   `;
@@ -108,7 +111,7 @@ module.exports.filterRecipesByIngredients = async ({ ids, page = 1, count = 10 }
       WHERE "ingredient_id" in(${ids.join(',')})
     )
     SELECT
-    id, title, image, servings, summary, tags, ingredients, "readyInMinutes"
+    ${ABBREVIATED_COLUMNS}
     FROM recipes
     WHERE id not in(SELECT recipe_id FROM temp);
   `;
@@ -130,8 +133,6 @@ module.exports.filterRecipesByTags = async ({ ids, page = 1, count = 10 }) => {
     return { message: 'must include at least 1 tag' };
   }
 
-  console.log(ids);
-
   const SQL = `
     WITH temp AS (
       SELECT distinct recipe_id
@@ -139,7 +140,7 @@ module.exports.filterRecipesByTags = async ({ ids, page = 1, count = 10 }) => {
       WHERE "tag_id" in(${ids.join(',')})
     )
     SELECT
-    id, title, image, servings, summary, tags, ingredients, "readyInMinutes"
+    ${ABBREVIATED_COLUMNS}
     FROM recipes
     WHERE id not in(SELECT recipe_id FROM temp);
   `;
