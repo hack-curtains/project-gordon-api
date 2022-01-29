@@ -2,8 +2,6 @@
 
 ## Recipes
 
----
-
 ### `get` `/recipes`
 
 Returns an array of recipes with minimal information needed to render a recipe card. Will not include full recipe data e.g. instructions to minimize size
@@ -97,8 +95,6 @@ Example Response
 
 ## Tags
 
----
-
 ### `get` `/tags`
 
 Returns an exhaustive array of all tags
@@ -115,8 +111,6 @@ Example Response
 
 ## Ingredients
 
----
-
 ### `get` `/ingredients`
 
 Returns an exhaustive array of all tags
@@ -132,8 +126,6 @@ Example Response
 ```
 
 ## Search
-
----
 
 The search endpoint will return a paginated list of results that match all tags or ingredients passed. Passing Sugar + Butter for example, will only return recipes that contain BOTH sugar and butter.
 
@@ -182,8 +174,6 @@ Example Response
 ```
 
 ## Filter
-
----
 
 The search endpoint will return recipes that DO NOT match any of the tags or ingredients passed in.
 
