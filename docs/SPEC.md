@@ -8,10 +8,12 @@
 
 Returns an array of recipes with minimal information needed to render a recipe card. Will not include full recipe data e.g. instructions to minimize size
 
-| Parameters | Description                            | Type  | Default |
-| ---------- | -------------------------------------- | ----- | ------- |
-| page       | the page number of results to return   | query | 1       |
-| count      | the number of results to show per page | query | 10      |
+| Parameters | Description                            | Type  | Default   |
+| ---------- | -------------------------------------- | ----- | --------- |
+| page       | the page number of results to return   | query | 1         |
+| count      | the number of results to show per page | query | 10        |
+| sort       | 'default', 'likes', 'price'            | query | 'default' |
+| direction  | 'asc' desc'                            | query | 'desc'    |
 
 Example Response
 
@@ -19,6 +21,8 @@ Example Response
 {
   "page": 1,
   "count": 10,
+  "sort": "default",
+  "direction": "asc",
   "totalRows": 10795,
   "queryRows": 10,
   "rows": [
@@ -67,14 +71,14 @@ Example Response
 {
   "id": 37,
   "title": "Roasted Cauliflower With Anchovy Bread Crumbs",
-  "aggregateLikes": 13,
+  "likes": 13,
   "summary": "HTML summary of recipe",
-  "readyInMinutes": 60,
+  "time": 60,
   "servings": 3,
   "image": "https://spoonacular.com/recipeImages/37-556x370.jpg",
-  "pricePerServing": 330.28,
-  "sourceName": "Food Republic",
-  "sourceUrl": "http://www.foodrepublic.com/2012/11/09/roasted-cauliflower-anchovy-bread-crumbs-recipe",
+  "price": 330.28,
+  "source_name": "Food Republic",
+  "source_url": "http://www.foodrepublic.com/2012/11/09/roasted-cauliflower-anchovy-bread-crumbs-recipe",
   "ingredients": [
     {
       "ingredient_id": 1034053,
@@ -87,7 +91,7 @@ Example Response
       "original": "2 tablespoons extra virgin olive oil"
     }
   ],
-  "instructionSections": 1,
+  "sections": 1,
   "instructions": [
     {
       "name": "",
@@ -139,17 +143,19 @@ Example Response
 
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
-  <code style='background-color: #bdc3c7'>/search/:ids/ingredients</code>
-  <a href='search/ingredients/2047,11215' target="_blank">/search/ingredients/2047,11215</a>
+  <code style='background-color: #bdc3c7'>/search/ingredients</code>
+  <a href='search/ingredients/?ids=2047,11215&sort=likes&direction=desc' target="_blank">/search/ingredients?ids=2047,11215</a>
 </h3>
 
 Takes a comma separated list of ingredient ids and returns an array of recipes that contain ALL ingredients passed.
 
-| Parameters | Description                              | Type  | Default |
-| ---------- | ---------------------------------------- | ----- | ------- |
-| ids        | a comma separated list of ingredient_ids | path  | n/a     |
-| page       | the page number of results to return     | query | 1       |
-| count      | the number of results to show per page   | query | 10      |
+| Parameters | Description                              | Type  | Default   |
+| ---------- | ---------------------------------------- | ----- | --------- |
+| ids        | a comma separated list of ingredient_ids | query | n/a       |
+| page       | the page number of results to return     | query | 1         |
+| count      | the number of results to show per page   | query | 10        |
+| sort       | 'default', 'likes', 'price'              | query | 'default' |
+| direction  | 'asc' desc'                              | query | 'desc'    |
 
 Example Response
 
@@ -157,25 +163,30 @@ Example Response
 {
   "page": 1,
   "count": 10,
-  "queryRows": 10,
+  "ids": [2047, 11215],
+  "sort": "likes",
+  "direction": "desc",
   "totalRows": 1225,
+  "queryRows": 10,
   "rows": [{ recipe1 }, { recipe2 } ]
 }
 ```
 
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
-  <code style='background-color: #bdc3c7'>/search/:ids/tags</code>
-  <a href='search/tags/32,16' target="_blank">/search/tags/32,16</a>
+  <code style='background-color: #bdc3c7'>/search/tags</code>
+  <a href='search/tags?ids=32,16&sort=likes&direction=desc' target="_blank">/search/tags?32,16</a>
 </h3>
 
 Takes a comma separated list of tag_ids and returns an array of recipes that contain ALL tags passed.
 
-| Parameters | Description                            | Type  | Default |
-| ---------- | -------------------------------------- | ----- | ------- |
-| ids        | a comma separated list of tag_ids      | path  | n/a     |
-| page       | the page number of results to return   | query | 1       |
-| count      | the number of results to show per page | query | 10      |
+| Parameters | Description                            | Type  | Default   |
+| ---------- | -------------------------------------- | ----- | --------- |
+| ids        | a comma separated list of tag_ids      | path  | n/a       |
+| page       | the page number of results to return   | query | 1         |
+| count      | the number of results to show per page | query | 10        |
+| sort       | 'default', 'likes', 'price'            | query | 'default' |
+| direction  | 'asc' desc'                            | query | 'desc'    |
 
 Example Response
 
@@ -183,25 +194,30 @@ Example Response
 {
   "page": 1,
   "count": 10,
+  "ids": [32,16],
+  "sort": "likes",
+  "direction": "desc",
+  "totalRows": 3272,
   "queryRows": 10,
-  "totalRows": 1225,
   "rows": [{ recipe1 }, { recipe2 } ]
 }
 ```
 
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
-  <code style='background-color: #bdc3c7'>/filter/:ids/ingredients</code>
-  <a href='filter/ingredients/2047,11215' target="_blank">/filter/ingredients/2047,11215</a>
+  <code style='background-color: #bdc3c7'>/filter/ingredients</code>
+  <a href='filter/ingredients/?ids=2047,11215&sort=likes&direction=desc' target="_blank">/filter/ingredients?ids=2047,11215</a>
 </h3>
 
 Takes a comma separated list of ingredient ids and returns an array of recipes that DO NOT CONTAIN any of the ingredients passed.
 
-| Parameters | Description                              | Type  | Default |
-| ---------- | ---------------------------------------- | ----- | ------- |
-| ids        | a comma separated list of ingredient_ids | path  | n/a     |
-| page       | the page number of results to return     | query | 1       |
-| count      | the number of results to show per page   | query | 10      |
+| Parameters | Description                              | Type  | Default   |
+| ---------- | ---------------------------------------- | ----- | --------- |
+| ids        | a comma separated list of ingredient_ids | path  | n/a       |
+| page       | the page number of results to return     | query | 1         |
+| count      | the number of results to show per page   | query | 10        |
+| sort       | 'default', 'likes', 'price'              | query | 'default' |
+| direction  | 'asc' desc'                              | query | 'desc'    |
 
 Example Response
 
@@ -209,8 +225,11 @@ Example Response
 {
   "page": 1,
   "count": 10,
-  "queryRows": 10,
+  "ids": [2047, 11215],
+  "sort": "likes",
+  "direction": "desc",
   "totalRows": 1225,
+  "queryRows": 10,
   "rows": [{ recipe1 }, { recipe2 } ]
 }
 ```
@@ -218,16 +237,18 @@ Example Response
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/filter/:ids/tags</code>
-  <a href='filter/tags/32,16' target="_blank">/filter/tags/32,16</a>
+  <a href='filter/tags?ids=32,16&sort=likes&direction=desc' target="_blank">/filter/tags?32,16</a>
 </h3>
 
 Takes a comma separated list of tag_ids and returns an array of recipes that DO NOT CONTAIN any of the ingredients passed.
 
-| Parameters | Description                            | Type  | Default |
-| ---------- | -------------------------------------- | ----- | ------- |
-| ids        | a comma separated list of tag_ids      | path  | n/a     |
-| page       | the page number of results to return   | query | 1       |
-| count      | the number of results to show per page | query | 10      |
+| Parameters | Description                            | Type  | Default   |
+| ---------- | -------------------------------------- | ----- | --------- |
+| ids        | a comma separated list of tag_ids      | path  | n/a       |
+| page       | the page number of results to return   | query | 1         |
+| count      | the number of results to show per page | query | 10        |
+| sort       | 'default', 'likes', 'price'            | query | 'default' |
+| direction  | 'asc' desc'                            | query | 'desc'    |
 
 Example Response
 
@@ -235,8 +256,11 @@ Example Response
 {
   "page": 1,
   "count": 10,
+  "ids": [32,16],
+  "sort": "likes",
+  "direction": "desc",
+  "totalRows": 3272,
   "queryRows": 10,
-  "totalRows": 1225,
   "rows": [{ recipe1 }, { recipe2 } ]
 }
 ```
