@@ -14,7 +14,7 @@ console.log('---------------------------------------');
 
   //TEST RECIPE QUERIES
   for (let i = 0; i < 100; i++) {
-    let page = Math.floor(((RECIPE_SIZE - 50) * Math.random()) / 50);
+    let page = 1 + Math.floor(((RECIPE_SIZE - 50) * Math.random()) / 50);
 
     let time1 = new Date().getTime();
     await getRecipes({ page: page, count: 50 });
