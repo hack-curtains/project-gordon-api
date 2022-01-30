@@ -140,7 +140,7 @@ Example Response
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/search/:ids/ingredients</code>
-  <a href='search/2047,11215/ingredients' target="_blank">/search/2047,11215/ingredients</a>
+  <a href='search/ingredients/2047,11215' target="_blank">/search/ingredients/2047,11215</a>
 </h3>
 
 Takes a comma separated list of ingredient ids and returns an array of recipes that contain ALL ingredients passed.
@@ -166,7 +166,7 @@ Example Response
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/search/:ids/tags</code>
-  <a href='search/32,16/tags' target="_blank">/search/32,16/tags</a>
+  <a href='search/tags/32,16' target="_blank">/search/tags/32,16</a>
 </h3>
 
 Takes a comma separated list of tag_ids and returns an array of recipes that contain ALL tags passed.
@@ -192,7 +192,7 @@ Example Response
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/filter/:ids/ingredients</code>
-  <a href='filter/2047,11215/ingredients' target="_blank">/filter/2047,11215/ingredients</a>
+  <a href='filter/ingredients/2047,11215' target="_blank">/filter/ingredients/2047,11215</a>
 </h3>
 
 Takes a comma separated list of ingredient ids and returns an array of recipes that DO NOT CONTAIN any of the ingredients passed.
@@ -218,7 +218,7 @@ Example Response
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/filter/:ids/tags</code>
-  <a href='filter/32,16/tags' target="_blank">/filter/32,16/tags</a>
+  <a href='filter/tags/32,16' target="_blank">/filter/tags/32,16</a>
 </h3>
 
 Takes a comma separated list of tag_ids and returns an array of recipes that DO NOT CONTAIN any of the ingredients passed.
