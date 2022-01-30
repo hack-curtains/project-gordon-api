@@ -2,28 +2,34 @@ const { rows } = require('pg/lib/defaults');
 const { pool } = require('./index.js');
 
 const ABBREVIATED_COLUMNS =
-  'id, title, image, servings, "pricePerServing", "aggregateLikes", summary, tags, ingredients, "readyInMinutes"';
+  'id, title, image, servings, price, likes, summary, tags, ingredients, time';
 
 /******************************
  * Returns an abbreviated list of recipes
  * Used for rendering many recipe cards
  ******************************/
-module.exports.getRecipes = async ({ page = 1, count = 50 }) => {
+module.exports.getRecipes = async ({ page = 1, count = 50, sort = 'id', direction = 'asc' }) => {
+  if (!['id', 'likes', 'price'].includes(sort) || !['asc', 'desc'].includes(direction)) {
+    return { message: 'invalid parameters' };
+  }
+
   const offset = (page - 1) * count;
   const end = page * count;
 
+  let where = `1=1`;
+  let order = `${sort} ${direction} OFFSET ${offset} LIMIT ${count}`;
+
   const SQL = `
-    SELECT
-    ${ABBREVIATED_COLUMNS}
-    FROM recipes
-    WHERE index > ${offset} AND index <= ${end} order by index;
+    SELECT ${ABBREVIATED_COLUMNS} FROM recipes WHERE ${where} ORDER BY ${order};
     SELECT count(1) from recipes;
   `;
 
   let data = await pool.query(SQL);
   return {
-    page: page,
-    count: count,
+    page: parseInt(page),
+    count: parseInt(count),
+    sort: sort === 'id' ? 'default' : sort,
+    direction: direction,
     totalRows: parseInt(data[1].rows[0].count),
     queryRows: data[0].rowCount,
     rows: data[0].rows,
@@ -62,7 +68,7 @@ module.exports.getRecipesByIngredients = async ({ ids, page = 1, count = 10 }) =
   let out = data.rows.slice((page - 1) * count, page * count);
 
   return {
-    page: page,
+    page: parseInt(page),
     count: count,
     queryRows: out.length,
     totalRows: data.rows.length,

@@ -8,10 +8,12 @@
 
 Returns an array of recipes with minimal information needed to render a recipe card. Will not include full recipe data e.g. instructions to minimize size
 
-| Parameters | Description                            | Type  | Default |
-| ---------- | -------------------------------------- | ----- | ------- |
-| page       | the page number of results to return   | query | 1       |
-| count      | the number of results to show per page | query | 10      |
+| Parameters | Description                            | Type  | Default   |
+| ---------- | -------------------------------------- | ----- | --------- |
+| page       | the page number of results to return   | query | 1         |
+| count      | the number of results to show per page | query | 10        |
+| sort       | 'default', 'likes', 'price'            | query | 'default' |
+| direction  | 'asc' desc'                            | query | 'desc'    |
 
 Example Response
 

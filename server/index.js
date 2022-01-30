@@ -23,7 +23,9 @@ app.use(express.static('docs'));
 app.get('/recipes', async (req, res) => {
   const page = req.query.page || 1;
   const count = req.query.count || 10;
-  let data = await getRecipes({ page, count });
+  const sort = req.query.sort ? req.query.sort.toLowerCase() : 'id';
+  const direction = req.query.direction ? req.query.direction.toLowerCase() : 'asc';
+  let data = await getRecipes({ page, count, sort, direction });
   res.json(data);
 });
 

@@ -58,16 +58,16 @@ const db = {
         primaryKey: true,
       },
       title: Sequelize.STRING,
-      aggregateLikes: Sequelize.INTEGER,
+      likes: Sequelize.INTEGER,
       summary: Sequelize.TEXT,
-      readyInMinutes: Sequelize.INTEGER,
+      time: Sequelize.INTEGER,
       servings: Sequelize.INTEGER,
       image: Sequelize.STRING,
-      pricePerServing: Sequelize.FLOAT,
-      sourceName: Sequelize.STRING,
-      sourceUrl: Sequelize.STRING,
+      price: Sequelize.FLOAT,
+      source_name: Sequelize.STRING,
+      source_url: Sequelize.STRING,
       ingredients: Sequelize.JSON,
-      instructionSections: Sequelize.INTEGER,
+      sections: Sequelize.INTEGER,
       instructions: Sequelize.JSON,
       tags: Sequelize.JSON,
       index: {
@@ -76,7 +76,14 @@ const db = {
       },
     },
     {
-      indexes: [{ fields: ['index'] }],
+      indexes: [
+        { fields: ['index'] },
+        {
+          name: 'likes_index',
+          using: 'BTREE',
+          fields: ['likes'],
+        },
+      ],
     }
   ),
   initialize: async () => {

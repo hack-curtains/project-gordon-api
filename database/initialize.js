@@ -66,17 +66,17 @@ const main = async () => {
         id: rec.id,
         title: rec.title,
         summary: rec.summary,
-        readyInMinutes: rec.readyInMinutes,
-        aggregateLikes: rec.aggregateLikes,
+        time: rec.readyInMinutes,
+        likes: rec.aggregateLikes,
         servings: rec.servings,
         image: rec.image,
-        pricePerServing: rec.pricePerServing,
-        sourceName: rec.sourceName,
-        sourceUrl: rec.sourceUrl,
+        price: rec.pricePerServing,
+        source_name: rec.sourceName,
+        source_url: rec.sourceUrl,
         ingredients: rec.extendedIngredients.map((ing) => {
           return { ingredient_id: ing.id, name: ing.nameClean || ing.name, original: ing.original };
         }),
-        instructionSections: rec.analyzedInstructions.length,
+        sections: rec.analyzedInstructions.length,
         instructions: rec.analyzedInstructions.map((x) => {
           return { name: x.name, steps: x.steps.map((s) => s.step) };
         }),
