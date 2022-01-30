@@ -21,6 +21,8 @@ Example Response
 {
   "page": 1,
   "count": 10,
+  "sort": "default",
+  "direction": "asc",
   "totalRows": 10795,
   "queryRows": 10,
   "rows": [
@@ -69,14 +71,14 @@ Example Response
 {
   "id": 37,
   "title": "Roasted Cauliflower With Anchovy Bread Crumbs",
-  "aggregateLikes": 13,
+  "likes": 13,
   "summary": "HTML summary of recipe",
-  "readyInMinutes": 60,
+  "time": 60,
   "servings": 3,
   "image": "https://spoonacular.com/recipeImages/37-556x370.jpg",
-  "pricePerServing": 330.28,
-  "sourceName": "Food Republic",
-  "sourceUrl": "http://www.foodrepublic.com/2012/11/09/roasted-cauliflower-anchovy-bread-crumbs-recipe",
+  "price": 330.28,
+  "source_name": "Food Republic",
+  "source_url": "http://www.foodrepublic.com/2012/11/09/roasted-cauliflower-anchovy-bread-crumbs-recipe",
   "ingredients": [
     {
       "ingredient_id": 1034053,
@@ -89,7 +91,7 @@ Example Response
       "original": "2 tablespoons extra virgin olive oil"
     }
   ],
-  "instructionSections": 1,
+  "sections": 1,
   "instructions": [
     {
       "name": "",
@@ -161,8 +163,11 @@ Example Response
 {
   "page": 1,
   "count": 10,
-  "queryRows": 10,
+  "ids": [2047, 11215],
+  "sort": "likes",
+  "direction": "desc",
   "totalRows": 1225,
+  "queryRows": 10,
   "rows": [{ recipe1 }, { recipe2 } ]
 }
 ```
@@ -189,8 +194,11 @@ Example Response
 {
   "page": 1,
   "count": 10,
+  "ids": [32,16],
+  "sort": "likes",
+  "direction": "desc",
+  "totalRows": 3272,
   "queryRows": 10,
-  "totalRows": 1225,
   "rows": [{ recipe1 }, { recipe2 } ]
 }
 ```
@@ -217,8 +225,11 @@ Example Response
 {
   "page": 1,
   "count": 10,
-  "queryRows": 10,
+  "ids": [2047, 11215],
+  "sort": "likes",
+  "direction": "desc",
   "totalRows": 1225,
+  "queryRows": 10,
   "rows": [{ recipe1 }, { recipe2 } ]
 }
 ```
@@ -245,8 +256,11 @@ Example Response
 {
   "page": 1,
   "count": 10,
+  "ids": [32,16],
+  "sort": "likes",
+  "direction": "desc",
+  "totalRows": 3272,
   "queryRows": 10,
-  "totalRows": 1225,
   "rows": [{ recipe1 }, { recipe2 } ]
 }
 ```
