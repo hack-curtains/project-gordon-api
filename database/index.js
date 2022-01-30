@@ -10,27 +10,15 @@ const sequelize = new Sequelize(PGDATABASE, PGUSER, PGPASSWORD, {
 });
 
 const db = {
-  Tag: sequelize.define(
-    'tag',
-    {
-      name: Sequelize.STRING,
-      category: Sequelize.STRING,
-      frequency: Sequelize.INTEGER,
+  Tag: sequelize.define('tag', {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
     },
-    {
-      indexes: [{ unique: true, fields: ['name'] }],
-    }
-  ),
-  RecipesTag: sequelize.define(
-    'recipes_tag',
-    {
-      recipe_id: Sequelize.INTEGER,
-      tag_id: Sequelize.INTEGER,
-    },
-    {
-      indexes: [{ fields: ['recipe_id'] }, { fields: ['tag_id'] }],
-    }
-  ),
+    name: Sequelize.STRING,
+    category: Sequelize.STRING,
+    frequency: Sequelize.INTEGER,
+  }),
   Ingredient: sequelize.define('ingredient', {
     id: {
       type: Sequelize.INTEGER,
@@ -40,23 +28,9 @@ const db = {
     category: Sequelize.STRING,
     frequency: Sequelize.INTEGER,
   }),
-  RecipesIngredient: sequelize.define(
-    'recipes_ingredient',
-    {
-      recipe_id: Sequelize.INTEGER,
-      ingredient_id: Sequelize.INTEGER,
-    },
-    {
-      indexes: [{ fields: ['recipe_id'] }, { fields: ['ingredient_id'] }],
-    }
-  ),
   Recipe: sequelize.define(
     'recipe',
     {
-      id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-      },
       title: Sequelize.STRING,
       likes: Sequelize.INTEGER,
       summary: Sequelize.TEXT,
@@ -66,22 +40,24 @@ const db = {
       price: Sequelize.FLOAT,
       source_name: Sequelize.STRING,
       source_url: Sequelize.STRING,
-      ingredients: Sequelize.JSON,
+      ingredients: Sequelize.JSONB,
       sections: Sequelize.INTEGER,
-      instructions: Sequelize.JSON,
-      tags: Sequelize.JSON,
-      index: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-      },
+      instructions: Sequelize.JSONB,
+      tags: Sequelize.JSONB,
+      tag_ids: Sequelize.ARRAY(Sequelize.INTEGER),
+      ingredient_ids: Sequelize.ARRAY(Sequelize.INTEGER),
     },
     {
       indexes: [
-        { fields: ['index'] },
         {
           name: 'likes_index',
           using: 'BTREE',
           fields: ['likes'],
+        },
+        {
+          name: 'price_index',
+          using: 'BTREE',
+          fields: ['price'],
         },
       ],
     }
@@ -89,9 +65,12 @@ const db = {
   initialize: async () => {
     await db.Recipe.sync({ force: true });
     await db.Ingredient.sync({ force: true });
-    await db.RecipesIngredient.sync({ force: true });
     await db.Tag.sync({ force: true });
-    await db.RecipesTag.sync({ force: true });
+
+    await sequelize.query('CREATE INDEX recipes_tag_ids_index ON recipes USING gin (tag_ids);');
+    await sequelize.query(
+      'CREATE INDEX recipes_ingredients_index ON recipes USING gin (ingredient_ids);'
+    );
   },
   close: async () => {
     await sequelize.close();

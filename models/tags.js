@@ -9,7 +9,7 @@ module.exports.getTags = async () => {
   SELECT
   id, name, category, frequency
   FROM tags
-  ORDER BY category, frequency DESC;
+  ORDER BY id ASC
   `;
 
   let data = await pool.query(SQL);

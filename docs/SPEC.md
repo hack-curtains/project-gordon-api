@@ -56,7 +56,7 @@ Example Response
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/recipes/:id</code>
-  <a href='recipes/37' target="_blank">/recipes/37</a>
+  <a href='recipes/2' target="_blank">/recipes/2</a>
 </h3>
 
 Returns an object containing the recipe
@@ -69,7 +69,7 @@ Example Response
 
 ```json
 {
-  "id": 37,
+  "id": 2,
   "title": "Roasted Cauliflower With Anchovy Bread Crumbs",
   "likes": 13,
   "summary": "HTML summary of recipe",
@@ -144,7 +144,7 @@ Example Response
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/search/ingredients</code>
-  <a href='search/ingredients/?ids=2047,11215&sort=likes&direction=desc' target="_blank">/search/ingredients?ids=2047,11215</a>
+  <a href='search/ingredients/?ids=2,3&sort=likes&direction=desc' target="_blank">/search/ingredients?ids=2,3</a>
 </h3>
 
 Takes a comma separated list of ingredient ids and returns an array of recipes that contain ALL ingredients passed.
@@ -175,14 +175,14 @@ Example Response
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/search/tags</code>
-  <a href='search/tags?ids=32,16&sort=likes&direction=desc' target="_blank">/search/tags?32,16</a>
+  <a href='search/tags?ids=11,12&sort=likes&direction=desc' target="_blank">/search/tags?11,12</a>
 </h3>
 
 Takes a comma separated list of tag_ids and returns an array of recipes that contain ALL tags passed.
 
 | Parameters | Description                            | Type  | Default   |
 | ---------- | -------------------------------------- | ----- | --------- |
-| ids        | a comma separated list of tag_ids      | path  | n/a       |
+| ids        | a comma separated list of tag_ids      | query | n/a       |
 | page       | the page number of results to return   | query | 1         |
 | count      | the number of results to show per page | query | 10        |
 | sort       | 'default', 'likes', 'price'            | query | 'default' |
@@ -205,15 +205,51 @@ Example Response
 
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/search</code>
+  <a href='search?query=garlic&tag_ids=11,12' target="_blank">/search?query=garlic&tag_ids=11,12</a>
+</h3>
+
+Will search any combination of the following parameters and return a result set that matches EVERY
+tag_ids AND ingredient_id AND title matching 'query'. This endpoint should only be used when performing
+text searches. It will be significantly faster to use the `/search/tag` or `/search/ingredient` endpoints
+for queries without text lookups.
+
+| Parameters     | Description                                 | Type  | Default   |
+| -------------- | ------------------------------------------- | ----- | --------- |
+| tag_ids        | a comma separated list of ingredient_ids    | query | n/a       |
+| ingredient_ids | a comma separated list of ingredient_ids    | query | n/a       |
+| query          | a free text query that matches recipe title | query | n/a       |
+| page           | the page number of results to return        | query | 1         |
+| count          | the number of results to show per page      | query | 10        |
+| sort           | 'default', 'likes', 'price'                 | query | 'default' |
+| direction      | 'asc' desc'                                 | query | 'desc'    |
+
+Example Response
+
+```json
+{
+  "page": 1,
+  "count": 10,
+  "ids": [2047, 11215],
+  "sort": "likes",
+  "direction": "desc",
+  "totalRows": 1225,
+  "queryRows": 10,
+  "rows": [{ recipe1 }, { recipe2 } ]
+}
+```
+
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/filter/ingredients</code>
-  <a href='filter/ingredients/?ids=2047,11215&sort=likes&direction=desc' target="_blank">/filter/ingredients?ids=2047,11215</a>
+  <a href='filter/ingredients/?ids=25&sort=likes&direction=desc' target="_blank">/filter/ingredients?ids=25</a>
 </h3>
 
 Takes a comma separated list of ingredient ids and returns an array of recipes that DO NOT CONTAIN any of the ingredients passed.
 
 | Parameters | Description                              | Type  | Default   |
 | ---------- | ---------------------------------------- | ----- | --------- |
-| ids        | a comma separated list of ingredient_ids | path  | n/a       |
+| ids        | a comma separated list of ingredient_ids | query | n/a       |
 | page       | the page number of results to return     | query | 1         |
 | count      | the number of results to show per page   | query | 10        |
 | sort       | 'default', 'likes', 'price'              | query | 'default' |
@@ -236,15 +272,15 @@ Example Response
 
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
-  <code style='background-color: #bdc3c7'>/filter/:ids/tags</code>
-  <a href='filter/tags?ids=32,16&sort=likes&direction=desc' target="_blank">/filter/tags?32,16</a>
+  <code style='background-color: #bdc3c7'>/filter/tags</code>
+  <a href='filter/tags?ids=11&sort=likes&direction=desc' target="_blank">/filter/tags?11</a>
 </h3>
 
 Takes a comma separated list of tag_ids and returns an array of recipes that DO NOT CONTAIN any of the ingredients passed.
 
 | Parameters | Description                            | Type  | Default   |
 | ---------- | -------------------------------------- | ----- | --------- |
-| ids        | a comma separated list of tag_ids      | path  | n/a       |
+| ids        | a comma separated list of tag_ids      | query | n/a       |
 | page       | the page number of results to return   | query | 1         |
 | count      | the number of results to show per page | query | 10        |
 | sort       | 'default', 'likes', 'price'            | query | 'default' |
@@ -260,6 +296,42 @@ Example Response
   "sort": "likes",
   "direction": "desc",
   "totalRows": 3272,
+  "queryRows": 10,
+  "rows": [{ recipe1 }, { recipe2 } ]
+}
+```
+
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/filter</code>
+  <a href='filter?query=garlic&ingredient_ids=3' target="_blank">/filter?query=garlic&ingredient_ids=3</a>
+</h3>
+
+Will search any combination of the following parameters and return a result set that exludes EVERY
+tag_ids AND ingredient_id AND title matching 'query'. This endpoint should only be used when performing
+text searches. It will be significantly faster to use the `/filter/tag` or `/filter/ingredient` endpoints
+for queries without text lookups.
+
+| Parameters     | Description                                 | Type  | Default   |
+| -------------- | ------------------------------------------- | ----- | --------- |
+| tag_ids        | a comma separated list of ingredient_ids    | query | n/a       |
+| ingredient_ids | a comma separated list of ingredient_ids    | query | n/a       |
+| query          | a free text query that matches recipe title | query | n/a       |
+| page           | the page number of results to return        | query | 1         |
+| count          | the number of results to show per page      | query | 10        |
+| sort           | 'default', 'likes', 'price'                 | query | 'default' |
+| direction      | 'asc' desc'                                 | query | 'desc'    |
+
+Example Response
+
+```json
+{
+  "page": 1,
+  "count": 10,
+  "ids": [2047, 11215],
+  "sort": "likes",
+  "direction": "desc",
+  "totalRows": 1225,
   "queryRows": 10,
   "rows": [{ recipe1 }, { recipe2 } ]
 }

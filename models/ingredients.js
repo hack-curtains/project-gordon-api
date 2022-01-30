@@ -9,8 +9,7 @@ module.exports.getIngredients = async () => {
   SELECT
   id, name, category, frequency
   FROM ingredients
-  ORDER BY frequency DESC;
-  `;
+  ORDER BY id ASC`;
 
   let data = await pool.query(SQL);
   return data.rows;
