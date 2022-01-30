@@ -1,1 +1,1 @@
-pg_dump recipes -U sieke -O -x > database/DATA.sql
+pg_dump recipes -U sieke -O -x > database/init/DATA.sql
