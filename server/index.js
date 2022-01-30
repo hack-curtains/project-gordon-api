@@ -45,35 +45,43 @@ app.get('/ingredients', async (req, res) => {
   res.json(data);
 });
 
-app.get('/search/ingredients/:ids', async (req, res) => {
+app.get('/search/ingredients', async (req, res) => {
   const page = parseInt(req.query.page || 1);
   const count = parseInt(req.query.count || 10);
-  const ingredients = req.params.ids ? req.params.ids.split(',') : [];
-  let data = await getRecipesByIngredients({ ids: ingredients, page: page, count: count });
+  const ids = req.query.ids ? req.query.ids.split(',') : [];
+  const sort = req.query.sort ? req.query.sort.toLowerCase() : 'id';
+  const direction = req.query.direction ? req.query.direction.toLowerCase() : 'asc';
+  let data = await getRecipesByIngredients({ ids, page, count, sort, direction });
   res.json(data);
 });
 
-app.get('/search/tags/:ids', async (req, res) => {
+app.get('/search/tags', async (req, res) => {
   const page = parseInt(req.query.page || 1);
   const count = parseInt(req.query.count || 10);
-  const tags = req.params.ids ? req.params.ids.split(',') : [];
-  let data = await getRecipesByTags({ ids: tags, page: page, count: count });
+  const ids = req.query.ids ? req.query.ids.split(',') : [];
+  const sort = req.query.sort ? req.query.sort.toLowerCase() : 'id';
+  const direction = req.query.direction ? req.query.direction.toLowerCase() : 'asc';
+  let data = await getRecipesByTags({ ids, page, count, sort, direction });
   res.json(data);
 });
 
-app.get('/filter/ingredients/:ids', async (req, res) => {
+app.get('/filter/ingredients', async (req, res) => {
   const page = parseInt(req.query.page || 1);
   const count = parseInt(req.query.count || 10);
-  const ingredients = req.params.ids ? req.params.ids.split(',') : [];
-  let data = await filterRecipesByIngredients({ ids: ingredients, page: page, count: count });
+  const ids = req.query.ids ? req.query.ids.split(',') : [];
+  const sort = req.query.sort ? req.query.sort.toLowerCase() : 'id';
+  const direction = req.query.direction ? req.query.direction.toLowerCase() : 'asc';
+  let data = await filterRecipesByIngredients({ ids, page, count, sort, direction });
   res.json(data);
 });
 
-app.get('/filter/tags/:ids', async (req, res) => {
+app.get('/filter/tags', async (req, res) => {
   const page = parseInt(req.query.page || 1);
   const count = parseInt(req.query.count || 10);
-  const tags = req.params.ids ? req.params.ids.split(',') : [];
-  let data = await filterRecipesByTags({ ids: tags, page: page, count: count });
+  const ids = req.query.ids ? req.query.ids.split(',') : [];
+  const sort = req.query.sort ? req.query.sort.toLowerCase() : 'id';
+  const direction = req.query.direction ? req.query.direction.toLowerCase() : 'asc';
+  let data = await filterRecipesByTags({ ids, page, count, sort, direction });
   res.json(data);
 });
 

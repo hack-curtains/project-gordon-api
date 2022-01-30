@@ -141,17 +141,19 @@ Example Response
 
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
-  <code style='background-color: #bdc3c7'>/search/:ids/ingredients</code>
-  <a href='search/ingredients/2047,11215' target="_blank">/search/ingredients/2047,11215</a>
+  <code style='background-color: #bdc3c7'>/search/ingredients</code>
+  <a href='search/ingredients/?ids=2047,11215&sort=likes&direction=desc' target="_blank">/search/ingredients?ids=2047,11215</a>
 </h3>
 
 Takes a comma separated list of ingredient ids and returns an array of recipes that contain ALL ingredients passed.
 
-| Parameters | Description                              | Type  | Default |
-| ---------- | ---------------------------------------- | ----- | ------- |
-| ids        | a comma separated list of ingredient_ids | path  | n/a     |
-| page       | the page number of results to return     | query | 1       |
-| count      | the number of results to show per page   | query | 10      |
+| Parameters | Description                              | Type  | Default   |
+| ---------- | ---------------------------------------- | ----- | --------- |
+| ids        | a comma separated list of ingredient_ids | query | n/a       |
+| page       | the page number of results to return     | query | 1         |
+| count      | the number of results to show per page   | query | 10        |
+| sort       | 'default', 'likes', 'price'              | query | 'default' |
+| direction  | 'asc' desc'                              | query | 'desc'    |
 
 Example Response
 
@@ -167,17 +169,19 @@ Example Response
 
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
-  <code style='background-color: #bdc3c7'>/search/:ids/tags</code>
-  <a href='search/tags/32,16' target="_blank">/search/tags/32,16</a>
+  <code style='background-color: #bdc3c7'>/search/tags</code>
+  <a href='search/tags?ids=32,16&sort=likes&direction=desc' target="_blank">/search/tags?32,16</a>
 </h3>
 
 Takes a comma separated list of tag_ids and returns an array of recipes that contain ALL tags passed.
 
-| Parameters | Description                            | Type  | Default |
-| ---------- | -------------------------------------- | ----- | ------- |
-| ids        | a comma separated list of tag_ids      | path  | n/a     |
-| page       | the page number of results to return   | query | 1       |
-| count      | the number of results to show per page | query | 10      |
+| Parameters | Description                            | Type  | Default   |
+| ---------- | -------------------------------------- | ----- | --------- |
+| ids        | a comma separated list of tag_ids      | path  | n/a       |
+| page       | the page number of results to return   | query | 1         |
+| count      | the number of results to show per page | query | 10        |
+| sort       | 'default', 'likes', 'price'            | query | 'default' |
+| direction  | 'asc' desc'                            | query | 'desc'    |
 
 Example Response
 
@@ -193,17 +197,19 @@ Example Response
 
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
-  <code style='background-color: #bdc3c7'>/filter/:ids/ingredients</code>
-  <a href='filter/ingredients/2047,11215' target="_blank">/filter/ingredients/2047,11215</a>
+  <code style='background-color: #bdc3c7'>/filter/ingredients</code>
+  <a href='filter/ingredients/?ids=2047,11215&sort=likes&direction=desc' target="_blank">/filter/ingredients?ids=2047,11215</a>
 </h3>
 
 Takes a comma separated list of ingredient ids and returns an array of recipes that DO NOT CONTAIN any of the ingredients passed.
 
-| Parameters | Description                              | Type  | Default |
-| ---------- | ---------------------------------------- | ----- | ------- |
-| ids        | a comma separated list of ingredient_ids | path  | n/a     |
-| page       | the page number of results to return     | query | 1       |
-| count      | the number of results to show per page   | query | 10      |
+| Parameters | Description                              | Type  | Default   |
+| ---------- | ---------------------------------------- | ----- | --------- |
+| ids        | a comma separated list of ingredient_ids | path  | n/a       |
+| page       | the page number of results to return     | query | 1         |
+| count      | the number of results to show per page   | query | 10        |
+| sort       | 'default', 'likes', 'price'              | query | 'default' |
+| direction  | 'asc' desc'                              | query | 'desc'    |
 
 Example Response
 
@@ -220,16 +226,18 @@ Example Response
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/filter/:ids/tags</code>
-  <a href='filter/tags/32,16' target="_blank">/filter/tags/32,16</a>
+  <a href='filter/tags?ids=32,16&sort=likes&direction=desc' target="_blank">/filter/tags?32,16</a>
 </h3>
 
 Takes a comma separated list of tag_ids and returns an array of recipes that DO NOT CONTAIN any of the ingredients passed.
 
-| Parameters | Description                            | Type  | Default |
-| ---------- | -------------------------------------- | ----- | ------- |
-| ids        | a comma separated list of tag_ids      | path  | n/a     |
-| page       | the page number of results to return   | query | 1       |
-| count      | the number of results to show per page | query | 10      |
+| Parameters | Description                            | Type  | Default   |
+| ---------- | -------------------------------------- | ----- | --------- |
+| ids        | a comma separated list of tag_ids      | path  | n/a       |
+| page       | the page number of results to return   | query | 1         |
+| count      | the number of results to show per page | query | 10        |
+| sort       | 'default', 'likes', 'price'            | query | 'default' |
+| direction  | 'asc' desc'                            | query | 'desc'    |
 
 Example Response
 
