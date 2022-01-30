@@ -3,10 +3,13 @@ const { pool } = require('./index.js');
 
 /******************************
  * Handle pantry CRUD
- * Used for adding items to pantry or retrieving pantry
+ * Add/remove items and retrieve pantry list
  ******************************/
 
 
+module.exports.togglePantryItem = async ({ userID = 2 }) => {
+
+};
 
 module.exports.getPantry = async ({ userID = 2 }) => {
 

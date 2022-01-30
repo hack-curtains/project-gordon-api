@@ -76,8 +76,22 @@ app.get('/filter/tags/:ids', async (req, res) => {
 });
 
 
+
+const { createUser, loginUser } = require('../models/userAuth.js');
+const { togglePantryItem, getPantry } = require('../models/userPantry.js');
+const { toggleFavoriteRecipe, getFavorites } = require('../models/userFavs.js');
+
 // post(/users/new) username, password, email
 app.post('/users/new', async (req, res) => {
+  const username = (req.query.username);
+  const password = cypto.pbkdf2(req.query.password);
+  const email = (req.query.email);
+
+
+
+  // Prints derivedKey
+  console.log(derivedKey.toString('hex'));
+});
   // create a user in the database
 
   // initiate new session given the new user information
