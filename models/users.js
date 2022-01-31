@@ -13,7 +13,6 @@ module.exports.addIngredient = async ({ user_id, ingredient_id }) => {
 };
 
 module.exports.getIngredients = async ({ user_id }) => {
-  console.log(user_id);
   let SQL = `
     SELECT
       i.id, i.name, i.category,ui."createdAt" as date_added
@@ -22,7 +21,6 @@ module.exports.getIngredients = async ({ user_id }) => {
     WHERE ui.user_id = ${user_id}
     ORDER BY i.id
   `;
-  console.log(SQL);
   let data = await pool.query(SQL);
   return data.rows;
 };
@@ -46,7 +44,6 @@ module.exports.addRecipe = async ({ user_id, recipe_id }) => {
 };
 
 module.exports.getRecipes = async ({ user_id }) => {
-  console.log(user_id);
   let SQL = `
     SELECT
       ${ABBREVIATED_COLUMNS},
@@ -65,6 +62,5 @@ module.exports.removeRecipe = async ({ user_id, recipe_id }) => {
     DELETE FROM users_recipes
     WHERE user_id = ${user_id} AND recipe_id = ${recipe_id}
   `;
-  console.log(SQL);
   await pool.query(SQL);
 };
