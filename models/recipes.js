@@ -1,8 +1,7 @@
 const { rows } = require('pg/lib/defaults');
-const { pool } = require('./index.js');
+const { pool, RECIPE_COLUMNS } = require('./index.js');
 
-const ABBREVIATED_COLUMNS =
-  'id, title, image, servings, price, likes, summary, tags, ingredients, time';
+const ABBREVIATED_COLUMNS = RECIPE_COLUMNS.join(', ');
 
 //Ensure that all the query parameters are validated
 const getQueryParamErrors = (obj) => {

@@ -10,6 +10,7 @@ const tagsController = require('../controllers/tags.js');
 const ingredientsController = require('../controllers/ingredients.js');
 const searchController = require('../controllers/search.js');
 const filterController = require('../controllers/filter.js');
+const usersController = require('../controllers/users.js');
 
 const app = express();
 app.use(cors());
@@ -26,6 +27,14 @@ app.get('/search', searchController.search);
 app.get('/filter/ingredients', filterController.filterIngredients);
 app.get('/filter/tags', filterController.filterTags);
 app.get('/filter', filterController.filter);
+
+app.post('/users/ingredients/:ingredient_id/add', usersController.addIngredient);
+app.post('/users/ingredients/', usersController.getIngredients);
+app.put('/users/ingredients/:ingredient_id/remove', usersController.removeIngredient);
+
+app.post('/users/recipes/:recipe_id/add', usersController.addRecipe);
+app.post('/users/recipes/', usersController.getRecipes);
+app.put('/users/recipes/:recipe_id/remove', usersController.removeRecipe);
 
 app.listen(port, async () => {
   console.log('Server is running at http://localhost:' + port);

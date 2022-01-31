@@ -7,7 +7,17 @@
     <link rel="stylesheet" href="markdown.css">
 
     <body>
-      <h1 id="gorden-api-spec">Gorden API Spec</h1>
+      <h1>Gorden API Spec
+  <a href="#recipes">/recipes</a>
+  <a href="#tags">/tags</a>
+  <a href="#ingredients">/ingredients</a>
+  <a href="#search">/search</a>
+  <a href="#filter">/filter</a>
+  <a href="#users">/users</a>
+</h1>
+
+<h2 id='recipes'>Recipes</h2>
+
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/recipes</code>
@@ -144,6 +154,8 @@
   <span class="hljs-attr">&quot;updatedAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2022-01-29T13:57:31.121Z&quot;</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
+<h2 id='tags'>Tags</h2>
+
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/tags</code>
@@ -158,6 +170,7 @@
   <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">11</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;American&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;category&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cuisines&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;frequency&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1448</span> <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">]</span>
 </code></pre>
+<h2 id='ingredients'>Ingredients</h2>
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/ingredients</code>
@@ -172,6 +185,7 @@
   <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">19335</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sugar&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;category&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Baking&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;frequency&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2529</span> <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">]</span>
 </code></pre>
+<h2 id='search'>Search</h2>
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/search/ingredients</code>
@@ -364,6 +378,7 @@ for queries without text lookups.</p>
   <span class="hljs-attr">&quot;rows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> recipe1 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span> recipe2 <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
+<h2 id='filter'>Filter</h2>
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/filter/ingredients</code>
@@ -556,6 +571,163 @@ for queries without text lookups.</p>
   <span class="hljs-attr">&quot;rows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> recipe1 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span> recipe2 <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
+<h2 id='users'>Users</h2>
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/ingredients/:ingredient_id/add</code>
+</h3>
+
+<p>Adds the ingredient to the list of the user&#39;s favorite ingredients</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ingredient_id</td>
+<td>the id of the ingredient</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>passed via body param {user_id: xxx}</td>
+<td>body</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/ingredients/</code>
+</h3>
+
+<p>Returns an object containing the user&#39;s favorited ingredients</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>user_id</td>
+<td>passed via body param {user_id: xxx}</td>
+<td>body</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<h3>
+  <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
+  <code style='background-color: #bdc3c7'>/users/ingredients/:ingredient_id/remove</code>
+</h3>
+
+<p>Removes the ingredient from the list of the user&#39;s favorite ingredients</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ingredient_id</td>
+<td>the id of the ingredient</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>passed via body param {user_id: xxx}</td>
+<td>body</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<h3 id='users'>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/recipes/:recipe_id/add</code>
+</h3>
+
+<p>Adds the recipe to the list of the user&#39;s favorite recipes</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>recipe_id</td>
+<td>the id of the recipe_id</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>passed via body param {user_id: xxx}</td>
+<td>body</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/recipes/</code>
+</h3>
+
+<p>Return an object containing the user&#39;s favorited recipes</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>user_id</td>
+<td>passed via body param {user_id: xxx}</td>
+<td>body</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<h3>
+  <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
+  <code style='background-color: #bdc3c7'>/users/recipes/:recipe_id/remove</code>
+</h3>
+
+<p>Removes the recipe to the list of the user&#39;s favorite recipes</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>recipe_id</td>
+<td>the id of the recipe</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>passed via body param {user_id: xxx}</td>
+<td>body</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
 
     </body>
   </html>
