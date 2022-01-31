@@ -10,6 +10,34 @@ const sequelize = new Sequelize(PGDATABASE, PGUSER, PGPASSWORD, {
 });
 
 const db = {
+  UsersIngredient: sequelize.define(
+    'users_ingredient',
+    {
+      user_id: Sequelize.INTEGER,
+      ingredient_id: Sequelize.INTEGER,
+    },
+    {
+      indexes: [
+        {
+          fields: ['ingredient_id'],
+        },
+      ],
+    }
+  ),
+  UsersRecipe: sequelize.define(
+    'users_recipe',
+    {
+      user_id: Sequelize.INTEGER,
+      recipe_id: Sequelize.INTEGER,
+    },
+    {
+      indexes: [
+        {
+          fields: ['recipe_id'],
+        },
+      ],
+    }
+  ),
   Tag: sequelize.define('tag', {
     id: {
       type: Sequelize.INTEGER,
@@ -66,11 +94,15 @@ const db = {
     await db.Recipe.sync({ force: true });
     await db.Ingredient.sync({ force: true });
     await db.Tag.sync({ force: true });
+    await db.UsersIngredient.sync({ force: true });
+    await db.UsersRecipe.sync({ force: true });
 
     await sequelize.query('CREATE INDEX recipes_tag_ids_index ON recipes USING gin (tag_ids);');
     await sequelize.query(
       'CREATE INDEX recipes_ingredients_index ON recipes USING gin (ingredient_ids);'
     );
+    await sequelize.query('ALTER TABLE users_recipes ADD UNIQUE (user_id, recipe_id)');
+    await sequelize.query('ALTER TABLE users_ingredients ADD UNIQUE (user_id, ingredient_id)');
   },
   close: async () => {
     await sequelize.close();

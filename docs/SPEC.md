@@ -1,4 +1,13 @@
-# Gorden API Spec
+<h1>Gorden API Spec
+  <a href="#recipes">/recipes</a>
+  <a href="#tags">/tags</a>
+  <a href="#ingredients">/ingredients</a>
+  <a href="#search">/search</a>
+  <a href="#filter">/filter</a>
+  <a href="#users">/users</a>
+</h1>
+
+<h2 id='recipes'>Recipes</h2>
 
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
@@ -105,6 +114,8 @@ Example Response
 }
 ```
 
+<h2 id='tags'>Tags</h2>
+
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/tags</code>
@@ -123,6 +134,7 @@ Example Response
 ]
 ```
 
+<h2 id='ingredients'>Ingredients</h2>
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/ingredients</code>
@@ -141,6 +153,7 @@ Example Response
 ]
 ```
 
+<h2 id='search'>Search</h2>
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/search/ingredients</code>
@@ -239,6 +252,7 @@ Example Response
 }
 ```
 
+<h2 id='filter'>Filter</h2>
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/filter/ingredients</code>
@@ -336,3 +350,74 @@ Example Response
   "rows": [{ recipe1 }, { recipe2 } ]
 }
 ```
+
+<h2 id='users'>Users</h2>
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/ingredients/:ingredient_id/add</code>
+</h3>
+
+Adds the ingredient to the list of the user's favorite ingredients
+
+| Parameters    | Description                          | Type | Default |
+| ------------- | ------------------------------------ | ---- | ------- |
+| ingredient_id | the id of the ingredient             | path | n/a     |
+| user_id       | passed via body param {user_id: xxx} | body | n/a     |
+
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/ingredients/</code>
+</h3>
+
+Returns an object containing the user's favorited ingredients
+
+| Parameters | Description                          | Type | Default |
+| ---------- | ------------------------------------ | ---- | ------- |
+| user_id    | passed via body param {user_id: xxx} | body | n/a     |
+
+<h3>
+  <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
+  <code style='background-color: #bdc3c7'>/users/ingredients/:ingredient_id/remove</code>
+</h3>
+
+Removes the ingredient from the list of the user's favorite ingredients
+
+| Parameters    | Description                          | Type | Default |
+| ------------- | ------------------------------------ | ---- | ------- |
+| ingredient_id | the id of the ingredient             | path | n/a     |
+| user_id       | passed via body param {user_id: xxx} | body | n/a     |
+
+<h3 id='users'>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/recipes/:recipe_id/add</code>
+</h3>
+
+Adds the recipe to the list of the user's favorite recipes
+
+| Parameters | Description                          | Type | Default |
+| ---------- | ------------------------------------ | ---- | ------- |
+| recipe_id  | the id of the recipe_id              | path | n/a     |
+| user_id    | passed via body param {user_id: xxx} | body | n/a     |
+
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/recipes/</code>
+</h3>
+
+Return an object containing the user's favorited recipes
+
+| Parameters | Description                          | Type | Default |
+| ---------- | ------------------------------------ | ---- | ------- |
+| user_id    | passed via body param {user_id: xxx} | body | n/a     |
+
+<h3>
+  <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
+  <code style='background-color: #bdc3c7'>/users/recipes/:recipe_id/remove</code>
+</h3>
+
+Removes the recipe to the list of the user's favorite recipes
+
+| Parameters | Description                          | Type | Default |
+| ---------- | ------------------------------------ | ---- | ------- |
+| recipe_id  | the id of the recipe                 | path | n/a     |
+| user_id    | passed via body param {user_id: xxx} | body | n/a     |
