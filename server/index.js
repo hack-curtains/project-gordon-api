@@ -36,3 +36,6 @@ app.post('/users/recipes/:recipe_id/add', usersController.addRecipe);
 app.post('/users/recipes/', usersController.getRecipes);
 app.put('/users/recipes/:recipe_id/remove', usersController.removeRecipe);
 
+app.listen(port, async () => {
+  console.log('Server is running at http://localhost:' + port);
+});
