@@ -69,7 +69,6 @@ module.exports.addRecipe = async ({ user_id, recipe_id }) => {
       UPDATE SET "updatedAt" = CURRENT_TIMESTAMP;
     SELECT ${ABBREVIATED_COLUMNS} FROM recipes r where r.id = ${recipe_id};
   `;
-  console.log(SQL);
   let data = await pool.query(SQL);
   return {
     update: data[0].rows.length > 0 ? true : false,

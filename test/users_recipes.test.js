@@ -28,8 +28,6 @@ describe('Testing Favorite Recipes', () => {
     const res = await add(15);
     let data = JSON.parse(res.text);
 
-    console.log(data);
-
     expect(res.statusCode).toEqual(200);
     expect(data).toHaveProperty('message');
     expect(data.data).toHaveProperty('id', 15);
