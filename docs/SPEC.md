@@ -354,7 +354,7 @@ Example Response
 <h2 id='users'>Users</h2>
 <h3>
   <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
-  <code style='background-color: #bdc3c7'>/users/ingredients/:ingredient_id/add</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/ingredients/:ingredient_id/add</code>
 </h3>
 
 Adds the ingredient to the list of the user's favorite ingredients
@@ -362,62 +362,64 @@ Adds the ingredient to the list of the user's favorite ingredients
 | Parameters    | Description                          | Type | Default |
 | ------------- | ------------------------------------ | ---- | ------- |
 | ingredient_id | the id of the ingredient             | path | n/a     |
-| user_id       | passed via body param {user_id: xxx} | body | n/a     |
-
-<h3>
-  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
-  <code style='background-color: #bdc3c7'>/users/ingredients</code>
-</h3>
-
-Returns an object containing the user's favorited ingredients
-
-| Parameters | Description                          | Type | Default |
-| ---------- | ------------------------------------ | ---- | ------- |
-| user_id    | passed via body param {user_id: xxx} | body | n/a     |
+| user_id       | passed via body param {user_id: xxx} | path | n/a     |
 
 <h3>
   <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
-  <code style='background-color: #bdc3c7'>/users/ingredients/:ingredient_id/remove</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/ingredients/:ingredient_id/remove</code>
 </h3>
 
 Removes the ingredient from the list of the user's favorite ingredients
 
-| Parameters    | Description                          | Type | Default |
-| ------------- | ------------------------------------ | ---- | ------- |
-| ingredient_id | the id of the ingredient             | path | n/a     |
-| user_id       | passed via body param {user_id: xxx} | body | n/a     |
+| Parameters    | Description              | Type | Default |
+| ------------- | ------------------------ | ---- | ------- |
+| ingredient_id | the id of the ingredient | path | n/a     |
+| user_id       | the id of the user       | path | n/a     |
 
-<h3 id='users'>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/ingredients</code>
+</h3>
+
+Returns an object containing the user's favorited ingredients
+
+| Parameters | Description        | Type | Default |
+| ---------- | ------------------ | ---- | ------- |
+| user_id    | the id of the user | path | n/a     |
+
+<hr>
+
+<h3>
   <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
-  <code style='background-color: #bdc3c7'>/users/recipes/:recipe_id/add</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/recipes/:recipe_id/add</code>
 </h3>
 
 Adds the recipe to the list of the user's favorite recipes
 
 | Parameters | Description                          | Type | Default |
 | ---------- | ------------------------------------ | ---- | ------- |
-| recipe_id  | the id of the recipe_id              | path | n/a     |
-| user_id    | passed via body param {user_id: xxx} | body | n/a     |
-
-<h3>
-  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
-  <code style='background-color: #bdc3c7'>/users/recipes</code>
-</h3>
-
-Return an object containing the user's favorited recipes
-
-| Parameters | Description                          | Type | Default |
-| ---------- | ------------------------------------ | ---- | ------- |
-| user_id    | passed via body param {user_id: xxx} | body | n/a     |
+| recipe_id  | the id of the recipe                 | path | n/a     |
+| user_id    | passed via body param {user_id: xxx} | path | n/a     |
 
 <h3>
   <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
-  <code style='background-color: #bdc3c7'>/users/recipes/:recipe_id/remove</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/recipes/:recipe_id/remove</code>
 </h3>
 
-Removes the recipe to the list of the user's favorite recipes
+Removes the recipe from the list of the user's favorite recipes
 
 | Parameters | Description                          | Type | Default |
 | ---------- | ------------------------------------ | ---- | ------- |
 | recipe_id  | the id of the recipe                 | path | n/a     |
-| user_id    | passed via body param {user_id: xxx} | body | n/a     |
+| user_id    | passed via body param {user_id: xxx} | path | n/a     |
+
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/recipes</code>
+</h3>
+
+Returns an object containing the user's favorited recipes
+
+| Parameters | Description        | Type | Default |
+| ---------- | ------------------ | ---- | ------- |
+| user_id    | the id of the user | path | n/a     |
