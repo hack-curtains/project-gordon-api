@@ -1,5 +1,6 @@
 node_modules
 .DS_Store
 .env
-database/rawdata/jsonpackage-lock.json
+database/rawdata/json
+package-lock.json
 ./docs/index.html
