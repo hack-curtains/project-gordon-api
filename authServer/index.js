@@ -4,6 +4,7 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const sessions = require('express-session')
 const crypto = require('crypto')
+const bodyParser = require('body-parser')
 
 const app = express()
 
@@ -12,6 +13,7 @@ app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.static('docs'))
+app.use(bodyParser.json())
 
 /* ### Set up session ### */
 const oneDay = 1000 * 60 * 60 * 24
@@ -40,15 +42,17 @@ app.get('/', (req, res) => {
 
 // post(/users/new) username, password, email
 app.post('/users/new', async (req, res) => {
-  const username = req.query.username
-  const password = req.query.password
-  const email = req.query.email
-  let status = await createUser(username, password, email)
-  if (status === true) {
-    res.status(201).send({ message: 'successfully created new user' })
-  } else {
-    res.status(409).send({ message: 'error processing request'})
-  }
+  // const username = req.body.username
+  // const password = req.body.password
+  // const email = req.body.email
+  console.log(req.body, req.query, req.data)
+  res.send("ok")
+  // let status = await createUser(username, password, email)
+  // if (status === true) {
+  //   res.status(201).send({ message: 'successfully created new user' })
+  // } else {
+    // res.status(409).send({ message: 'error processing request'})
+  // }
   // Prints derivedKey
 })
 // create a user in the database

@@ -352,6 +352,49 @@ Example Response
 ```
 
 <h2 id='users'>Users</h2>
+
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/</code>
+</h3>
+
+Initiates a session with the authentication server
+
+
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/new</code>
+</h3>
+
+Adds the provided user profile to the database.  User profile should be passed as a query with the following fields
+| Parameters    | Description                           | Type | Default |
+| ------------- | ------------------------------------  | ---- | ------- |
+| username      | passed via query param                |string| n/a     |
+| password      | passed via query param {password: xxx}|string| n/a     |
+| email         | passed via query param {email: xxx}   |string| n/a     |
+
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/login</code>
+</h3>
+
+Adds the provided user profile to the database.  User profile should be passed as a query with the following fields
+| Parameters    | Description                           | Type | Default |
+| ------------- | ------------------------------------  | ---- | ------- |
+| username      | passed via query param                |string| n/a     |
+| password      | passed via query param {password: xxx}|string| n/a     |
+
+<h3>
+  <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
+  <code style='background-color: #bdc3c7'>/users/logout</code>
+</h3>
+
+Removes the ingredient from the list of the user's favorite ingredients
+
+| Parameters    | Description                          | Type | Default |
+| ------------- | ------------------------------------ | ---- | ------- |
+| username      | the id of user                       |string| n/a     |
+
 <h3>
   <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
   <code style='background-color: #bdc3c7'>/users/ingredients/:ingredient_id/add</code>
