@@ -5,7 +5,8 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
-    "buildDocs": "node docs/build.js"
+    "buildDocs": "node docs/build.js",
+    "test": "jest --runInBand --verbose"
   },
   "dependencies": {
     "axios": "^0.25.0",
@@ -23,6 +24,8 @@
   },
   "devDependencies": {
     "highlight.js": "^11.4.0",
-    "marked": "^4.0.12"
+    "jest": "^27.4.7",
+    "marked": "^4.0.12",
+    "supertest": "^6.2.2"
   }
 }

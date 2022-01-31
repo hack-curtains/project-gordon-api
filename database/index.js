@@ -101,8 +101,11 @@ const db = {
     await sequelize.query(
       'CREATE INDEX recipes_ingredients_index ON recipes USING gin (ingredient_ids);'
     );
-    await sequelize.query('ALTER TABLE users_recipes ADD UNIQUE (user_id, recipe_id)');
-    await sequelize.query('ALTER TABLE users_ingredients ADD UNIQUE (user_id, ingredient_id)');
+    await sequelize.query('ALTER TABLE users_recipes ADD UNIQUE (user_id, recipe_id);');
+    await sequelize.query('ALTER TABLE users_ingredients ADD UNIQUE (user_id, ingredient_id);');
+    await sequelize.query(
+      'ALTER TABLE users_ingredients ADD CONSTRAINT users_ingredients_fk FOREIGN KEY (ingredient_id) REFERENCES ingredients (id);'
+    );
   },
   close: async () => {
     await sequelize.close();

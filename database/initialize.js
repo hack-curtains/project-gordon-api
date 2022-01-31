@@ -1,5 +1,4 @@
 const fs = require('fs/promises');
-const { cuisines } = require('../server/data.js');
 const { db, sequelize } = require('./index.js');
 
 let INGREDIENTS = {};

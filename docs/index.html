@@ -665,7 +665,7 @@ for queries without text lookups.</p>
 </tbody></table>
 <h3>
   <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
-  <code style='background-color: #bdc3c7'>/users/ingredients/:ingredient_id/add</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/ingredients/:ingredient_id/add</code>
 </h3>
 
 <p>Adds the ingredient to the list of the user&#39;s favorite ingredients</p>
@@ -687,35 +687,13 @@ for queries without text lookups.</p>
 <tr>
 <td>user_id</td>
 <td>passed via body param {user_id: xxx}</td>
-<td>body</td>
-<td>n/a</td>
-</tr>
-</tbody></table>
-<h3>
-  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
-  <code style='background-color: #bdc3c7'>/users/ingredients</code>
-</h3>
-
-<p>Returns an object containing the user&#39;s favorited ingredients</p>
-<table>
-<thead>
-<tr>
-<th>Parameters</th>
-<th>Description</th>
-<th>Type</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>user_id</td>
-<td>passed via body param {user_id: xxx}</td>
-<td>body</td>
+<td>path</td>
 <td>n/a</td>
 </tr>
 </tbody></table>
 <h3>
   <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
-  <code style='background-color: #bdc3c7'>/users/ingredients/:ingredient_id/remove</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/ingredients/:ingredient_id/remove</code>
 </h3>
 
 <p>Removes the ingredient from the list of the user&#39;s favorite ingredients</p>
@@ -736,45 +714,17 @@ for queries without text lookups.</p>
 </tr>
 <tr>
 <td>user_id</td>
-<td>passed via body param {user_id: xxx}</td>
-<td>body</td>
-<td>n/a</td>
-</tr>
-</tbody></table>
-<h3 id='users'>
-  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
-  <code style='background-color: #bdc3c7'>/users/recipes/:recipe_id/add</code>
-</h3>
-
-<p>Adds the recipe to the list of the user&#39;s favorite recipes</p>
-<table>
-<thead>
-<tr>
-<th>Parameters</th>
-<th>Description</th>
-<th>Type</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>recipe_id</td>
-<td>the id of the recipe_id</td>
+<td>the id of the user</td>
 <td>path</td>
 <td>n/a</td>
 </tr>
-<tr>
-<td>user_id</td>
-<td>passed via body param {user_id: xxx}</td>
-<td>body</td>
-<td>n/a</td>
-</tr>
 </tbody></table>
 <h3>
-  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
-  <code style='background-color: #bdc3c7'>/users/recipes</code>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/ingredients</code>
 </h3>
 
-<p>Return an object containing the user&#39;s favorited recipes</p>
+<p>Returns an object containing the user&#39;s favorited ingredients</p>
 <table>
 <thead>
 <tr>
@@ -786,17 +736,19 @@ for queries without text lookups.</p>
 </thead>
 <tbody><tr>
 <td>user_id</td>
-<td>passed via body param {user_id: xxx}</td>
-<td>body</td>
+<td>the id of the user</td>
+<td>path</td>
 <td>n/a</td>
 </tr>
 </tbody></table>
+<hr>
+
 <h3>
-  <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
-  <code style='background-color: #bdc3c7'>/users/recipes/:recipe_id/remove</code>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/recipes/:recipe_id/add</code>
 </h3>
 
-<p>Removes the recipe to the list of the user&#39;s favorite recipes</p>
+<p>Adds the recipe to the list of the user&#39;s favorite recipes</p>
 <table>
 <thead>
 <tr>
@@ -815,7 +767,57 @@ for queries without text lookups.</p>
 <tr>
 <td>user_id</td>
 <td>passed via body param {user_id: xxx}</td>
-<td>body</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<h3>
+  <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/recipes/:recipe_id/remove</code>
+</h3>
+
+<p>Removes the recipe from the list of the user&#39;s favorite recipes</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>recipe_id</td>
+<td>the id of the recipe</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>passed via body param {user_id: xxx}</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/recipes</code>
+</h3>
+
+<p>Returns an object containing the user&#39;s favorited recipes</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>user_id</td>
+<td>the id of the user</td>
+<td>path</td>
 <td>n/a</td>
 </tr>
 </tbody></table>
