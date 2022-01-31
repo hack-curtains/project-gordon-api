@@ -366,7 +366,7 @@ Adds the ingredient to the list of the user's favorite ingredients
 
 <h3>
   <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
-  <code style='background-color: #bdc3c7'>/users/ingredients/</code>
+  <code style='background-color: #bdc3c7'>/users/ingredients</code>
 </h3>
 
 Returns an object containing the user's favorited ingredients
@@ -401,7 +401,7 @@ Adds the recipe to the list of the user's favorite recipes
 
 <h3>
   <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
-  <code style='background-color: #bdc3c7'>/users/recipes/</code>
+  <code style='background-color: #bdc3c7'>/users/recipes</code>
 </h3>
 
 Return an object containing the user's favorited recipes
