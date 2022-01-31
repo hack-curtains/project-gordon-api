@@ -19,7 +19,7 @@ module.exports.addIngredient = async (req, res) => {
   } else {
     try {
       await addIngredient({ user_id, ingredient_id });
-      res.status(200).json({ message: 'recipe added successfully' });
+      res.status(200).json({ message: 'ingredient added successfully' });
     } catch (err) {
       res.status(500).json({ message: 'error connecting to database' });
     }
@@ -67,7 +67,7 @@ module.exports.addRecipe = async (req, res) => {
   } else {
     try {
       await addRecipe({ user_id, recipe_id });
-      res.status(200).json({ message: 'recipe added to favorites successfully' });
+      res.status(200).json({ message: 'recipe added successfully' });
     } catch (err) {
       res.status(500).json({ message: 'error connecting to database' });
     }
@@ -98,7 +98,7 @@ module.exports.removeRecipe = async (req, res) => {
   } else {
     try {
       await removeRecipe({ user_id, recipe_id });
-      res.status(200).json({ message: 'ingredient removed successfully' });
+      res.status(200).json({ message: 'recipe removed successfully' });
     } catch (err) {
       res.status(500).json({ message: 'error connecting to database' });
     }
