@@ -117,8 +117,6 @@ module.exports.getRecipes = async (params = {}) => {
     SELECT count(1) from recipes ${WHERE};
   `;
 
-  console.log(SQL);
-
   let data = await pool.query(SQL);
   let out = {
     page: parseInt(page),
