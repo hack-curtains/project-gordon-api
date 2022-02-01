@@ -30,7 +30,7 @@ describe('Testing Favorite Recipes', () => {
 
     expect(res.statusCode).toEqual(200);
     expect(data).toHaveProperty('message');
-    expect(data.data).toHaveProperty('id', 15);
+    expect(data.data[0]).toHaveProperty('id', 15);
   });
 
   it('[users/recipes] - should add then update if user adds same recipe twice', async () => {
@@ -60,8 +60,7 @@ describe('Testing Favorite Recipes', () => {
 
     //response should contain found, user_id and recipe_id
     expect(data4).toHaveProperty('found', true);
-    expect(data4.data).toHaveProperty('user_id', user_id);
-    expect(data4.data).toHaveProperty('recipe_id', 30);
+    expect(data4.data.length).toEqual(2);
 
     //data should
     let data = await POOL.query(`select recipe_id from users_recipes where user_id = ${user_id}`);
