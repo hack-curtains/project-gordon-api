@@ -29,7 +29,7 @@ describe('Testing Favorite Ingredients', () => {
     let data = JSON.parse(res.text);
     expect(res.statusCode).toEqual(200);
     expect(data).toHaveProperty('message');
-    expect(data.data).toHaveProperty('id', 15);
+    expect(data.data[0]).toHaveProperty('id', 15);
   });
 
   it('[users/ingredients] - should add then update if user adds same ingredient twice', async () => {
@@ -61,8 +61,7 @@ describe('Testing Favorite Ingredients', () => {
 
     //response should contain found, user_id and ingredient_id
     expect(data4).toHaveProperty('found', true);
-    expect(data4.data).toHaveProperty('user_id', user_id);
-    expect(data4.data).toHaveProperty('ingredient_id', 30);
+    expect(data4.data.length).toEqual(2);
 
     //data should
     let data = await POOL.query(
