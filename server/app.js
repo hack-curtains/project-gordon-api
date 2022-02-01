@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs/promises');
+require('dotenv').config();
 
 const recipesController = require('../controllers/recipes.js');
 const tagsController = require('../controllers/tags.js');
@@ -17,8 +18,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(/\/((?!logs).)*/, logger);
-app.use(cache);
+if (process.env.NODE_ENV === 'prod') {
+  app.use(/\/((?!logs).)*/, logger);
+  app.use(cache);
+}
+
 app.use(express.static('docs'));
 
 // Recipe Routes

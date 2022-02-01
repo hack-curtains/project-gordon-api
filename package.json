@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/index.js",
     "buildDocs": "node docs/build.js",
-    "test": "jest --runInBand --verbose"
+    "test": "jest --runInBand --verbose --detectOpenHandles"
   },
   "dependencies": {
     "apicache": "^1.6.3",
