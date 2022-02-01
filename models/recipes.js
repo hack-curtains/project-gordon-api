@@ -130,6 +130,7 @@ module.exports.getRecipes = async (params = {}) => {
   let out = {
     page: parseInt(page),
     count: parseInt(count),
+    fetchTime: new Date(),
     sort: sort,
     direction: direction,
     query: query,

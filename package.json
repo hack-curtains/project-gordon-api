@@ -6,15 +6,18 @@
   "scripts": {
     "start": "node server/index.js",
     "buildDocs": "node docs/build.js",
-    "test": "jest --runInBand --verbose"
+    "test": "jest --runInBand --verbose --detectOpenHandles"
   },
   "dependencies": {
+    "apicache": "^1.6.3",
     "axios": "^0.25.0",
     "cors": "^2.8.5",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
+    "express-pino-logger": "^7.0.0",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
+    "pino": "^7.6.5",
     "sequelize": "^6.14.1"
   },
   "devDependencies": {
