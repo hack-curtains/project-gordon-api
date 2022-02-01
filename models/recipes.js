@@ -1,9 +1,12 @@
-const { rows } = require('pg/lib/defaults');
-const { pool, RECIPE_COLUMNS } = require('./index.js');
-
+const { POOL, RECIPE_COLUMNS } = require('./index.js');
 const ABBREVIATED_COLUMNS = RECIPE_COLUMNS.join(', ');
 
-//Ensure that all the query parameters are validated
+/******************************
+ * Get Query Parameters
+ * Given an object with query params
+ * Return an object containing validation errors
+ *****************************/
+
 const getQueryParamErrors = (obj) => {
   let e = { message: 'there was an issue with your query parameters', errors: {} };
 
@@ -41,7 +44,10 @@ const getQueryParamErrors = (obj) => {
   return e;
 };
 
-//Get the WHERE query
+/******************************
+ * Given query parameters
+ * Return a WHERE statement
+ *****************************/
 
 const getWhereSQL = ({ include, tag_ids, ingredient_ids, query }) => {
   let chunks = [];
@@ -69,6 +75,10 @@ const getWhereSQL = ({ include, tag_ids, ingredient_ids, query }) => {
   }
 };
 
+/******************************
+ * Given query parameters
+ * Return an ORDER by Statement
+ *****************************/
 const getOrderSQL = ({ sort, direction }) => {
   let col = sort === 'default' ? 'id' : sort;
   return `ORDER BY ${col} ${direction}`;
@@ -116,7 +126,7 @@ module.exports.getRecipes = async (params = {}) => {
     SELECT count(1) from recipes ${WHERE};
   `;
 
-  let data = await pool.query(SQL);
+  let data = await POOL.query(SQL);
   let out = {
     page: parseInt(page),
     count: parseInt(count),
@@ -139,6 +149,6 @@ module.exports.getRecipe = async ({ id = 2 }) => {
     FROM recipes
     WHERE id = ${id}
   `;
-  let data = await pool.query(SQL);
+  let data = await POOL.query(SQL);
   return data.rowCount === 0 ? { message: 'not found' } : data.rows[0];
 };

@@ -1,5 +1,8 @@
 const { getRecipes, getRecipe } = require('../models/recipes.js');
 
+/******************************
+ * Get Recipes
+ *****************************/
 module.exports.getRecipes = async (req, res) => {
   try {
     const page = req.query.page || 1;
@@ -13,6 +16,9 @@ module.exports.getRecipes = async (req, res) => {
   }
 };
 
+/******************************
+ * Get Recipe
+ *****************************/
 module.exports.getRecipe = async (req, res) => {
   try {
     const id = req.params.id;

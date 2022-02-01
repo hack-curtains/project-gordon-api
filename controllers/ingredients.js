@@ -1,5 +1,8 @@
 const { getIngredients } = require('../models/ingredients.js');
 
+/******************************
+ * Get Ingredients
+ *****************************/
 module.exports.getIngredients = async (req, res) => {
   try {
     let data = await getIngredients();

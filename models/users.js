@@ -1,4 +1,4 @@
-const { pool, RECIPE_COLUMNS } = require('./index.js');
+const { POOL, RECIPE_COLUMNS } = require('./index.js');
 
 const ABBREVIATED_COLUMNS = RECIPE_COLUMNS.map((c) => 'r.' + c).join(', ');
 
@@ -15,7 +15,7 @@ module.exports.addIngredient = async ({ user_id, ingredient_id }) => {
       UPDATE SET "updatedAt" = CURRENT_TIMESTAMP;
     SELECT id, name, category FROM ingredients where id = ${ingredient_id};
   `;
-  let data = await pool.query(SQL);
+  let data = await POOL.query(SQL);
   return {
     update: data[0].rows.length > 0 ? true : false,
     data: data[2].rows[0],
@@ -32,7 +32,7 @@ module.exports.removeIngredient = async ({ user_id, ingredient_id }) => {
     DELETE FROM users_ingredients
     WHERE user_id = ${user_id} AND ingredient_id = ${ingredient_id};
   `;
-  let data = await pool.query(SQL);
+  let data = await POOL.query(SQL);
   return {
     found: data[0].rows.length > 0 ? true : false,
     data: data[0].rows[0],
@@ -52,7 +52,7 @@ module.exports.getIngredients = async ({ user_id }) => {
     WHERE ui.user_id = ${user_id}
     ORDER BY i.id
   `;
-  let data = await pool.query(SQL);
+  let data = await POOL.query(SQL);
   return data.rows;
 };
 
@@ -69,7 +69,7 @@ module.exports.addRecipe = async ({ user_id, recipe_id }) => {
       UPDATE SET "updatedAt" = CURRENT_TIMESTAMP;
     SELECT ${ABBREVIATED_COLUMNS} FROM recipes r where r.id = ${recipe_id};
   `;
-  let data = await pool.query(SQL);
+  let data = await POOL.query(SQL);
   return {
     update: data[0].rows.length > 0 ? true : false,
     data: data[2].rows[0],
@@ -86,7 +86,7 @@ module.exports.removeRecipe = async ({ user_id, recipe_id }) => {
     DELETE FROM users_recipes
     WHERE user_id = ${user_id} AND recipe_id = ${recipe_id};
   `;
-  let data = await pool.query(SQL);
+  let data = await POOL.query(SQL);
   return {
     found: data[0].rows.length > 0 ? true : false,
     data: data[0].rows[0],
@@ -106,6 +106,6 @@ module.exports.getRecipes = async ({ user_id }) => {
     WHERE ur.user_id = ${user_id}
     ORDER BY r.id
   `;
-  let data = await pool.query(SQL);
+  let data = await POOL.query(SQL);
   return data.rows;
 };
