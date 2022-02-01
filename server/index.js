@@ -1,7 +1,6 @@
 const app = require('./app');
 const port = process.env.PORT || 3000;
 
-<<<<<<< HEAD
 const { getRecipes, getRecipe } = require('../models/recipes.js');
 
 const recipesController = require('../controllers/recipes.js');
@@ -38,8 +37,3 @@ app.put('/users/recipes/:recipe_id/remove', usersController.removeRecipe);
 app.listen(port, async () => {
   console.log('Server is running at http://localhost:' + port);
 });
-=======
-app.listen(port, () => {
-  console.log(`API running on port ${port}`);
-});
->>>>>>> source/main

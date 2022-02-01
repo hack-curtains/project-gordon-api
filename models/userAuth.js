@@ -7,7 +7,7 @@ var mysql = require('mysql2')
  * Used for logging in
  ******************************/
 var con = mysql.createConnection({
-  host: 'localhost',
+  host: '127.0.0.1',
   user: 'ubuntu',
   password: 'password',
   database: 'ProjectGordonUsers'
@@ -16,6 +16,15 @@ con.connect(function (err) {
   if (err) throw err
   console.log('Connected!')
 })
+
+module.exports.checkForUser = async (email) => {
+  let sqlQuery = `SELECT id, username FROM Users Where email = '${email}'`
+  let data = await con
+  .promise()
+  .query(sqlQuery)
+  console.log(data[0])
+  return data[0]
+}
 
 module.exports.createUser = async (username, password, email) => {
 
@@ -27,7 +36,7 @@ module.exports.createUser = async (username, password, email) => {
     .toString(`hex`)
 
   let insertData = [[username, newHash, newSalt, email]]
-  console.log(insertData)
+  //console.log(insertData)
   let insertQuery = `INSERT INTO Users(username, password, salt, email) VALUES ?;`
   con.query(insertQuery, [insertData], function (err, result, fields) {
     if (err) throw err
@@ -37,10 +46,10 @@ module.exports.createUser = async (username, password, email) => {
   return true
 }
 
-module.exports.loginUser = async username => {
+module.exports.loginUser = async email => {
   let data = await con
     .promise()
-    .query(`SELECT password, salt FROM Users Where username = '${username}'`)
+    .query(`SELECT password, salt FROM Users Where email = '${email}'`)
   if (data[0].length === 0) {
     return false
   } else {
@@ -48,4 +57,15 @@ module.exports.loginUser = async username => {
     return checkData
   }
 }
-module.exports.checkSession = async ({ id = 2 }) => {}
+module.exports.createSession = async (userID, sessionID) => {
+
+  let insertData = [[userID, sessionID]]
+  let insertQuery = `INSERT INTO Sessions (id_Users, cookie) VALUES ?;`
+  con.promise().query(insertQuery, [insertData])
+  return true
+}
+module.exports.checkForSession = async () => {
+
+
+}
+

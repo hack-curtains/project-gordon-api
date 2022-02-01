@@ -26,69 +26,116 @@ app.use(
   })
 )
 
-const { checkSession, createUser, loginUser } = require('../models/userAuth.js')
+const {
+  checkForUser,
+  checkSession,
+  createUser,
+  loginUser,
+  createSession,
+  checkForSession
+} = require('../models/userAuth.js')
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   session = req.session
-  console.log(session)
-  if (session.userid) {
+  //console.log(session)
+  let sessionExists = await checkForSession(req.sessionID)
+  if (sessionExists === true) {
     //Deliver User Page here
-    res.send({message:"deliver user page"})
+    res.send({ loggedIn: true, message: 'deliver user page' })
   } else {
     //deliver login page here
-    res.send( {message: "deliver login page"})
+    res.send({ loggedIn: false, message: 'deliver login page' })
   }
 })
 
-// post(/users/new) username, password, email
-app.post('/users/new', async (req, res) => {
-  // const username = req.body.username
-  // const password = req.body.password
-  // const email = req.body.email
-  console.log(req.body, req.query, req.data)
-  res.send("ok")
-  // let status = await createUser(username, password, email)
-  // if (status === true) {
-  //   res.status(201).send({ message: 'successfully created new user' })
-  // } else {
-    // res.status(409).send({ message: 'error processing request'})
-  // }
-  // Prints derivedKey
-})
 // create a user in the database
-
+// app.get('/tester', async (req, res) => {
+//   let username = "billy"
+//   let data = await checkForUser(username)
+//   let zeroboy = "blah"
+//   let bigStack = !zeroboy ? username : zeroboy
+//   console.log(bigStack)
+//   res.send(data)
+// })
 // initiate new session given the new user information
 // .next() to login
+// post(/users/new) username, password, email
+
+// add dupe handling
+// add email login
+//maybe password complexity handling
+app.post('/users/new', async (req, res) => {
+  if (
+    req.body.username === undefined ||
+    req.body.password === undefined ||
+    req.body.email === undefined
+  ) {
+    res.status(406).send({ message: 'New user data incomplete' })
+  } else {
+    const username = req.body.username
+    const password = req.body.password
+    const email = req.body.email
+    // console.log(email)
+    let userCheck = await checkForUser(email)
+    //console.log("here is user check", userCheck.length )
+    if (userCheck.length <= 0) {
+      let status = await createUser(username, password, email)
+
+      if (status === true) {
+        res.status(201).send({ message: 'successfully created new user' })
+        res.locals.username = username
+        res.locals.password = password
+        // res.next('/users/login')
+      } else {
+        res.status(409).send({ message: 'error processing new user request' })
+      }
+    } else {
+      res.status(409).send({ message: 'Username already taken' })
+    }
+  }
+})
 
 // post(/users/login) username, password
 app.post('/users/login', async (req, res) => {
   // attempt to authenticate/login
   // grab hash from database
-  const username = req.query.username
-  const password = req.query.password
-
-  // console.log(username, password)
-  let data = await loginUser(username)
-  if (data === false) {
-    res.status(500).send({ message: 'No such user' })
+  if (
+    req.body.password === undefined ||
+    req.body.email === undefined
+  ) {
+    res.status(406).send({ message: 'User login data incomplete' })
   } else {
-    let checkerHash = crypto
-      .pbkdf2Sync(password, data[1], 1000, 64, `sha512`)
-      .toString(`hex`)
-    console.log(checkerHash === data[0])
-
-    if (checkerHash === data[0]) {
-      session = req.session
-      session.userid = username
-      console.log(req.session)
-    //   res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`)
+    const password = req.body.password
+    const email = req.body.email
+    console.log(req.sessionID)
+    // console.log(username, password)
+    let data = await loginUser(email)
+    if (data === false) {
+      res.status(500).send({ message: 'No such user' })
     } else {
-      res.send('Invalid username or password')
-    }
+      let checkerHash = crypto
+        .pbkdf2Sync(password, data[1], 1000, 64, `sha512`)
+        .toString(`hex`)
+      //console.log(checkerHash === data[0])
 
-    // create cookie/session if success
-    res.status(200).send(data)
-    // return reason for failure if failure
+      if (checkerHash === data[0]) {
+        session = req.session
+        session.userid = email
+        let userInfo = await checkForUser(email)
+        let userID = userInfo[0].id
+        let sessionID = req.sessionID
+        let sessionCreated = await createSession(userID, sessionID)
+        //console.log(req.session)
+        res.status(200).send({ message: 'successfully logged in' })
+        //   res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`)
+      } else {
+        res.send({ message: 'Invalid username or password' })
+      }
+
+      // create cookie/session if success
+      //res.status(200).send(data)
+      // return reason for failure if failure
+    }
   }
 })
 
