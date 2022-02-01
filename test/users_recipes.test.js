@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { pool } = require('../models/index');
+const { POOL } = require('../models/index');
 const app = require('../server/app');
 
 const user_id = 999;
@@ -21,7 +21,7 @@ describe('Testing Favorite Recipes', () => {
   };
 
   beforeEach(async () => {
-    await pool.query(`delete from users_recipes where user_id = ${user_id}`);
+    await POOL.query(`delete from users_recipes where user_id = ${user_id}`);
   });
 
   it('[users/recipes] - should add an recipe', async () => {
@@ -46,7 +46,7 @@ describe('Testing Favorite Recipes', () => {
     await add(10);
     await add(15);
     await add(30);
-    let data = await pool.query(`select recipe_id from users_recipes where user_id = ${user_id}`);
+    let data = await POOL.query(`select recipe_id from users_recipes where user_id = ${user_id}`);
     expect(data.rows.map((x) => x.recipe_id)).toEqual([10, 15, 30]);
   });
 
@@ -64,7 +64,7 @@ describe('Testing Favorite Recipes', () => {
     expect(data4.data).toHaveProperty('recipe_id', 30);
 
     //data should
-    let data = await pool.query(`select recipe_id from users_recipes where user_id = ${user_id}`);
+    let data = await POOL.query(`select recipe_id from users_recipes where user_id = ${user_id}`);
     expect(data.rows.map((x) => x.recipe_id)).toEqual([10, 15]);
   });
 
@@ -79,6 +79,6 @@ describe('Testing Favorite Recipes', () => {
   });
 
   afterAll(async () => {
-    await pool.end();
+    await POOL.end();
   });
 });

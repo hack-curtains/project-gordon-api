@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { pool } = require('../models/index');
+const { POOL } = require('../models/index');
 const app = require('../server/app');
 
 const user_id = 999;
@@ -21,7 +21,7 @@ describe('Testing Favorite Ingredients', () => {
   };
 
   beforeEach(async () => {
-    await pool.query(`delete from users_ingredients where user_id = ${user_id}`);
+    await POOL.query(`delete from users_ingredients where user_id = ${user_id}`);
   });
 
   it('[users/ingredients] - should add an ingredient', async () => {
@@ -45,7 +45,7 @@ describe('Testing Favorite Ingredients', () => {
     await add(10);
     await add(15);
     await add(30);
-    let data = await pool.query(
+    let data = await POOL.query(
       `select ingredient_id from users_ingredients where user_id = ${user_id}`
     );
     expect(data.rows.map((x) => x.ingredient_id)).toEqual([10, 15, 30]);
@@ -65,7 +65,7 @@ describe('Testing Favorite Ingredients', () => {
     expect(data4.data).toHaveProperty('ingredient_id', 30);
 
     //data should
-    let data = await pool.query(
+    let data = await POOL.query(
       `select ingredient_id from users_ingredients where user_id = ${user_id}`
     );
     expect(data.rows.map((x) => x.ingredient_id)).toEqual([10, 15]);
@@ -82,6 +82,6 @@ describe('Testing Favorite Ingredients', () => {
   });
 
   afterAll(async () => {
-    await pool.end();
+    await POOL.end();
   });
 });

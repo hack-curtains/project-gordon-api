@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { pool } = require('../models/index');
+const { POOL } = require('../models/index');
 const app = require('../server/app');
 
 describe('Testing Tags', () => {
@@ -14,6 +14,6 @@ describe('Testing Tags', () => {
   });
 
   afterAll(async () => {
-    await pool.end();
+    await POOL.end();
   });
 });

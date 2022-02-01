@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { pool } = require('../models/index');
+const { POOL } = require('../models/index');
 const app = require('../server/app');
 
 describe('Testing Recipes Sorting and Pagination', () => {
@@ -63,6 +63,6 @@ describe('Testing Recipes Sorting and Pagination', () => {
   });
 
   afterAll(async () => {
-    await pool.end();
+    await POOL.end();
   });
 });

@@ -1,4 +1,4 @@
-const { pool } = require('./index.js');
+const { POOL } = require('./index.js');
 
 /******************************
  * Returns a list of all tags
@@ -12,6 +12,6 @@ module.exports.getTags = async () => {
   ORDER BY id ASC
   `;
 
-  let data = await pool.query(SQL);
+  let data = await POOL.query(SQL);
   return data.rows;
 };
