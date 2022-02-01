@@ -4,7 +4,6 @@ const { getRecipes, getRecipe } = require('../models/recipes.js');
  * Get Recipes
  *****************************/
 module.exports.getRecipes = async (req, res) => {
-  console.log(req.path);
   try {
     const page = req.query.page || 1;
     const count = req.query.count || 10;
