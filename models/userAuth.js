@@ -64,8 +64,16 @@ module.exports.createSession = async (userID, sessionID) => {
   con.promise().query(insertQuery, [insertData])
   return true
 }
-module.exports.checkForSession = async () => {
-
+module.exports.checkForSession = async (sessionID) => {
+  let checkData = [[sessionID]]
+  let checkQuery = `SELECT id_Users, cookie FROM Users Where cookie = '${sessionID}'`
+  let check = await con.promise().query(insertQuery, [insertData])
+  let checkResponse = check[0]
+  if (check[0].length >= 0) {
+    return [true, checkResponse]
+  } else {
+    return [false]
+  }
 
 }
 

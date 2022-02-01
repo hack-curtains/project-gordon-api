@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server/index.js",
     "buildDocs": "node docs/build.js",
-    "test": "jest --runInBand --verbose"
+    "test": "jest --runInBand --verbose",
+    "startAuth": "node authServer/index.js"
   },
   "dependencies": {
     "axios": "^0.25.0",

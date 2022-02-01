@@ -4,3 +4,4 @@ node_modules
 database/rawdata/json
 package-lock.json
 ./docs/index.html
+projectgordonkey.pem

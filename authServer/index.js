@@ -39,31 +39,17 @@ app.get('/', async (req, res) => {
   session = req.session
   //console.log(session)
   let sessionExists = await checkForSession(req.sessionID)
-  if (sessionExists === true) {
+  if (sessionExists[0] === true) {
     //Deliver User Page here
+    session.userid = sessionExists[1]
     res.send({ loggedIn: true, message: 'deliver user page' })
+
   } else {
     //deliver login page here
     res.send({ loggedIn: false, message: 'deliver login page' })
   }
 })
 
-// create a user in the database
-// app.get('/tester', async (req, res) => {
-//   let username = "billy"
-//   let data = await checkForUser(username)
-//   let zeroboy = "blah"
-//   let bigStack = !zeroboy ? username : zeroboy
-//   console.log(bigStack)
-//   res.send(data)
-// })
-// initiate new session given the new user information
-// .next() to login
-// post(/users/new) username, password, email
-
-// add dupe handling
-// add email login
-//maybe password complexity handling
 app.post('/users/new', async (req, res) => {
   if (
     req.body.username === undefined ||
@@ -82,10 +68,15 @@ app.post('/users/new', async (req, res) => {
       let status = await createUser(username, password, email)
 
       if (status === true) {
-        res.status(201).send({ message: 'successfully created new user' })
         res.locals.username = username
         res.locals.password = password
         // res.next('/users/login')
+        session = req.session
+        session.userid = email
+        let newSessionInformation = await checkForUserID(email)
+        createSession(newSessionInformation.id, req.sessionID)
+
+        res.status(201).send({ message: 'successfully created new user' })
       } else {
         res.status(409).send({ message: 'error processing new user request' })
       }
@@ -95,7 +86,6 @@ app.post('/users/new', async (req, res) => {
   }
 })
 
-// post(/users/login) username, password
 app.post('/users/login', async (req, res) => {
   // attempt to authenticate/login
   // grab hash from database
