@@ -571,6 +571,67 @@ for queries without text lookups.</p>
   <span class="hljs-attr">&quot;rows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> recipe1 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span> recipe2 <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
+<h2 id='search'>Match</h2>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/match/ingredients</code>
+  <a href='match/ingredients/?ids=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16' target="_blank">/match/ingredients</a>
+</h3>
+
+<p>Takes a comma separated list of ingredient_ids and returns all recipes that can be
+made entirely from the recipes in the id list.</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ids</td>
+<td>a comma separated list of ingredient_ids</td>
+<td>query</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>page</td>
+<td>the page number of results to return</td>
+<td>query</td>
+<td>1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>the number of results to show per page</td>
+<td>query</td>
+<td>10</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
+<td>query</td>
+<td>&#39;default&#39;</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>&#39;asc&#39; desc&#39;</td>
+<td>query</td>
+<td>&#39;desc&#39;</td>
+</tr>
+</tbody></table>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;page&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;ids&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-number">2047</span><span class="hljs-punctuation">,</span> <span class="hljs-number">11215</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;sort&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;likes&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;direction&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;desc&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;totalRows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1225</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;queryRows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;rows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> recipe1 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span> recipe2 <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
 <h2 id='users'>Users</h2>
 <h3>
   <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
