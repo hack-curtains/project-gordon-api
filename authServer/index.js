@@ -70,7 +70,6 @@ app.post('/users/new', async (req, res) => {
       if (status === true) {
         res.locals.username = username
         res.locals.password = password
-        // res.next('/users/login')
         session = req.session
         session.userid = email
         let newSessionInformation = await checkForUserID(email)

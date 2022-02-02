@@ -18,7 +18,15 @@ con.connect(function (err) {
 })
 
 module.exports.checkForUser = async (email) => {
-  let sqlQuery = `SELECT id, username FROM Users Where email = '${email}'`
+  let sqlQuery = `SELECT id, username FROM Users WHERE email = '${email}'`
+  let data = await con
+  .promise()
+  .query(sqlQuery)
+  console.log(data[0])
+  return data[0]
+}
+module.exports.checkForUserID = async (email) => {
+  let sqlQuery = `SELECT id FROM Users WHERE email = '${email}'`
   let data = await con
   .promise()
   .query(sqlQuery)

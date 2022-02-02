@@ -381,7 +381,7 @@ Adds the provided user profile to the database.  User profile should be passed a
 Adds the provided user profile to the database.  User profile should be passed as a query with the following fields
 | Parameters    | Description                           | Type | Default |
 | ------------- | ------------------------------------  | ---- | ------- |
-| username      | passed via query param                |string| n/a     |
+| email         | passed via query param                |string| n/a     |
 | password      | passed via query param {password: xxx}|string| n/a     |
 
 <h3>
