@@ -1,5 +1,9 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser')
+const sessions = require('express-session')
+const crypto = require('crypto')
+const bodyParser = require('body-parser')
 require('dotenv').config();
 
 const recipesController = require('../controllers/recipes.js');
@@ -10,6 +14,7 @@ const filterController = require('../controllers/filter.js');
 const usersController = require('../controllers/users.js');
 const logsController = require('../controllers/logs.js');
 const matchController = require('../controllers/match.js');
+const authController = require('../controllers/authentication.js')
 const cache = require('./cache.js');
 const logger = require('./logger.js');
 const app = express();
@@ -17,6 +22,8 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+app.use(bodyParser.json())
 
 //only cache and log in production
 if (process.env.NODE_ENV === 'prod') {
@@ -47,6 +54,12 @@ app.get('/users/:user_id/ingredients', usersController.getIngredients);
 app.post('/users/:user_id/recipes/:recipe_id/add', usersController.addRecipe);
 app.put('/users/:user_id/recipes/:recipe_id/remove', usersController.removeRecipe);
 app.get('/users/:user_id/recipes', usersController.getRecipes);
+
+// User Authentication
+app.get('/newSession', authController.createSession);
+app.post('/users/new', authController.newUser);
+app.post('/users/login', authController.loginUser);
+app.put('/users/logout', authController.logoutUser);
 
 //Cache Routes
 app.get('/logs', logsController);
