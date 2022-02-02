@@ -41,7 +41,7 @@ app.get('/', async (req, res) => {
   let sessionExists = await checkForSession(req.sessionID)
   if (sessionExists[0] === true) {
     //Deliver User Page here
-    session.userid = sessionExists[1]
+    session.cookie.userid = sessionExists[1]
     res.send({ loggedIn: true, message: 'deliver user page' })
 
   } else {
@@ -71,11 +71,11 @@ app.post('/users/new', async (req, res) => {
         res.locals.username = username
         res.locals.password = password
         session = req.session
-        session.userid = email
+        session.cookie.userid = email
         let newSessionInformation = await checkForUser(email)
         // console.log(newSessionInformation[0].id)
         createSession(newSessionInformation[0].id, req.sessionID)
-
+        res.session = session
         res.status(201).send({ message: 'successfully created new user' })
       } else {
         res.status(409).send({ message: 'error processing new user request' })
@@ -111,12 +111,13 @@ app.post('/users/login', async (req, res) => {
 
       if (checkerHash === data[0]) {
         session = req.session
-        session.userid = email
+        session.cookie.userid = email
         let userInfo = await checkForUser(email)
         let userID = userInfo[0].id
         let sessionID = req.sessionID
         let sessionCreated = await createSession(userID, sessionID)
-        //console.log(req.session)
+        res.session = session
+        console.log(res.session)
         res.status(200).send({ message: 'successfully logged in' })
         //   res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`)
       } else {
