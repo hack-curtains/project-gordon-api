@@ -47,7 +47,9 @@ describe('Testing Favorite Recipes', () => {
     await add(15);
     await add(30);
     let data = await POOL.query(`select recipe_id from users_recipes where user_id = ${user_id}`);
-    expect(data.rows.map((x) => x.recipe_id)).toEqual([10, 15, 30]);
+    expect(data.rows.map((x) => x.recipe_id).sort((a, b) => parseInt(a) - parseInt(b))).toEqual([
+      10, 15, 30,
+    ]);
   });
 
   it('[users/recipes] - should add 3 then remove 1', async () => {
@@ -64,7 +66,7 @@ describe('Testing Favorite Recipes', () => {
 
     //data should
     let data = await POOL.query(`select recipe_id from users_recipes where user_id = ${user_id}`);
-    expect(data.rows.map((x) => x.recipe_id)).toEqual([10, 15]);
+    expect(data.rows.length).toEqual(2);
   });
 
   it('[users/recipes] - should return an array of items', async () => {

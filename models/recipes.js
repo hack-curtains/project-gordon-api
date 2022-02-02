@@ -49,17 +49,23 @@ const getQueryParamErrors = (obj) => {
  * Return a WHERE statement
  *****************************/
 
-const getWhereSQL = ({ include, tag_ids, ingredient_ids, query }) => {
+const getWhereSQL = ({ include, tag_ids, ingredient_ids, query, exact }) => {
   let chunks = [];
 
-  let operator = include === true ? '@>' : '&&';
+  let tag_operator = include === true ? '@>' : '&&';
+  let ingredient_operator = include === true ? '@>' : '&&';
+  if (exact === true) {
+    ingredient_operator = '<@';
+  }
 
   if (tag_ids.length > 0) {
-    chunks.push(`(tag_ids ${operator} Array[${tag_ids.join(',')}]::integer[])`);
+    chunks.push(`(tag_ids ${tag_operator} Array[${tag_ids.join(',')}]::integer[])`);
   }
 
   if (ingredient_ids.length > 0) {
-    chunks.push(`(ingredient_ids ${operator} ARRAY[${ingredient_ids.join(',')}]::INTEGER[])`);
+    chunks.push(
+      `(ingredient_ids ${ingredient_operator} ARRAY[${ingredient_ids.join(',')}]::INTEGER[])`
+    );
   }
 
   if (query.length > 0) {
@@ -98,6 +104,7 @@ module.exports.getRecipes = async (params = {}) => {
     include = true,
     tag_ids = [],
     ingredient_ids = [],
+    exact = false,
     query = '',
   } = params;
 
@@ -117,7 +124,7 @@ module.exports.getRecipes = async (params = {}) => {
     return errors;
   }
 
-  const WHERE = getWhereSQL({ include, tag_ids, ingredient_ids, query });
+  const WHERE = getWhereSQL({ include, tag_ids, ingredient_ids, query, exact });
   const ORDER = getOrderSQL({ sort, direction });
   const OFFSET = (page - 1) * count;
 
@@ -136,6 +143,7 @@ module.exports.getRecipes = async (params = {}) => {
     query: query,
     tag_ids: tag_ids,
     ingredient_ids: ingredient_ids,
+    exact_ingredient_match: exact,
     totalRows: parseInt(data[1].rows[0].count),
     queryRows: data[0].rowCount,
     rows: data[0].rows,
@@ -144,6 +152,10 @@ module.exports.getRecipes = async (params = {}) => {
   return out;
 };
 
+/******************************
+ * Returns an abbreviated list of recipes
+ * Used for rendering many recipe cards
+ ******************************/
 module.exports.getRecipe = async ({ id = 2 }) => {
   const SQL = `
     SELECT *
@@ -152,4 +164,22 @@ module.exports.getRecipe = async ({ id = 2 }) => {
   `;
   let data = await POOL.query(SQL);
   return data.rowCount === 0 ? { message: 'not found' } : data.rows[0];
+};
+
+/******************************
+ * Returns an abbreviated list of recipes
+ * Used for rendering many recipe cards
+ ******************************/
+
+module.exports.matchRecipes = async ({ page, count, ids, sort, direction }) => {
+  console.log('>>model');
+  let out = {
+    page: parseInt(page),
+    count: parseInt(count),
+    ingredient_ids: ids,
+    totalRows: null,
+    queryRows: null,
+    rows: null,
+  };
+  return out;
 };

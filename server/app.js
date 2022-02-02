@@ -9,20 +9,22 @@ const searchController = require('../controllers/search.js');
 const filterController = require('../controllers/filter.js');
 const usersController = require('../controllers/users.js');
 const logsController = require('../controllers/logs.js');
+const matchController = require('../controllers/match.js');
 const cache = require('./cache.js');
 const logger = require('./logger.js');
-
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
+//only cache and log in production
 if (process.env.NODE_ENV === 'prod') {
   app.use(/\/((?!logs).)*/, logger);
   app.use(cache);
 }
 
+//static logs
 app.use(express.static('docs'));
 
 // Recipe Routes
@@ -36,6 +38,7 @@ app.get('/search', searchController.search);
 app.get('/filter/ingredients', filterController.filterIngredients);
 app.get('/filter/tags', filterController.filterTags);
 app.get('/filter', filterController.filter);
+app.get('/match/ingredients', matchController.matchIngredients);
 
 // User Routes
 app.post('/users/:user_id/ingredients/:ingredient_id/add', usersController.addIngredient);

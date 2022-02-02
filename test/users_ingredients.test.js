@@ -77,7 +77,7 @@ describe('Testing Favorite Ingredients', () => {
     await remove(30);
     let res = await get();
     let data = JSON.parse(res.text);
-    expect(data.map((i) => i.id)).toEqual([10, 15]);
+    expect(data.length).toEqual(2);
   });
 
   afterAll(async () => {

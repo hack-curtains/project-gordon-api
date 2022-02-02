@@ -34,6 +34,9 @@ module.exports.searchTags = async (req, res) => {
   }
 };
 
+/******************************
+ * Search General
+ *****************************/
 module.exports.search = async (req, res) => {
   try {
     const page = parseInt(req.query.page || 1);
