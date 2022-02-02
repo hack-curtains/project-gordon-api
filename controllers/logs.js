@@ -8,21 +8,23 @@ module.exports = async (req, res) => {
   let json = data
     .split('\n')
     .filter((x) => x.length > 10)
+    .slice(-100)
     .map((x) => JSON.parse(x));
 
   let table =
     '<table style="white-space: nowrap"><tr>' +
     json
       .map(
-        (x) =>
+        (x, i) =>
           '<td>' +
           [
+            `${i + 1}`,
             `🌐 ${x.req.method}`,
             `🌐 ${x.req.url}`,
-            `🏡 ${x.req.headers.host}`,
-            `💻 ${x.req.headers['user-agent']}`,
             `${x.res.statusCode === 200 ? '✅' : '⚠️'} ${x.res.statusCode}`,
             `⚡ ${x.responseTime}ms`,
+            `🏡 ${x.req.headers.host}`,
+            `💻 ${x.req.headers['user-agent']}`,
             `📅 ${new Date(x.time)}`,
             `🏠 ${x.hostname}`,
           ].join('</td><td>') +

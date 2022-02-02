@@ -4,6 +4,7 @@
   <a href="#ingredients">/ingredients</a>
   <a href="#search">/search</a>
   <a href="#filter">/filter</a>
+  <a href="#match">/match</a>
   <a href="#users">/users</a>
 </h1>
 
@@ -351,7 +352,7 @@ Example Response
 }
 ```
 
-<h2 id='search'>Match</h2>
+<h2 id='match'>Match</h2>
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/match/ingredients</code>

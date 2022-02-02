@@ -2,11 +2,25 @@ version: '3.3'
 
 services:
   db:
-    build: database/
+    image: postgres:latest
+    restart: always
     ports:
       - '5432:5432'
+    environment:
+      - POSTGRES_USER=sieke
+      - POSTGRES_PASSWORD=temp
+      - POSTGRES_DB=recipes
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./database/init/DATA.sql:/docker-entrypoint-initdb.d/DATA.sql
   api:
     build: .
     restart: always
     ports:
       - '3000:8080'
+    volumes:
+      - api-data:/app/logs
+
+volumes:
+  api-data:
+  db-data:
