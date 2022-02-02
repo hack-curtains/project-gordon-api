@@ -1,72 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-  <meta charset="UTF-8" />
-  <title>Project Gordon API Docs</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="markdown.css" />
 
-  <body>
-    <h1>
-      Gorden API Spec
-      <a href="#recipes">/recipes</a>
-      <a href="#tags">/tags</a>
-      <a href="#ingredients">/ingredients</a>
-      <a href="#search">/search</a>
-      <a href="#filter">/filter</a>
-      <a href="#match">/match</a>
-      <a href="#users">/users</a>
-    </h1>
+  <!DOCTYPE html>
+  <html lang="en">
+    <meta charset="UTF-8">
+    <title>Project Gordon API Docs</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="markdown.css">
 
-    <h2 id="recipes">Recipes</h2>
+    <body>
+      <h1>Gorden API Spec
+  <a href="#recipes">/recipes</a>
+  <a href="#tags">/tags</a>
+  <a href="#ingredients">/ingredients</a>
+  <a href="#search">/search</a>
+  <a href="#filter">/filter</a>
+  <a href="#match">/match</a>
+  <a href="#users">/users</a>
+</h1>
 
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/recipes</code>
-      <a href="recipes" target="_blank">/recipes</a>
-    </h3>
+<h2 id='recipes'>Recipes</h2>
 
-    <p>
-      Returns an array of recipes with minimal information needed to render a recipe card. Will not
-      include full recipe data e.g. instructions to minimize size
-    </p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>page</td>
-          <td>the page number of results to return</td>
-          <td>query</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>count</td>
-          <td>the number of results to show per page</td>
-          <td>query</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>sort</td>
-          <td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
-          <td>query</td>
-          <td>&#39;default&#39;</td>
-        </tr>
-        <tr>
-          <td>direction</td>
-          <td>&#39;asc&#39; desc&#39;</td>
-          <td>query</td>
-          <td>&#39;desc&#39;</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Example Response</p>
-    <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/recipes</code>
+  <a href='recipes' target="_blank">/recipes</a>
+</h3>
+
+<p>Returns an array of recipes with minimal information needed to render a recipe card. Will not include full recipe data e.g. instructions to minimize size</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>page</td>
+<td>the page number of results to return</td>
+<td>query</td>
+<td>1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>the number of results to show per page</td>
+<td>query</td>
+<td>10</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
+<td>query</td>
+<td>&#39;default&#39;</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>&#39;asc&#39; desc&#39;</td>
+<td>query</td>
+<td>&#39;desc&#39;</td>
+</tr>
+</tbody></table>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;page&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;sort&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;default&quot;</span><span class="hljs-punctuation">,</span>
@@ -100,33 +95,31 @@
   <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/recipes/:id</code>
-      <a href="recipes/2" target="_blank">/recipes/2</a>
-    </h3>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/recipes/:id</code>
+  <a href='recipes/2' target="_blank">/recipes/2</a>
+</h3>
 
-    <p>Returns an object containing the recipe</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>id</td>
-          <td>the id of the recipe to return</td>
-          <td>path</td>
-          <td>n/a</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Example Response</p>
-    <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+<p>Returns an object containing the recipe</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>the id of the recipe to return</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Roasted Cauliflower With Anchovy Bread Crumbs&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;likes&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">13</span><span class="hljs-punctuation">,</span>
@@ -162,94 +155,87 @@
   <span class="hljs-attr">&quot;updatedAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2022-01-29T13:57:31.121Z&quot;</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-    <h2 id="tags">Tags</h2>
+<h2 id='tags'>Tags</h2>
 
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/tags</code>
-      <a href="tags" target="_blank">/tags</a>
-    </h3>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/tags</code>
+  <a href='tags' target="_blank">/tags</a>
+</h3>
 
-    <p>Returns an exhaustive array of all tags</p>
-    <p>Example Response</p>
-    <pre><code class="hljs language-json"><span class="hljs-punctuation">[</span>
+<p>Returns an exhaustive array of all tags</p>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">[</span>
   <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">22</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;European&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;category&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cuisines&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;frequency&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2448</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
   <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">20</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Mediterranean&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;category&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cuisines&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;frequency&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1851</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
   <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">11</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;American&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;category&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cuisines&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;frequency&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1448</span> <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">]</span>
 </code></pre>
-    <h2 id="ingredients">Ingredients</h2>
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/ingredients</code>
-      <a href="ingredients" target="_blank">/ingredients</a>
-    </h3>
+<h2 id='ingredients'>Ingredients</h2>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/ingredients</code>
+  <a href='ingredients' target="_blank">/ingredients</a>
+</h3>
 
-    <p>Returns an exhaustive array of all tags</p>
-    <p>Example Response</p>
-    <pre><code class="hljs language-json"><span class="hljs-punctuation">[</span>
+<p>Returns an exhaustive array of all tags</p>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">[</span>
   <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2047</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;salt&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;category&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Spices and Seasonings&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;frequency&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3855</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
   <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">11215</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;garlic&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;category&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Produce&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;frequency&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3639</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
   <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">19335</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sugar&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;category&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Baking&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;frequency&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2529</span> <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">]</span>
 </code></pre>
-    <h2 id="search">Search</h2>
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/search/ingredients</code>
-      <a href="search/ingredients/?ids=2,3&sort=likes&direction=desc" target="_blank"
-        >/search/ingredients?ids=2,3</a
-      >
-    </h3>
+<h2 id='search'>Search</h2>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/search/ingredients</code>
+  <a href='search/ingredients/?ids=2,3&sort=likes&direction=desc' target="_blank">/search/ingredients?ids=2,3</a>
+</h3>
 
-    <p>
-      Takes a comma separated list of ingredient ids and returns an array of recipes that contain
-      ALL ingredients passed.
-    </p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>ids</td>
-          <td>a comma separated list of ingredient_ids</td>
-          <td>query</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>page</td>
-          <td>the page number of results to return</td>
-          <td>query</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>count</td>
-          <td>the number of results to show per page</td>
-          <td>query</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>sort</td>
-          <td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
-          <td>query</td>
-          <td>&#39;default&#39;</td>
-        </tr>
-        <tr>
-          <td>direction</td>
-          <td>&#39;asc&#39; desc&#39;</td>
-          <td>query</td>
-          <td>&#39;desc&#39;</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Example Response</p>
-    <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+<p>Takes a comma separated list of ingredient ids and returns an array of recipes that contain ALL ingredients passed.</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ids</td>
+<td>a comma separated list of ingredient_ids</td>
+<td>query</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>page</td>
+<td>the page number of results to return</td>
+<td>query</td>
+<td>1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>the number of results to show per page</td>
+<td>query</td>
+<td>10</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
+<td>query</td>
+<td>&#39;default&#39;</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>&#39;asc&#39; desc&#39;</td>
+<td>query</td>
+<td>&#39;desc&#39;</td>
+</tr>
+</tbody></table>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;page&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;ids&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-number">2047</span><span class="hljs-punctuation">,</span> <span class="hljs-number">11215</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -260,62 +246,55 @@
   <span class="hljs-attr">&quot;rows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> recipe1 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span> recipe2 <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/search/tags</code>
-      <a href="search/tags?ids=11,12&sort=likes&direction=desc" target="_blank"
-        >/search/tags?11,12</a
-      >
-    </h3>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/search/tags</code>
+  <a href='search/tags?ids=11,12&sort=likes&direction=desc' target="_blank">/search/tags?11,12</a>
+</h3>
 
-    <p>
-      Takes a comma separated list of tag_ids and returns an array of recipes that contain ALL tags
-      passed.
-    </p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>ids</td>
-          <td>a comma separated list of tag_ids</td>
-          <td>query</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>page</td>
-          <td>the page number of results to return</td>
-          <td>query</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>count</td>
-          <td>the number of results to show per page</td>
-          <td>query</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>sort</td>
-          <td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
-          <td>query</td>
-          <td>&#39;default&#39;</td>
-        </tr>
-        <tr>
-          <td>direction</td>
-          <td>&#39;asc&#39; desc&#39;</td>
-          <td>query</td>
-          <td>&#39;desc&#39;</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Example Response</p>
-    <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+<p>Takes a comma separated list of tag_ids and returns an array of recipes that contain ALL tags passed.</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ids</td>
+<td>a comma separated list of tag_ids</td>
+<td>query</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>page</td>
+<td>the page number of results to return</td>
+<td>query</td>
+<td>1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>the number of results to show per page</td>
+<td>query</td>
+<td>10</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
+<td>query</td>
+<td>&#39;default&#39;</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>&#39;asc&#39; desc&#39;</td>
+<td>query</td>
+<td>&#39;desc&#39;</td>
+</tr>
+</tbody></table>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;page&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;ids&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-number">32</span><span class="hljs-punctuation">,</span><span class="hljs-number">16</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -326,77 +305,70 @@
   <span class="hljs-attr">&quot;rows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> recipe1 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span> recipe2 <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/search</code>
-      <a href="search?query=garlic&tag_ids=11,12" target="_blank"
-        >/search?query=garlic&tag_ids=11,12</a
-      >
-    </h3>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/search</code>
+  <a href='search?query=garlic&tag_ids=11,12' target="_blank">/search?query=garlic&tag_ids=11,12</a>
+</h3>
 
-    <p>
-      Will search any combination of the following parameters and return a result set that matches
-      EVERY tag_ids AND ingredient_id AND title matching &#39;query&#39;. This endpoint should only
-      be used when performing text searches. It will be significantly faster to use the
-      <code>/search/tag</code> or <code>/search/ingredient</code> endpoints for queries without text
-      lookups.
-    </p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>tag_ids</td>
-          <td>a comma separated list of ingredient_ids</td>
-          <td>query</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>ingredient_ids</td>
-          <td>a comma separated list of ingredient_ids</td>
-          <td>query</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>query</td>
-          <td>a free text query that matches recipe title</td>
-          <td>query</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>page</td>
-          <td>the page number of results to return</td>
-          <td>query</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>count</td>
-          <td>the number of results to show per page</td>
-          <td>query</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>sort</td>
-          <td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
-          <td>query</td>
-          <td>&#39;default&#39;</td>
-        </tr>
-        <tr>
-          <td>direction</td>
-          <td>&#39;asc&#39; desc&#39;</td>
-          <td>query</td>
-          <td>&#39;desc&#39;</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Example Response</p>
-    <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+<p>Will search any combination of the following parameters and return a result set that matches EVERY
+tag_ids AND ingredient_id AND title matching &#39;query&#39;. This endpoint should only be used when performing
+text searches. It will be significantly faster to use the <code>/search/tag</code> or <code>/search/ingredient</code> endpoints
+for queries without text lookups.</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tag_ids</td>
+<td>a comma separated list of ingredient_ids</td>
+<td>query</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>ingredient_ids</td>
+<td>a comma separated list of ingredient_ids</td>
+<td>query</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>query</td>
+<td>a free text query that matches recipe title</td>
+<td>query</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>page</td>
+<td>the page number of results to return</td>
+<td>query</td>
+<td>1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>the number of results to show per page</td>
+<td>query</td>
+<td>10</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
+<td>query</td>
+<td>&#39;default&#39;</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>&#39;asc&#39; desc&#39;</td>
+<td>query</td>
+<td>&#39;desc&#39;</td>
+</tr>
+</tbody></table>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;page&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;ids&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-number">2047</span><span class="hljs-punctuation">,</span> <span class="hljs-number">11215</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -407,63 +379,56 @@
   <span class="hljs-attr">&quot;rows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> recipe1 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span> recipe2 <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-    <h2 id="filter">Filter</h2>
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/filter/ingredients</code>
-      <a href="filter/ingredients/?ids=25&sort=likes&direction=desc" target="_blank"
-        >/filter/ingredients?ids=25</a
-      >
-    </h3>
+<h2 id='filter'>Filter</h2>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/filter/ingredients</code>
+  <a href='filter/ingredients/?ids=25&sort=likes&direction=desc' target="_blank">/filter/ingredients?ids=25</a>
+</h3>
 
-    <p>
-      Takes a comma separated list of ingredient ids and returns an array of recipes that DO NOT
-      CONTAIN any of the ingredients passed.
-    </p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>ids</td>
-          <td>a comma separated list of ingredient_ids</td>
-          <td>query</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>page</td>
-          <td>the page number of results to return</td>
-          <td>query</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>count</td>
-          <td>the number of results to show per page</td>
-          <td>query</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>sort</td>
-          <td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
-          <td>query</td>
-          <td>&#39;default&#39;</td>
-        </tr>
-        <tr>
-          <td>direction</td>
-          <td>&#39;asc&#39; desc&#39;</td>
-          <td>query</td>
-          <td>&#39;desc&#39;</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Example Response</p>
-    <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+<p>Takes a comma separated list of ingredient ids and returns an array of recipes that DO NOT CONTAIN any of the ingredients passed.</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ids</td>
+<td>a comma separated list of ingredient_ids</td>
+<td>query</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>page</td>
+<td>the page number of results to return</td>
+<td>query</td>
+<td>1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>the number of results to show per page</td>
+<td>query</td>
+<td>10</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
+<td>query</td>
+<td>&#39;default&#39;</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>&#39;asc&#39; desc&#39;</td>
+<td>query</td>
+<td>&#39;desc&#39;</td>
+</tr>
+</tbody></table>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;page&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;ids&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-number">2047</span><span class="hljs-punctuation">,</span> <span class="hljs-number">11215</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -474,60 +439,55 @@
   <span class="hljs-attr">&quot;rows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> recipe1 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span> recipe2 <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/filter/tags</code>
-      <a href="filter/tags?ids=11&sort=likes&direction=desc" target="_blank">/filter/tags?11</a>
-    </h3>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/filter/tags</code>
+  <a href='filter/tags?ids=11&sort=likes&direction=desc' target="_blank">/filter/tags?11</a>
+</h3>
 
-    <p>
-      Takes a comma separated list of tag_ids and returns an array of recipes that DO NOT CONTAIN
-      any of the ingredients passed.
-    </p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>ids</td>
-          <td>a comma separated list of tag_ids</td>
-          <td>query</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>page</td>
-          <td>the page number of results to return</td>
-          <td>query</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>count</td>
-          <td>the number of results to show per page</td>
-          <td>query</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>sort</td>
-          <td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
-          <td>query</td>
-          <td>&#39;default&#39;</td>
-        </tr>
-        <tr>
-          <td>direction</td>
-          <td>&#39;asc&#39; desc&#39;</td>
-          <td>query</td>
-          <td>&#39;desc&#39;</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Example Response</p>
-    <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+<p>Takes a comma separated list of tag_ids and returns an array of recipes that DO NOT CONTAIN any of the ingredients passed.</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ids</td>
+<td>a comma separated list of tag_ids</td>
+<td>query</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>page</td>
+<td>the page number of results to return</td>
+<td>query</td>
+<td>1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>the number of results to show per page</td>
+<td>query</td>
+<td>10</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
+<td>query</td>
+<td>&#39;default&#39;</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>&#39;asc&#39; desc&#39;</td>
+<td>query</td>
+<td>&#39;desc&#39;</td>
+</tr>
+</tbody></table>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;page&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;ids&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-number">32</span><span class="hljs-punctuation">,</span><span class="hljs-number">16</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -538,77 +498,70 @@
   <span class="hljs-attr">&quot;rows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> recipe1 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span> recipe2 <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/filter</code>
-      <a href="filter?query=garlic&ingredient_ids=3" target="_blank"
-        >/filter?query=garlic&ingredient_ids=3</a
-      >
-    </h3>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/filter</code>
+  <a href='filter?query=garlic&ingredient_ids=3' target="_blank">/filter?query=garlic&ingredient_ids=3</a>
+</h3>
 
-    <p>
-      Will search any combination of the following parameters and return a result set that exludes
-      EVERY tag_ids AND ingredient_id AND title matching &#39;query&#39;. This endpoint should only
-      be used when performing text searches. It will be significantly faster to use the
-      <code>/filter/tag</code> or <code>/filter/ingredient</code> endpoints for queries without text
-      lookups.
-    </p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>tag_ids</td>
-          <td>a comma separated list of ingredient_ids</td>
-          <td>query</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>ingredient_ids</td>
-          <td>a comma separated list of ingredient_ids</td>
-          <td>query</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>query</td>
-          <td>a free text query that matches recipe title</td>
-          <td>query</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>page</td>
-          <td>the page number of results to return</td>
-          <td>query</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>count</td>
-          <td>the number of results to show per page</td>
-          <td>query</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>sort</td>
-          <td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
-          <td>query</td>
-          <td>&#39;default&#39;</td>
-        </tr>
-        <tr>
-          <td>direction</td>
-          <td>&#39;asc&#39; desc&#39;</td>
-          <td>query</td>
-          <td>&#39;desc&#39;</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Example Response</p>
-    <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+<p>Will search any combination of the following parameters and return a result set that exludes EVERY
+tag_ids AND ingredient_id AND title matching &#39;query&#39;. This endpoint should only be used when performing
+text searches. It will be significantly faster to use the <code>/filter/tag</code> or <code>/filter/ingredient</code> endpoints
+for queries without text lookups.</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tag_ids</td>
+<td>a comma separated list of ingredient_ids</td>
+<td>query</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>ingredient_ids</td>
+<td>a comma separated list of ingredient_ids</td>
+<td>query</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>query</td>
+<td>a free text query that matches recipe title</td>
+<td>query</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>page</td>
+<td>the page number of results to return</td>
+<td>query</td>
+<td>1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>the number of results to show per page</td>
+<td>query</td>
+<td>10</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
+<td>query</td>
+<td>&#39;default&#39;</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>&#39;asc&#39; desc&#39;</td>
+<td>query</td>
+<td>&#39;desc&#39;</td>
+</tr>
+</tbody></table>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;page&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;ids&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-number">2047</span><span class="hljs-punctuation">,</span> <span class="hljs-number">11215</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -619,63 +572,57 @@
   <span class="hljs-attr">&quot;rows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> recipe1 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span> recipe2 <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-    <h2 id="match">Match</h2>
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/match/ingredients</code>
-      <a href="match/ingredients/?ids=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" target="_blank"
-        >/match/ingredients</a
-      >
-    </h3>
+<h2 id='match'>Match</h2>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/match/ingredients</code>
+  <a href='match/ingredients/?ids=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16' target="_blank">/match/ingredients</a>
+</h3>
 
-    <p>
-      Takes a comma separated list of ingredient_ids and returns all recipes that can be made
-      entirely from the recipes in the id list.
-    </p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>ids</td>
-          <td>a comma separated list of ingredient_ids</td>
-          <td>query</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>page</td>
-          <td>the page number of results to return</td>
-          <td>query</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>count</td>
-          <td>the number of results to show per page</td>
-          <td>query</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>sort</td>
-          <td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
-          <td>query</td>
-          <td>&#39;default&#39;</td>
-        </tr>
-        <tr>
-          <td>direction</td>
-          <td>&#39;asc&#39; desc&#39;</td>
-          <td>query</td>
-          <td>&#39;desc&#39;</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Example Response</p>
-    <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+<p>Takes a comma separated list of ingredient_ids and returns all recipes that can be
+made entirely from the recipes in the id list.</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ids</td>
+<td>a comma separated list of ingredient_ids</td>
+<td>query</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>page</td>
+<td>the page number of results to return</td>
+<td>query</td>
+<td>1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>the number of results to show per page</td>
+<td>query</td>
+<td>10</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>&#39;default&#39;, &#39;likes&#39;, &#39;price&#39;</td>
+<td>query</td>
+<td>&#39;default&#39;</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>&#39;asc&#39; desc&#39;</td>
+<td>query</td>
+<td>&#39;desc&#39;</td>
+</tr>
+</tbody></table>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;page&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;ids&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-number">2047</span><span class="hljs-punctuation">,</span> <span class="hljs-number">11215</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -686,178 +633,166 @@
   <span class="hljs-attr">&quot;rows&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> recipe1 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span> recipe2 <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-    <h2 id="users">Users</h2>
-    <h3>
-      <code style="background-color: #27ae60; color: #ecf0f1">post</code>
-      <code style="background-color: #bdc3c7">/users/:user_id/ingredients/:ingredient_id/add</code>
-    </h3>
+<h2 id='users'>Users</h2>
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/ingredients/:ingredient_id/add</code>
+</h3>
 
-    <p>Adds the ingredient to the list of the user&#39;s favorite ingredients</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>ingredient_id</td>
-          <td>the id of the ingredient</td>
-          <td>path</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>user_id</td>
-          <td>passed via body param {user_id: xxx}</td>
-          <td>path</td>
-          <td>n/a</td>
-        </tr>
-      </tbody>
-    </table>
-    <h3>
-      <code style="background-color: #e67e22; color: #ecf0f1">put</code>
-      <code style="background-color: #bdc3c7"
-        >/users/:user_id/ingredients/:ingredient_id/remove</code
-      >
-    </h3>
+<p>Adds the ingredient to the list of the user&#39;s favorite ingredients</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ingredient_id</td>
+<td>the id of the ingredient</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>passed via body param {user_id: xxx}</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<h3>
+  <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/ingredients/:ingredient_id/remove</code>
+</h3>
 
-    <p>Removes the ingredient from the list of the user&#39;s favorite ingredients</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>ingredient_id</td>
-          <td>the id of the ingredient</td>
-          <td>path</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>user_id</td>
-          <td>the id of the user</td>
-          <td>path</td>
-          <td>n/a</td>
-        </tr>
-      </tbody>
-    </table>
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/users/:user_id/ingredients</code>
-    </h3>
+<p>Removes the ingredient from the list of the user&#39;s favorite ingredients</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ingredient_id</td>
+<td>the id of the ingredient</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>the id of the user</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/ingredients</code>
+</h3>
 
-    <p>Returns an object containing the user&#39;s favorited ingredients</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>user_id</td>
-          <td>the id of the user</td>
-          <td>path</td>
-          <td>n/a</td>
-        </tr>
-      </tbody>
-    </table>
-    <hr />
+<p>Returns an object containing the user&#39;s favorited ingredients</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>user_id</td>
+<td>the id of the user</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<hr>
 
-    <h3>
-      <code style="background-color: #27ae60; color: #ecf0f1">post</code>
-      <code style="background-color: #bdc3c7">/users/:user_id/recipes/:recipe_id/add</code>
-    </h3>
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/recipes/:recipe_id/add</code>
+</h3>
 
-    <p>Adds the recipe to the list of the user&#39;s favorite recipes</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>recipe_id</td>
-          <td>the id of the recipe</td>
-          <td>path</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>user_id</td>
-          <td>passed via body param {user_id: xxx}</td>
-          <td>path</td>
-          <td>n/a</td>
-        </tr>
-      </tbody>
-    </table>
-    <h3>
-      <code style="background-color: #e67e22; color: #ecf0f1">put</code>
-      <code style="background-color: #bdc3c7">/users/:user_id/recipes/:recipe_id/remove</code>
-    </h3>
+<p>Adds the recipe to the list of the user&#39;s favorite recipes</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>recipe_id</td>
+<td>the id of the recipe</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>passed via body param {user_id: xxx}</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<h3>
+  <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/recipes/:recipe_id/remove</code>
+</h3>
 
-    <p>Removes the recipe from the list of the user&#39;s favorite recipes</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>recipe_id</td>
-          <td>the id of the recipe</td>
-          <td>path</td>
-          <td>n/a</td>
-        </tr>
-        <tr>
-          <td>user_id</td>
-          <td>passed via body param {user_id: xxx}</td>
-          <td>path</td>
-          <td>n/a</td>
-        </tr>
-      </tbody>
-    </table>
-    <h3>
-      <code style="background-color: #3498db; color: #ecf0f1">get</code>
-      <code style="background-color: #bdc3c7">/users/:user_id/recipes</code>
-    </h3>
+<p>Removes the recipe from the list of the user&#39;s favorite recipes</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>recipe_id</td>
+<td>the id of the recipe</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>passed via body param {user_id: xxx}</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/users/:user_id/recipes</code>
+</h3>
 
-    <p>Returns an object containing the user&#39;s favorited recipes</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Parameters</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>user_id</td>
-          <td>the id of the user</td>
-          <td>path</td>
-          <td>n/a</td>
-        </tr>
-      </tbody>
-    </table>
-  </body>
-</html>
+<p>Returns an object containing the user&#39;s favorited recipes</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>user_id</td>
+<td>the id of the user</td>
+<td>path</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+
+    </body>
+  </html>
+  
