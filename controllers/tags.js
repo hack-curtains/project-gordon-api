@@ -1,5 +1,8 @@
 const { getTags } = require('../models/tags.js');
 
+/******************************
+ * Get Tags
+ *****************************/
 module.exports.getTags = async (req, res) => {
   try {
     let data = await getTags();

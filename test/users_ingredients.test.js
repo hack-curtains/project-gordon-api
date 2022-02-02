@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { pool } = require('../models/index');
+const { POOL } = require('../models/index');
 const app = require('../server/app');
 
 const user_id = 999;
@@ -21,7 +21,7 @@ describe('Testing Favorite Ingredients', () => {
   };
 
   beforeEach(async () => {
-    await pool.query(`delete from users_ingredients where user_id = ${user_id}`);
+    await POOL.query(`delete from users_ingredients where user_id = ${user_id}`);
   });
 
   it('[users/ingredients] - should add an ingredient', async () => {
@@ -29,7 +29,7 @@ describe('Testing Favorite Ingredients', () => {
     let data = JSON.parse(res.text);
     expect(res.statusCode).toEqual(200);
     expect(data).toHaveProperty('message');
-    expect(data.data).toHaveProperty('id', 15);
+    expect(data.data[0]).toHaveProperty('id', 15);
   });
 
   it('[users/ingredients] - should add then update if user adds same ingredient twice', async () => {
@@ -45,7 +45,7 @@ describe('Testing Favorite Ingredients', () => {
     await add(10);
     await add(15);
     await add(30);
-    let data = await pool.query(
+    let data = await POOL.query(
       `select ingredient_id from users_ingredients where user_id = ${user_id}`
     );
     expect(data.rows.map((x) => x.ingredient_id)).toEqual([10, 15, 30]);
@@ -61,11 +61,10 @@ describe('Testing Favorite Ingredients', () => {
 
     //response should contain found, user_id and ingredient_id
     expect(data4).toHaveProperty('found', true);
-    expect(data4.data).toHaveProperty('user_id', user_id);
-    expect(data4.data).toHaveProperty('ingredient_id', 30);
+    expect(data4.data.length).toEqual(2);
 
     //data should
-    let data = await pool.query(
+    let data = await POOL.query(
       `select ingredient_id from users_ingredients where user_id = ${user_id}`
     );
     expect(data.rows.map((x) => x.ingredient_id)).toEqual([10, 15]);
@@ -78,10 +77,10 @@ describe('Testing Favorite Ingredients', () => {
     await remove(30);
     let res = await get();
     let data = JSON.parse(res.text);
-    expect(data.map((i) => i.id)).toEqual([10, 15]);
+    expect(data.length).toEqual(2);
   });
 
   afterAll(async () => {
-    await pool.end();
+    await POOL.end();
   });
 });

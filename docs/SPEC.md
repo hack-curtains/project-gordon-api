@@ -4,6 +4,7 @@
   <a href="#ingredients">/ingredients</a>
   <a href="#search">/search</a>
   <a href="#filter">/filter</a>
+  <a href="#match">/match</a>
   <a href="#users">/users</a>
 </h1>
 
@@ -335,6 +336,39 @@ for queries without text lookups.
 | count          | the number of results to show per page      | query | 10        |
 | sort           | 'default', 'likes', 'price'                 | query | 'default' |
 | direction      | 'asc' desc'                                 | query | 'desc'    |
+
+Example Response
+
+```json
+{
+  "page": 1,
+  "count": 10,
+  "ids": [2047, 11215],
+  "sort": "likes",
+  "direction": "desc",
+  "totalRows": 1225,
+  "queryRows": 10,
+  "rows": [{ recipe1 }, { recipe2 } ]
+}
+```
+
+<h2 id='match'>Match</h2>
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/match/ingredients</code>
+  <a href='match/ingredients/?ids=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16' target="_blank">/match/ingredients</a>
+</h3>
+
+Takes a comma separated list of ingredient_ids and returns all recipes that can be
+made entirely from the recipes in the id list.
+
+| Parameters | Description                              | Type  | Default   |
+| ---------- | ---------------------------------------- | ----- | --------- |
+| ids        | a comma separated list of ingredient_ids | query | n/a       |
+| page       | the page number of results to return     | query | 1         |
+| count      | the number of results to show per page   | query | 10        |
+| sort       | 'default', 'likes', 'price'              | query | 'default' |
+| direction  | 'asc' desc'                              | query | 'desc'    |
 
 Example Response
 

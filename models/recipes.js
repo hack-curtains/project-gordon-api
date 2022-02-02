@@ -1,9 +1,12 @@
-const { rows } = require('pg/lib/defaults');
-const { pool, RECIPE_COLUMNS } = require('./index.js');
-
+const { POOL, RECIPE_COLUMNS } = require('./index.js');
 const ABBREVIATED_COLUMNS = RECIPE_COLUMNS.join(', ');
 
-//Ensure that all the query parameters are validated
+/******************************
+ * Get Query Parameters
+ * Given an object with query params
+ * Return an object containing validation errors
+ *****************************/
+
 const getQueryParamErrors = (obj) => {
   let e = { message: 'there was an issue with your query parameters', errors: {} };
 
@@ -41,19 +44,28 @@ const getQueryParamErrors = (obj) => {
   return e;
 };
 
-//Get the WHERE query
+/******************************
+ * Given query parameters
+ * Return a WHERE statement
+ *****************************/
 
-const getWhereSQL = ({ include, tag_ids, ingredient_ids, query }) => {
+const getWhereSQL = ({ include, tag_ids, ingredient_ids, query, exact }) => {
   let chunks = [];
 
-  let operator = include === true ? '@>' : '&&';
+  let tag_operator = include === true ? '@>' : '&&';
+  let ingredient_operator = include === true ? '@>' : '&&';
+  if (exact === true) {
+    ingredient_operator = '<@';
+  }
 
   if (tag_ids.length > 0) {
-    chunks.push(`(tag_ids ${operator} Array[${tag_ids.join(',')}]::integer[])`);
+    chunks.push(`(tag_ids ${tag_operator} Array[${tag_ids.join(',')}]::integer[])`);
   }
 
   if (ingredient_ids.length > 0) {
-    chunks.push(`(ingredient_ids ${operator} ARRAY[${ingredient_ids.join(',')}]::INTEGER[])`);
+    chunks.push(
+      `(ingredient_ids ${ingredient_operator} ARRAY[${ingredient_ids.join(',')}]::INTEGER[])`
+    );
   }
 
   if (query.length > 0) {
@@ -69,6 +81,10 @@ const getWhereSQL = ({ include, tag_ids, ingredient_ids, query }) => {
   }
 };
 
+/******************************
+ * Given query parameters
+ * Return an ORDER by Statement
+ *****************************/
 const getOrderSQL = ({ sort, direction }) => {
   let col = sort === 'default' ? 'id' : sort;
   return `ORDER BY ${col} ${direction}`;
@@ -88,6 +104,7 @@ module.exports.getRecipes = async (params = {}) => {
     include = true,
     tag_ids = [],
     ingredient_ids = [],
+    exact = false,
     query = '',
   } = params;
 
@@ -107,7 +124,7 @@ module.exports.getRecipes = async (params = {}) => {
     return errors;
   }
 
-  const WHERE = getWhereSQL({ include, tag_ids, ingredient_ids, query });
+  const WHERE = getWhereSQL({ include, tag_ids, ingredient_ids, query, exact });
   const ORDER = getOrderSQL({ sort, direction });
   const OFFSET = (page - 1) * count;
 
@@ -116,15 +133,17 @@ module.exports.getRecipes = async (params = {}) => {
     SELECT count(1) from recipes ${WHERE};
   `;
 
-  let data = await pool.query(SQL);
+  let data = await POOL.query(SQL);
   let out = {
     page: parseInt(page),
     count: parseInt(count),
+    fetchTime: new Date(),
     sort: sort,
     direction: direction,
     query: query,
     tag_ids: tag_ids,
     ingredient_ids: ingredient_ids,
+    exact_ingredient_match: exact,
     totalRows: parseInt(data[1].rows[0].count),
     queryRows: data[0].rowCount,
     rows: data[0].rows,
@@ -133,12 +152,34 @@ module.exports.getRecipes = async (params = {}) => {
   return out;
 };
 
+/******************************
+ * Returns an abbreviated list of recipes
+ * Used for rendering many recipe cards
+ ******************************/
 module.exports.getRecipe = async ({ id = 2 }) => {
   const SQL = `
     SELECT *
     FROM recipes
     WHERE id = ${id}
   `;
-  let data = await pool.query(SQL);
+  let data = await POOL.query(SQL);
   return data.rowCount === 0 ? { message: 'not found' } : data.rows[0];
+};
+
+/******************************
+ * Returns an abbreviated list of recipes
+ * Used for rendering many recipe cards
+ ******************************/
+
+module.exports.matchRecipes = async ({ page, count, ids, sort, direction }) => {
+  console.log('>>model');
+  let out = {
+    page: parseInt(page),
+    count: parseInt(count),
+    ingredient_ids: ids,
+    totalRows: null,
+    queryRows: null,
+    rows: null,
+  };
+  return out;
 };

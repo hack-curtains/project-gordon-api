@@ -2,6 +2,10 @@ node_modules
 .DS_Store
 .env
 database/rawdata/json
+<<<<<<< HEAD
 package-lock.json
 ./docs/index.html
 projectgordonkey.pem
+=======
+logs/info.log
+>>>>>>> source/main

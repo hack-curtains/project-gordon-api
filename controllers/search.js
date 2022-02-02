@@ -1,5 +1,8 @@
 const { getRecipes, getRecipe } = require('../models/recipes.js');
 
+/******************************
+ * Search by Ingredients
+ *****************************/
 module.exports.searchIngredients = async (req, res) => {
   try {
     const page = parseInt(req.query.page || 1);
@@ -14,6 +17,9 @@ module.exports.searchIngredients = async (req, res) => {
   }
 };
 
+/******************************
+ * Search by Tag
+ *****************************/
 module.exports.searchTags = async (req, res) => {
   try {
     const page = parseInt(req.query.page || 1);
@@ -28,6 +34,9 @@ module.exports.searchTags = async (req, res) => {
   }
 };
 
+/******************************
+ * Search General
+ *****************************/
 module.exports.search = async (req, res) => {
   try {
     const page = parseInt(req.query.page || 1);

@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { pool } = require('../models/index');
+const { POOL } = require('../models/index');
 const app = require('../server/app');
 
 const user_id = 999;
@@ -21,7 +21,7 @@ describe('Testing Favorite Recipes', () => {
   };
 
   beforeEach(async () => {
-    await pool.query(`delete from users_recipes where user_id = ${user_id}`);
+    await POOL.query(`delete from users_recipes where user_id = ${user_id}`);
   });
 
   it('[users/recipes] - should add an recipe', async () => {
@@ -30,7 +30,7 @@ describe('Testing Favorite Recipes', () => {
 
     expect(res.statusCode).toEqual(200);
     expect(data).toHaveProperty('message');
-    expect(data.data).toHaveProperty('id', 15);
+    expect(data.data[0]).toHaveProperty('id', 15);
   });
 
   it('[users/recipes] - should add then update if user adds same recipe twice', async () => {
@@ -46,8 +46,10 @@ describe('Testing Favorite Recipes', () => {
     await add(10);
     await add(15);
     await add(30);
-    let data = await pool.query(`select recipe_id from users_recipes where user_id = ${user_id}`);
-    expect(data.rows.map((x) => x.recipe_id)).toEqual([10, 15, 30]);
+    let data = await POOL.query(`select recipe_id from users_recipes where user_id = ${user_id}`);
+    expect(data.rows.map((x) => x.recipe_id).sort((a, b) => parseInt(a) - parseInt(b))).toEqual([
+      10, 15, 30,
+    ]);
   });
 
   it('[users/recipes] - should add 3 then remove 1', async () => {
@@ -60,12 +62,11 @@ describe('Testing Favorite Recipes', () => {
 
     //response should contain found, user_id and recipe_id
     expect(data4).toHaveProperty('found', true);
-    expect(data4.data).toHaveProperty('user_id', user_id);
-    expect(data4.data).toHaveProperty('recipe_id', 30);
+    expect(data4.data.length).toEqual(2);
 
     //data should
-    let data = await pool.query(`select recipe_id from users_recipes where user_id = ${user_id}`);
-    expect(data.rows.map((x) => x.recipe_id)).toEqual([10, 15]);
+    let data = await POOL.query(`select recipe_id from users_recipes where user_id = ${user_id}`);
+    expect(data.rows.length).toEqual(2);
   });
 
   it('[users/recipes] - should return an array of items', async () => {
@@ -79,6 +80,6 @@ describe('Testing Favorite Recipes', () => {
   });
 
   afterAll(async () => {
-    await pool.end();
+    await POOL.end();
   });
 });

@@ -6,21 +6,31 @@
   "scripts": {
     "start": "node server/index.js",
     "buildDocs": "node docs/build.js",
+<<<<<<< HEAD
     "test": "jest --runInBand --verbose",
     "startAuth": "node authServer/index.js"
+=======
+    "test": "jest --runInBand --verbose --detectOpenHandles"
+>>>>>>> source/main
   },
   "dependencies": {
+    "apicache": "^1.6.3",
     "axios": "^0.25.0",
     "body-parser": "^1.19.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
+<<<<<<< HEAD
     "express-session": "^1.17.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
+=======
+    "express-pino-logger": "^7.0.0",
+>>>>>>> source/main
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
+    "pino": "^7.6.5",
     "sequelize": "^6.14.1"
   },
   "devDependencies": {

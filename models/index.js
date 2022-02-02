@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } = process.env;
 const { Pool } = require('pg');
-const pool = new Pool();
 
 const RECIPE_COLUMNS = [
   'id',
@@ -17,4 +16,6 @@ const RECIPE_COLUMNS = [
   'time',
 ];
 
-module.exports = { pool, RECIPE_COLUMNS };
+const POOL = new Pool();
+
+module.exports = { POOL, RECIPE_COLUMNS };
