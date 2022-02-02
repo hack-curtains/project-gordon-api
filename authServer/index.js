@@ -28,6 +28,7 @@ app.use(
 
 const {
   checkForUser,
+  checkForUserID,
   checkSession,
   createUser,
   loginUser,
