@@ -28,7 +28,6 @@ app.use(
 
 const {
   checkForUser,
-  checkForUserID,
   checkSession,
   createUser,
   loginUser,
@@ -64,7 +63,7 @@ app.post('/users/new', async (req, res) => {
     const email = req.body.email
     // console.log(email)
     let userCheck = await checkForUser(email)
-    //console.log("here is user check", userCheck.length )
+    // console.log("here is user check", userCheck.length )
     if (userCheck.length <= 0) {
       let status = await createUser(username, password, email)
 
@@ -73,15 +72,16 @@ app.post('/users/new', async (req, res) => {
         res.locals.password = password
         session = req.session
         session.userid = email
-        let newSessionInformation = await checkForUserID(email)
-        createSession(newSessionInformation.id, req.sessionID)
+        let newSessionInformation = await checkForUser(email)
+        // console.log(newSessionInformation[0].id)
+        createSession(newSessionInformation[0].id, req.sessionID)
 
         res.status(201).send({ message: 'successfully created new user' })
       } else {
         res.status(409).send({ message: 'error processing new user request' })
       }
     } else {
-      res.status(409).send({ message: 'Username already taken' })
+      res.status(409).send({ message: 'Email already used' })
     }
   }
 })
@@ -89,6 +89,7 @@ app.post('/users/new', async (req, res) => {
 app.post('/users/login', async (req, res) => {
   // attempt to authenticate/login
   // grab hash from database
+  console.log(req.body)
   if (
     req.body.password === undefined ||
     req.body.email === undefined

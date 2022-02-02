@@ -22,18 +22,9 @@ module.exports.checkForUser = async (email) => {
   let data = await con
   .promise()
   .query(sqlQuery)
-  console.log(data[0])
+  // console.log(data[0])
   return data[0]
 }
-module.exports.checkForUserID = async (email) => {
-  let sqlQuery = `SELECT id FROM Users WHERE email = '${email}'`
-  let data = await con
-  .promise()
-  .query(sqlQuery)
-  console.log(data[0])
-  return data[0]
-}
-
 module.exports.createUser = async (username, password, email) => {
 
 
@@ -70,6 +61,7 @@ module.exports.createSession = async (userID, sessionID) => {
   let insertData = [[userID, sessionID]]
   let insertQuery = `INSERT INTO Sessions (id_Users, cookie) VALUES ?;`
   con.promise().query(insertQuery, [insertData])
+  console.log("New user session created")
   return true
 }
 module.exports.checkForSession = async (sessionID) => {
