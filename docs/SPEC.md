@@ -389,7 +389,7 @@ Example Response
 
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
-  <code style='background-color: #bdc3c7'>/checkSession</code>
+  <code style='background-color: #bdc3c7'>/users/checkSession</code>
 </h3>
 
 Initial handshake route for with authentication server.
