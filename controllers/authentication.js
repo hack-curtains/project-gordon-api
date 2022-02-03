@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 /* ### Set up session ### */
 const {
   checkForUser,
@@ -5,17 +6,22 @@ const {
   createUser,
   loginUser,
   createSession,
+  deleteSession,
   checkForSession,
+  userInfoFromID
 } = require('../models/userAuth.js');
 
-module.exports.createSession = async (req, res) => {
-  session = req.session;
-  //console.log(session)
+module.exports.checkSession = async (req, res) => {
+  console.log("The request session ID is: ", req.sessionID);
+  // session = req.session;
+  //console.log(session, req.sessionID)
   let sessionExists = await checkForSession(req.sessionID);
+  // console.log("session exists looks like this", sessionExists)
   if (sessionExists[0] === true) {
     //Deliver User Page here
-    session.userid = sessionExists[1];
-    res.send({ userID: sessionsExists[1], loggedIn: true, message: 'deliver user page' });
+    let userData = await userInfoFromID(sessionExists[1].user_id)
+    session.userid = userData;
+    res.send({ userID: userData.email, username:userData.username, loggedIn: true, message: 'deliver user page' });
   } else {
     //deliver login page here
     res.send({ loggedIn: false, message: 'deliver login page' });
@@ -23,6 +29,7 @@ module.exports.createSession = async (req, res) => {
 };
 
 module.exports.newUser = async (req, res) => {
+  console.log("The request session ID is: ", req.sessionID);
   if (
     req.body.username === undefined ||
     req.body.password === undefined ||
@@ -35,7 +42,7 @@ module.exports.newUser = async (req, res) => {
     const email = req.body.email;
     // console.log(email)
 
-    console.log(req.body);
+    //console.log(req.body);
 
     let userCheck = await checkForUser(email);
 
@@ -43,20 +50,18 @@ module.exports.newUser = async (req, res) => {
     if (userCheck.length <= 0) {
       let status = await createUser(username, password, email);
 
-      console.log('>>>>', status);
+      // console.log('>>>>', status);
 
       if (status === true) {
-        res.locals.username = username;
-        res.locals.password = password;
         session = req.session;
         session.userid = email;
         let newSessionInformation = await checkForUser(email);
-        // console.log(newSessionInformation[0].id)
         createSession(newSessionInformation[0].id, req.sessionID);
+        res.body = {userID: email, password: password, username: username}
         res.session = session;
-        res.status(201).send({ userID: email, message: 'successfully created new user' });
+        res.status(201).send({userID: email, username: username, message: 'successfully created new user' });
       } else {
-        res.status(409).send({ message: 'error processing new user request' });
+        res.status(409).send({message: 'error processing new user request'});
       }
     } else {
       res.status(409).send({ message: 'Email already used' });
@@ -65,24 +70,22 @@ module.exports.newUser = async (req, res) => {
 };
 
 module.exports.loginUser = async (req, res) => {
-  // attempt to authenticate/login
-  // grab hash from database
-  console.log(req.body);
+  console.log("The request session ID is: ", req.sessionID);
+  // console.log(req.body);
+  // console.log(req.sessionID);
   if (req.body.password === undefined || req.body.email === undefined) {
     res.status(406).send({ message: 'User login data incomplete' });
   } else {
     const password = req.body.password;
     const email = req.body.email;
-    console.log(req.sessionID);
-    // console.log(username, password)
     let data = await loginUser(email);
     if (data === false) {
       res.status(500).send({ message: 'No such user' });
     } else {
       let checkerHash = crypto.pbkdf2Sync(password, data[1], 1000, 64, `sha512`).toString(`hex`);
-      //console.log(checkerHash === data[0])
 
       if (checkerHash === data[0]) {
+        let username = data[2];
         session = req.session;
         session.userid = email;
         let userInfo = await checkForUser(email);
@@ -90,22 +93,18 @@ module.exports.loginUser = async (req, res) => {
         let sessionID = req.sessionID;
         let sessionCreated = await createSession(userID, sessionID);
         res.session = session;
-        console.log(res.session);
-        res.status(200).send({ userID: email, message: 'successfully logged in' });
-        //   res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`)
+        res.status(200).send({ userID: email, username: username, message: 'successfully logged in' });
       } else {
         res.send({ message: 'Invalid username or password' });
       }
-
-      // create cookie/session if success
-      //res.status(200).send(data)
-      // return reason for failure if failure
     }
   }
 };
 
 module.exports.logoutUser = async (req, res) => {
+  console.log("The request session ID is: ", req.sessionID);
+  deleteSession(req.sessionID)
   req.session.destroy();
-  res.redirect('/');
-  // end user session
+  res.status(200).send({messsage:"Successfully logged out"})
+  // res.redirect('/checkSession');
 };

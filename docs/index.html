@@ -634,6 +634,113 @@ made entirely from the recipes in the id list.</p>
 <span class="hljs-punctuation">}</span>
 </code></pre>
 <h2 id='users'>Users</h2>
+
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/checkSession</code>
+</h3>
+
+<p>Initial handshake route for with authentication server.</p>
+<p>Example responses</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;loggedIn&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;deliver login page&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;userID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;thegiantbutt@gmail.com&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;username&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;billyss&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;loggedIn&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;deliver user page&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/new</code>
+</h3>
+
+<p>Adds the provided user profile to the database.  User profile should be passed as a query with the following fields</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>username</td>
+<td>passed via body param</td>
+<td>string</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>password</td>
+<td>passed via body param  {password: xxx}</td>
+<td>string</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>email</td>
+<td>passed via body param  {email: xxx}</td>
+<td>string</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;userID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;example@gmail.com&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;username&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;BobTheBuilder&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;successfully created new user&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/login</code>
+</h3>
+
+<p>Logs in the provided user profile to the database.  User profile should be passed as a query with the following fields</p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>email</td>
+<td>passed via body param</td>
+<td>string</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>password</td>
+<td>passed via body param {password: xxx}</td>
+<td>string</td>
+<td>n/a</td>
+</tr>
+</tbody></table>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;userID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;example@gmail.com&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;username&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;BobTheBuilder&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;successfully logged in&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3>
+  <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
+  <code style='background-color: #bdc3c7'>/users/logout</code>
+</h3>
+
+<p>Log out.  Takes no data, removes the session from the database and resets the cookie</p>
+<p>Example Response</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;messsage&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Successfully logged out&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
 <h3>
   <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
   <code style='background-color: #bdc3c7'>/users/:user_id/ingredients/:ingredient_id/add</code>

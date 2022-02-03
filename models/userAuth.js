@@ -23,12 +23,12 @@ module.exports.createUser = async (username, password, email) => {
 };
 
 module.exports.loginUser = async (email) => {
-  let data = await POOL.query(`SELECT password, salt FROM users WHERE email = '${email}'`);
+  let data = await POOL.query(`SELECT username, password, salt FROM users WHERE email = '${email}'`);
 
   if (data.rows.length === 0) {
     return false;
   } else {
-    let checkData = [data.rows[0].password, data.rows[0].salt];
+    let checkData = [data.rows[0].password, data.rows[0].salt, data.rows[0].username]
     return checkData;
   }
 };
@@ -56,10 +56,16 @@ module.exports.deleteSession = async (sessionID) => {
 module.exports.checkForSession = async (sessionID) => {
   let checkQuery = `SELECT user_id, cookie FROM sessions WHERE cookie = '${sessionID}'`;
   let check = await POOL.query(checkQuery);
-
+  // console.log("my check for session query fired", check)
   if (check.rows.length === 0) {
     return [false];
   } else {
     return [true, check.rows[0]];
   }
 };
+module.exports.userInfoFromID = async (user_id) => {
+
+  let checkQuery = `SELECT username, email FROM users WHERE id = '${user_id}'`;
+  let check = await POOL.query(checkQuery);
+  return check.rows[0];
+}

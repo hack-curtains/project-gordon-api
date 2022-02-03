@@ -63,7 +63,7 @@ app.get('/users/:user_id/recipes', usersController.getRecipes);
 
 // Authentication Routes
 // User Authentication
-app.get('/newSession', authController.createSession);
+app.get('/checkSession', authController.checkSession);
 app.post('/users/new', authController.newUser);
 app.post('/users/login', authController.loginUser);
 app.put('/users/logout', authController.logoutUser);
