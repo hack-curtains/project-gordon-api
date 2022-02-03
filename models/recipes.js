@@ -171,52 +171,41 @@ module.exports.getRecipe = async ({ id = 2 }) => {
  ******************************/
 
 module.exports.matchRecipes = async ({ page, count, ingredient_ids, query }) => {
+  if (!ingredient_ids || ingredient_ids === 0) {
+    return { message: 'all ingredient_ids must be positive integers' };
+  }
   let WHERE = query.length > 0 ? `WHERE title ilike '%${query}%'` : '';
-  let SQL = `SELECT 0 as match_num, 0 as match_pct, ingredient_ids, ${ABBREVIATED_COLUMNS} FROM recipes ${WHERE}`;
   let LIMIT = count;
   let OFFSET = (page - 1) * count;
+  let SQL = `
+  with matches as
+  (
+    select
+    id, unnest(ingredient_ids)
+    from recipes ${WHERE}
+    intersect
+    select
+    id, unnest(array[${ingredient_ids.join(',')}])
+    from recipes ${WHERE}
+  )
+  select
+  r.id, r.title, array_length(r.ingredient_ids, 1)::int as ingredient_total,
+  m.count::int as ingredient_matches, m.count::float/array_length(r.ingredient_ids, 1)::float as ingredient_pct,
+  r.ingredient_ids,r.image,r.servings,r.price,r.likes,r.summary,r.tags,r.ingredients,r.time
+  from recipes r
+  join (select id, count(1) as count from matches group by id) m on r.id = m.id
+  ORDER by ingredient_pct DESC
+  LIMIT ${LIMIT} OFFSET ${OFFSET};
+  `;
 
-  ingredient_ids.sort((a, b) => parseInt(a) - parseInt(b));
-
-  let res = await POOL.query(SQL);
-  let data = res.rows;
-
-  for (let i = 0; i < data.length; i++) {
-    data[i].match_num = intersection(data[i].ingredient_ids, ingredient_ids);
-    data[i].match_pct =
-      intersection(data[i].ingredient_ids, ingredient_ids) / data[i].ingredient_ids.length;
-  }
-
-  data.sort((a, b) => b.match_pct - a.match_pct);
+  let data = await POOL.query(SQL);
 
   let out = {
     page: parseInt(page),
     count: parseInt(count),
     ingredient_ids: ingredient_ids,
     query: query,
-    totalRows: res.rows.length,
-    queryRows: LIMIT,
-    rows: data.slice(OFFSET, OFFSET + LIMIT),
+    rows: data.rows,
   };
   return out;
 };
-
-function intersection(arr1, arr2) {
-  let p1 = 0;
-  let p2 = 0;
-  let count = 0;
-
-  while (p1 < arr1.length && p2 < arr2.length) {
-    if (arr1[p1] === arr2[p2]) {
-      count++;
-      p1++;
-      p2++;
-    } else if (arr1[p1] < arr2[p2]) {
-      p1++;
-    } else {
-      p2++;
-    }
-  }
-
-  return count;
-}
