@@ -94,7 +94,7 @@ const main = async () => {
       let tags = data[i].tags.map((t) => TAGS[t]);
       let ingredients = data[i].ingredients.filter((i) => i !== null).map((i) => INGREDIENTS[i]);
       let tag_ids = tags.map((t) => t.id);
-      let ingredient_ids = ingredients.map((i) => i.id);
+      let ingredient_ids = ingredients.map((i) => i.id).sort((a, b) => parseInt(a) - parseInt(b));
       await db.Recipe.update(
         { tags, ingredients, tag_ids, ingredient_ids },
         { where: { id: data[i].id } }
