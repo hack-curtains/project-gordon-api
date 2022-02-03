@@ -10,6 +10,17 @@ const sequelize = new Sequelize(PGDATABASE, PGUSER, PGPASSWORD, {
 });
 
 const db = {
+  User: sequelize.define('user', {
+    username: Sequelize.STRING,
+    password: Sequelize.STRING,
+    salt: Sequelize.STRING,
+    email: Sequelize.STRING,
+  }),
+  Session: sequelize.define('session', {
+    user_id: Sequelize.INTEGER,
+    cookie: Sequelize.STRING,
+    expiration: Sequelize.DATE,
+  }),
   UsersIngredient: sequelize.define(
     'users_ingredient',
     {
@@ -100,6 +111,8 @@ const db = {
     await db.Tag.sync({ force: true });
     await db.UsersIngredient.sync({ force: true });
     await db.UsersRecipe.sync({ force: true });
+    await db.User.sync({ force: true });
+    await db.Session.sync({ force: true });
 
     await sequelize.query('CREATE INDEX recipes_tag_ids_index ON recipes USING gin (tag_ids);');
     await sequelize.query(

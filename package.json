@@ -12,10 +12,12 @@
   "dependencies": {
     "apicache": "^1.6.3",
     "axios": "^0.25.0",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "express-pino-logger": "^7.0.0",
+    "express-session": "^1.17.2",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "pino": "^7.6.5",

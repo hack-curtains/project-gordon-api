@@ -386,6 +386,86 @@ Example Response
 ```
 
 <h2 id='users'>Users</h2>
+
+<h3>
+  <code style='background-color: #3498db; color: #ecf0f1'>get</code>
+  <code style='background-color: #bdc3c7'>/checkSession</code>
+</h3>
+
+Initial handshake route for with authentication server.
+
+Example responses
+
+```json
+{
+    "loggedIn": false,
+    "message": "deliver login page"
+}
+```
+```json
+{
+    "userID": "thegiantbutt@gmail.com",
+    "username": "billyss",
+    "loggedIn": true,
+    "message": "deliver user page"
+}
+```
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/new</code>
+</h3>
+
+Adds the provided user profile to the database.  User profile should be passed as a query with the following fields
+| Parameters    | Description                           | Type | Default |
+| ------------- | ------------------------------------  | ---- | ------- |
+| username      | passed via body param                 |string| n/a     |
+| password      | passed via body param  {password: xxx}|string| n/a     |
+| email         | passed via body param  {email: xxx}   |string| n/a     |
+
+Example Response
+
+```json
+{
+    "userID": "example@gmail.com",
+    "username": "BobTheBuilder",
+    "message": "successfully created new user"
+}
+```
+
+<h3>
+  <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
+  <code style='background-color: #bdc3c7'>/users/login</code>
+</h3>
+
+Logs in the provided user profile to the database.  User profile should be passed as a query with the following fields
+| Parameters    | Description                           | Type | Default |
+| ------------- | ------------------------------------  | ---- | ------- |
+| email         | passed via body param                 |string| n/a     |
+| password      | passed via body param {password: xxx} |string| n/a     |
+
+
+Example Response
+
+```json
+{
+    "userID": "example@gmail.com",
+    "username": "BobTheBuilder",
+    "message": "successfully logged in"
+}
+```
+<h3>
+  <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
+  <code style='background-color: #bdc3c7'>/users/logout</code>
+</h3>
+
+Log out.  Takes no data, removes the session from the database and resets the cookie
+
+Example Response
+```json
+{
+    "messsage": "Successfully logged out"
+}
+```
 <h3>
   <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
   <code style='background-color: #bdc3c7'>/users/:user_id/ingredients/:ingredient_id/add</code>

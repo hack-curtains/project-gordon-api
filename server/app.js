@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const cookieParser = require('cookie-parser');
+const sessions = require('express-session');
+const crypto = require('crypto');
 
 const recipesController = require('../controllers/recipes.js');
 const tagsController = require('../controllers/tags.js');
@@ -10,6 +13,7 @@ const filterController = require('../controllers/filter.js');
 const usersController = require('../controllers/users.js');
 const logsController = require('../controllers/logs.js');
 const matchController = require('../controllers/match.js');
+const authController = require('../controllers/authentication.js');
 const cache = require('./cache.js');
 const logger = require('./logger.js');
 const app = express();
@@ -17,6 +21,15 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+app.use(
+  sessions({
+    secret: 'secretkeythatwouldbehiddeninproductionenvironment',
+    saveUninitialized: true,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 },
+    resave: false,
+  })
+);
 
 //only cache and log in production
 if (process.env.NODE_ENV === 'prod') {
@@ -47,6 +60,13 @@ app.get('/users/:user_id/ingredients', usersController.getIngredients);
 app.post('/users/:user_id/recipes/:recipe_id/add', usersController.addRecipe);
 app.put('/users/:user_id/recipes/:recipe_id/remove', usersController.removeRecipe);
 app.get('/users/:user_id/recipes', usersController.getRecipes);
+
+// Authentication Routes
+// User Authentication
+app.get('/checkSession', authController.checkSession);
+app.post('/users/new', authController.newUser);
+app.post('/users/login', authController.loginUser);
+app.put('/users/logout', authController.logoutUser);
 
 //Cache Routes
 app.get('/logs', logsController);
