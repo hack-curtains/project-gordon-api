@@ -390,7 +390,7 @@ Example Response
 
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
-  <code style='background-color: #bdc3c7'>/checkSession</code>
+  <code style='background-color: #bdc3c7'>/users/checkSession</code>
 </h3>
 
 Initial handshake route for with authentication server.
@@ -406,10 +406,17 @@ Example responses
 
 ```json
 {
+<<<<<<< HEAD
+    "userID": "example@gmail.com",
+    "username": "BobTheBuilder",
+    "loggedIn": true,
+    "message": "deliver user page"
+=======
   "userID": "thegiantbutt@gmail.com",
   "username": "billyss",
   "loggedIn": true,
   "message": "deliver user page"
+>>>>>>> origin/main
 }
 ```
 
