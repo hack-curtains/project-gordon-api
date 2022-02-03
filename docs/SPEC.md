@@ -404,8 +404,8 @@ Example responses
 ```
 ```json
 {
-    "userID": "thegiantbutt@gmail.com",
-    "username": "billyss",
+    "userID": "example@gmail.com",
+    "username": "BobTheBuilder",
     "loggedIn": true,
     "message": "deliver user page"
 }
