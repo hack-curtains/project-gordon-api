@@ -5,6 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
+    "create:db": "node database/initialize.js && node database/dummy.js && bash database/dump.sh",
     "buildDocs": "node docs/build.js",
     "test": "jest --runInBand --verbose --detectOpenHandles"
   },
