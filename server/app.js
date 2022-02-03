@@ -68,7 +68,8 @@ app.post('/users/new', authController.newUser);
 app.post('/users/login', authController.loginUser);
 app.put('/users/logout', authController.logoutUser);
 
-//Cache Routes
-app.get('/logs', logsController);
+//Logs Routes
+app.get('/logs', logsController.printLogs);
+app.get('/logs/dbstats', logsController.printDB);
 
 module.exports = app;
