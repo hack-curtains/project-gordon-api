@@ -30,6 +30,7 @@ const main = async () => {
     <link rel="stylesheet" href="markdown.css">
 
     <body>
+      <h5>${new Date()}</h5>
       ${marked.parse(data)}
     </body>
   </html>

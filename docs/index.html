@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="markdown.css">
 
     <body>
+      <h5>Thu Feb 03 2022 13:46:00 GMT-0500 (Eastern Standard Time)</h5>
       <h1>Gorden API Spec v2
   <a href="#recipes">/recipes</a>
   <a href="#tags">/tags</a>
@@ -635,7 +636,7 @@ for queries without text lookups.</p>
 
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
-  <code style='background-color: #bdc3c7'>/checkSession</code>
+  <code style='background-color: #bdc3c7'>/users/checkSession</code>
 </h3>
 
 <p>Initial handshake route for with authentication server.</p>
@@ -646,10 +647,17 @@ for queries without text lookups.</p>
 <span class="hljs-punctuation">}</span>
 </code></pre>
 <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+    <span class="hljs-attr">&quot;userID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;example@gmail.com&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;username&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;BobTheBuilder&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;loggedIn&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;deliver user page&quot;</span>
+=======
   <span class="hljs-attr">&quot;userID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;thegiantbutt@gmail.com&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;username&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;billyss&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;loggedIn&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;deliver user page&quot;</span>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main
 <span class="hljs-punctuation">}</span>
 </code></pre>
 <h3>
