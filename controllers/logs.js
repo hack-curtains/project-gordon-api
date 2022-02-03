@@ -20,7 +20,7 @@ module.exports.printLogs = async (req, res) => {
         (x, i) =>
           '<td>' +
           [
-            `${i + 1}`,
+            `${Math.max(0, json.length - 100) + i + 1}`,
             `🌐 ${x.req.method}`,
             `🌐 ${x.req.url}`,
             `${x.res.statusCode === 200 ? '✅' : '⚠️'} ${x.res.statusCode}`,
