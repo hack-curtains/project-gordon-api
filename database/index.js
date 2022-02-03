@@ -98,6 +98,10 @@ const db = {
           using: 'BTREE',
           fields: ['price'],
         },
+        {
+          name: 'title_index',
+          fields: ['title'],
+        },
       ],
     }
   ),

@@ -1,4 +1,4 @@
-<h1>Gorden API Spec
+<h1>Gorden API Spec v2
   <a href="#recipes">/recipes</a>
   <a href="#tags">/tags</a>
   <a href="#ingredients">/ingredients</a>
@@ -356,32 +356,33 @@ Example Response
 <h3>
   <code style='background-color: #3498db; color: #ecf0f1'>get</code>
   <code style='background-color: #bdc3c7'>/match/ingredients</code>
-  <a href='match/ingredients/?ids=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16' target="_blank">/match/ingredients</a>
+  <a href='match/ingredients?ids=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16&query=garlic' target="_blank">/match/ingredients</a>
 </h3>
 
-Takes a comma separated list of ingredient_ids and returns all recipes that can be
-made entirely from the recipes in the id list.
+1. Returns a paginated list of recipes that match the query string, or all recipes if no query is passed
+2. Sorts the results by a match_pct which indications the % of ingredients in the recipe that are contained in the ?ids= csv
 
-| Parameters | Description                              | Type  | Default   |
-| ---------- | ---------------------------------------- | ----- | --------- |
-| ids        | a comma separated list of ingredient_ids | query | n/a       |
-| page       | the page number of results to return     | query | 1         |
-| count      | the number of results to show per page   | query | 10        |
-| sort       | 'default', 'likes', 'price'              | query | 'default' |
-| direction  | 'asc' desc'                              | query | 'desc'    |
+| Parameters | Description                              | Type  | Default |
+| ---------- | ---------------------------------------- | ----- | ------- |
+| ids        | a comma separated list of ingredient_ids | query | n/a     |
+| page       | the page number of results to return     | query | 1       |
+| count      | the number of results to show per page   | query | 10      |
+| query      | search the title of the recipe           | query | n/a     |
 
 Example Response
 
 ```json
 {
   "page": 1,
-  "count": 10,
-  "ids": [2047, 11215],
-  "sort": "likes",
-  "direction": "desc",
-  "totalRows": 1225,
-  "queryRows": 10,
-  "rows": [{ recipe1 }, { recipe2 } ]
+  "count": 5,
+  "ingredient_ids": [1,2,3,4,5,6],
+  "totalRows": 138,
+  "queryRows": 5,
+  "query": 'garlic',
+  "rows": [
+    { match_num: 5, match_pct: 0.8, {recipe1} },
+    { match_num: 5, match_pct: 0.7, {recipe2} }
+  ]
 }
 ```
 
@@ -398,37 +399,39 @@ Example responses
 
 ```json
 {
-    "loggedIn": false,
-    "message": "deliver login page"
+  "loggedIn": false,
+  "message": "deliver login page"
 }
 ```
+
 ```json
 {
-    "userID": "thegiantbutt@gmail.com",
-    "username": "billyss",
-    "loggedIn": true,
-    "message": "deliver user page"
+  "userID": "thegiantbutt@gmail.com",
+  "username": "billyss",
+  "loggedIn": true,
+  "message": "deliver user page"
 }
 ```
+
 <h3>
   <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
   <code style='background-color: #bdc3c7'>/users/new</code>
 </h3>
 
-Adds the provided user profile to the database.  User profile should be passed as a query with the following fields
-| Parameters    | Description                           | Type | Default |
-| ------------- | ------------------------------------  | ---- | ------- |
-| username      | passed via body param                 |string| n/a     |
-| password      | passed via body param  {password: xxx}|string| n/a     |
-| email         | passed via body param  {email: xxx}   |string| n/a     |
+Adds the provided user profile to the database. User profile should be passed as a query with the following fields
+| Parameters | Description | Type | Default |
+| ------------- | ------------------------------------ | ---- | ------- |
+| username | passed via body param |string| n/a |
+| password | passed via body param {password: xxx}|string| n/a |
+| email | passed via body param {email: xxx} |string| n/a |
 
 Example Response
 
 ```json
 {
-    "userID": "example@gmail.com",
-    "username": "BobTheBuilder",
-    "message": "successfully created new user"
+  "userID": "example@gmail.com",
+  "username": "BobTheBuilder",
+  "message": "successfully created new user"
 }
 ```
 
@@ -437,35 +440,37 @@ Example Response
   <code style='background-color: #bdc3c7'>/users/login</code>
 </h3>
 
-Logs in the provided user profile to the database.  User profile should be passed as a query with the following fields
-| Parameters    | Description                           | Type | Default |
-| ------------- | ------------------------------------  | ---- | ------- |
-| email         | passed via body param                 |string| n/a     |
-| password      | passed via body param {password: xxx} |string| n/a     |
-
+Logs in the provided user profile to the database. User profile should be passed as a query with the following fields
+| Parameters | Description | Type | Default |
+| ------------- | ------------------------------------ | ---- | ------- |
+| email | passed via body param |string| n/a |
+| password | passed via body param {password: xxx} |string| n/a |
 
 Example Response
 
 ```json
 {
-    "userID": "example@gmail.com",
-    "username": "BobTheBuilder",
-    "message": "successfully logged in"
+  "userID": "example@gmail.com",
+  "username": "BobTheBuilder",
+  "message": "successfully logged in"
 }
 ```
+
 <h3>
   <code style='background-color: #e67e22; color: #ecf0f1'>put</code>
   <code style='background-color: #bdc3c7'>/users/logout</code>
 </h3>
 
-Log out.  Takes no data, removes the session from the database and resets the cookie
+Log out. Takes no data, removes the session from the database and resets the cookie
 
 Example Response
+
 ```json
 {
-    "messsage": "Successfully logged out"
+  "messsage": "Successfully logged out"
 }
 ```
+
 <h3>
   <code style='background-color: #27ae60; color: #ecf0f1'>post</code>
   <code style='background-color: #bdc3c7'>/users/:user_id/ingredients/:ingredient_id/add</code>
