@@ -13,18 +13,19 @@ const {
 
 module.exports.checkSession = async (req, res) => {
   console.log("The request session ID is: ", req.sessionID);
-  // session = req.session;
+  session = req.session;
   //console.log(session, req.sessionID)
   let sessionExists = await checkForSession(req.sessionID);
-  // console.log("session exists looks like this", sessionExists)
+  console.log("session exists looks like this", sessionExists)
   if (sessionExists[0] === true) {
     //Deliver User Page here
     let userData = await userInfoFromID(sessionExists[1].user_id)
     session.userid = userData;
-    res.send({ userID: userData.email, username:userData.username, loggedIn: true, message: 'deliver user page' });
+    console.log("userData looks like: ", userData)
+    res.status(200).send({ userID: sessionExists[1].user_id, userEmail: userData.email, username:userData.username, loggedIn: true, message: 'deliver user page' });
   } else {
     //deliver login page here
-    res.send({ loggedIn: false, message: 'deliver login page' });
+    res.status(400).send({ loggedIn: false, message: 'deliver login page' });
   }
 };
 
@@ -56,10 +57,11 @@ module.exports.newUser = async (req, res) => {
         session = req.session;
         session.userid = email;
         let newSessionInformation = await checkForUser(email);
+        let user_id = newSessionInformation[0].id
         createSession(newSessionInformation[0].id, req.sessionID);
-        res.body = {userID: email, password: password, username: username}
+        // res.body = {userID: email, password: password, username: username}
         res.session = session;
-        res.status(201).send({userID: email, username: username, message: 'successfully created new user' });
+        res.status(201).send({userID: user_id, userEmail: email, username: username, message: 'successfully created new user' });
       } else {
         res.status(409).send({message: 'error processing new user request'});
       }
@@ -89,11 +91,11 @@ module.exports.loginUser = async (req, res) => {
         session = req.session;
         session.userid = email;
         let userInfo = await checkForUser(email);
-        let userID = userInfo[0].id;
+        let user_id = userInfo[0].id;
         let sessionID = req.sessionID;
-        let sessionCreated = await createSession(userID, sessionID);
+        let sessionCreated = await createSession(user_id, sessionID);
         res.session = session;
-        res.status(200).send({ userID: email, username: username, message: 'successfully logged in' });
+        res.status(200).send({ userID: user_id, email:email, username: username, message: 'successfully logged in' });
       } else {
         res.send({ message: 'Invalid username or password' });
       }
