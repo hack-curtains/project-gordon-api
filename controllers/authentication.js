@@ -16,12 +16,12 @@ module.exports.checkSession = async (req, res) => {
   session = req.session;
   //console.log(session, req.sessionID)
   let sessionExists = await checkForSession(req.sessionID);
-  console.log("session exists looks like this", sessionExists)
+  //console.log("session exists looks like this", sessionExists)
   if (sessionExists[0] === true) {
     //Deliver User Page here
     let userData = await userInfoFromID(sessionExists[1].user_id)
     session.userid = userData;
-    console.log("userData looks like: ", userData)
+    //console.log("userData looks like: ", userData)
     res.status(200).send({ userID: sessionExists[1].user_id, userEmail: userData.email, username:userData.username, loggedIn: true, message: 'deliver user page' });
   } else if (sessionExists[0] !== true) {
     //deliver login page here

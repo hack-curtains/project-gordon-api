@@ -56,7 +56,7 @@ module.exports.deleteSession = async (sessionID) => {
 module.exports.checkForSession = async (sessionID) => {
   let checkQuery = `SELECT user_id, cookie FROM sessions WHERE cookie = '${sessionID}'`;
   let check = await POOL.query(checkQuery);
-  console.log("my check for session query fired", check)
+  //console.log("my check for session query fired", check)
   if (check.rows.length === 0) {
     return [false];
   } else {
