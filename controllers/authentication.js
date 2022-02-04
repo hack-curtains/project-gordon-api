@@ -23,7 +23,7 @@ module.exports.checkSession = async (req, res) => {
     session.userid = userData;
     console.log("userData looks like: ", userData)
     res.status(200).send({ userID: sessionExists[1].user_id, userEmail: userData.email, username:userData.username, loggedIn: true, message: 'deliver user page' });
-  } else {
+  } else if (sessionExists[0] !== true) {
     //deliver login page here
     res.status(400).send({ loggedIn: false, message: 'deliver login page' });
   }
